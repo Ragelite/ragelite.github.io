@@ -2,23 +2,25 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<title>RAGELITE — AI Growth Platform</title>
+<title>Ragelite — AI Growth Platform</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap');
 
-* { box-sizing: border-box; }
+* {
+  box-sizing: border-box;
+}
 
 body {
   margin: 0;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   background: radial-gradient(1200px at 20% 10%, #1e293b, #020617);
   color: #e5e7eb;
   overflow-x: hidden;
 }
 
-/* BACKGROUND GLOWS */
+/* Background glows */
 .glow {
   position: absolute;
   width: 700px;
@@ -26,8 +28,8 @@ body {
   background: radial-gradient(circle, rgba(99,102,241,0.4), transparent 60%);
   top: -250px;
   right: -250px;
-  filter: blur(100px);
-  animation: float 8s ease-in-out infinite;
+  filter: blur(120px);
+  animation: float 10s ease-in-out infinite;
 }
 
 .glow2 {
@@ -37,17 +39,17 @@ body {
   background: radial-gradient(circle, rgba(34,211,238,0.35), transparent 60%);
   bottom: -200px;
   left: -200px;
-  filter: blur(120px);
-  animation: float 10s ease-in-out infinite reverse;
+  filter: blur(140px);
+  animation: float 12s ease-in-out infinite reverse;
 }
 
 @keyframes float {
-  0% { transform: translateY(0px); }
+  0% { transform: translateY(0); }
   50% { transform: translateY(30px); }
-  100% { transform: translateY(0px); }
+  100% { transform: translateY(0); }
 }
 
-/* CONTAINER */
+/* Container */
 .container {
   max-width: 1100px;
   margin: auto;
@@ -56,7 +58,7 @@ body {
   z-index: 1;
 }
 
-/* HERO */
+/* Hero */
 .badge {
   display: inline-block;
   padding: 6px 14px;
@@ -70,10 +72,10 @@ body {
 
 h1 {
   font-size: 64px;
-  font-weight: 800;
   line-height: 1.05;
+  font-weight: 800;
   letter-spacing: -1.5px;
-  margin: 0 0 20px;
+  margin-bottom: 20px;
   animation: fadeInUp 1s ease forwards;
 }
 
@@ -83,16 +85,16 @@ h1 {
   -webkit-text-fill-color: transparent;
 }
 
-.hero {
+.hero-text {
   font-size: 22px;
   color: #c7d2fe;
-  max-width: 720px;
+  max-width: 760px;
   margin-bottom: 48px;
   animation: fadeInUp 1.2s ease forwards;
 }
 
-/* BUTTONS */
-.cta {
+/* Buttons */
+.cta-group {
   display: flex;
   gap: 16px;
   flex-wrap: wrap;
@@ -116,14 +118,14 @@ h1 {
   text-decoration: none;
 }
 
-/* SECTIONS */
+/* Sections */
 .section {
   margin-top: 160px;
 }
 
 .section h2 {
   font-size: 42px;
-  margin-bottom: 12px;
+  margin-bottom: 16px;
 }
 
 .section p {
@@ -132,7 +134,7 @@ h1 {
   max-width: 760px;
 }
 
-/* GLASS CARDS */
+/* Feature cards */
 .features {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -142,7 +144,7 @@ h1 {
 
 .feature {
   background: rgba(255,255,255,0.05);
-  backdrop-filter: blur(14px);
+  backdrop-filter: blur(16px);
   border: 1px solid rgba(255,255,255,0.1);
   border-radius: 22px;
   padding: 32px;
@@ -155,7 +157,7 @@ h1 {
 }
 
 .feature h3 {
-  margin: 0 0 10px;
+  margin-bottom: 10px;
 }
 
 .feature p {
@@ -163,7 +165,7 @@ h1 {
   color: #c7d2fe;
 }
 
-/* FOOTER */
+/* Footer */
 footer {
   margin-top: 180px;
   padding-top: 40px;
@@ -172,16 +174,10 @@ footer {
   color: #9ca3af;
 }
 
-/* ANIMATIONS */
+/* Animations */
 @keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 </style>
 </head>
@@ -193,77 +189,69 @@ footer {
 
 <div class="container">
 
-  <span class="badge">🚀 AI Growth Platform</span>
+  <span class="badge">🚀 Autonomous AI Growth Platform</span>
 
   <h1>
-    Autonomous AI for<br>
-    <span class="highlight">serious business growth</span>
+    AI that <span class="highlight">designs, launches</span><br>
+    and scales customer acquisition
   </h1>
 
-  <p class="hero">
-    <strong>Ragelite</strong> replaces agencies, manual ad work,
-    and fragmented tools with one intelligent growth system.
-    Strategy, execution, and optimization — fully automated.
+  <p class="hero-text">
+    <strong>Ragelite</strong> is an autonomous AI growth platform that replaces
+    agencies, manual ad work, and fragmented tools with one intelligent system.
+    From strategy to execution, Ragelite continuously optimizes Meta & Google ads
+    for scalable, predictable growth.
   </p>
 
-  <div class="cta">
-    <a href="#" class="btn-primary">Join Early Access</a>
-    <a href="#" class="btn-secondary">Product Overview</a>
+  <div class="cta-group">
+    <a href="#" class="btn-primary">Request Early Access</a>
+    <a href="#" class="btn-secondary">How It Works</a>
   </div>
 
   <div class="section">
-    <h2>Built for Scale</h2>
+    <h2>Why Ragelite?</h2>
     <p>
-      Ragelite continuously designs, launches, and improves
-      Meta & Google ad campaigns — adapting in real time
-      as your business grows.
+      Growth today is complex, expensive, and slow. Ragelite acts as an always-on
+      AI growth team — planning, launching, testing, and optimizing ads
+      automatically so founders can focus on building their business.
     </p>
 
     <div class="features">
       <div class="feature">
         <h3>AI Campaign Creation</h3>
-        <p>Create high-performing ads from a single prompt.</p>
+        <p>Create complete Meta & Google ad campaigns from a single prompt.</p>
       </div>
-
       <div class="feature">
         <h3>Self-Optimizing Engine</h3>
-        <p>Budgets, creatives, and targeting improve automatically.</p>
+        <p>Budgets, creatives, and targeting improve automatically over time.</p>
       </div>
-
       <div class="feature">
         <h3>Unified Growth Brain</h3>
-        <p>Strategy, execution, and analytics in one system.</p>
+        <p>Strategy, execution, and optimization in one intelligent system.</p>
       </div>
-
       <div class="feature">
-        <h3>Agency-Level Results</h3>
-        <p>Without retainers, delays, or human bottlenecks.</p>
+        <h3>Built for Scale</h3>
+        <p>Designed for startups and serious businesses aiming for long-term growth.</p>
       </div>
     </div>
   </div>
 
- <footer>
-  © 2026 Ragelite Corporation<br>
-  AI-powered growth platform · ragelite@gmail.com
-  <br><br>
-  <span style="color:#c7d2fe;">
-  Founded by <strong>Raj Bundela</strong>, <strong>Ashwani Singh</strong> & <strong>Karan Pal</strong><br>
-  <span style="font-size:13px; color:#9ca3af;">
-    Building autonomous AI systems for scalable growth
-  </span>
-</span>
-
-   <p style="margin-top:120px; font-size:15px; color:#9ca3af;">
-  Designed for founders who think long-term.
-</p>
-
-</footer>
-
+  <footer>
+    © 2026 Ragelite Corporation · AI-powered growth platform · ragelite@gmail.com
+    <br><br>
+    <span style="color:#c7d2fe;">
+      Founded by <strong>Raj Bundela</strong>, <strong>Ashwani Singh</strong> & <strong>Karan Pal</strong><br>
+      <span style="font-size:13px; color:#9ca3af;">
+        Building autonomous AI systems for scalable growth
+      </span>
+    </span>
+  </footer>
 
 </div>
 
 </body>
 </html>
+
 
 
 

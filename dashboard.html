@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Ragelite Dashboard</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+
+:root {
+  --bg: #050b14;
+  --panel: rgba(255,255,255,0.06);
+  --border: rgba(255,255,255,0.12);
+  --text: #eaf2ff;
+  --muted: #9fb3d1;
+  --accent: #22d3ee;
+  --accent2: #3b82f6;
+}
+
+* {
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
+}
+
+body {
+  margin: 0;
+  background: radial-gradient(circle at top left, #0b1b33, #050b14);
+  color: var(--text);
+}
+
+/* TOP BAR */
+.topbar {
+  padding: 18px 28px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--border);
+  background: rgba(5,11,20,0.8);
+  backdrop-filter: blur(12px);
+}
+
+.logo {
+  font-size: 20px;
+  font-weight: 800;
+}
+
+.user {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+/* LAYOUT */
+.wrapper {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  min-height: calc(100vh - 70px);
+}
+
+/* SIDEBAR */
+.sidebar {
+  border-right: 1px solid var(--border);
+  padding: 24px;
+}
+
+.sidebar h4 {
+  color: var(--muted);
+  font-size: 13px;
+  margin-bottom: 16px;
+  text-transform: uppercase;
+}
+
+.sidebar a {
+  display: block;
+  padding: 12px 14px;
+  margin-bottom: 6px;
+  border-radius: 10px;
+  text-decoration: none;
+  color: var(--text);
+  font-size: 14px;
+}
+
+.sidebar a.active,
+.sidebar a:hover {
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+  color: #020617;
+}
+
+/* MAIN */
+.main {
+  padding: 32px;
+}
+
+/* CARDS */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+.card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 24px;
+}
+
+.card h3 {
+  margin: 0 0 8px;
+  font-size: 16px;
+  color: var(--muted);
+}
+
+.card strong {
+  font-size: 28px;
+}
+
+/* SECTION */
+.section {
+  margin-top: 40px;
+}
+
+.section h2 {
+  margin-bottom: 16px;
+}
+
+/* TABLE */
+.table {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--border);
+  font-size: 14px;
+}
+
+.row.header {
+  background: rgba(255,255,255,0.05);
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.row:last-child {
+  border-bottom: none;
+}
+
+/* BUTTON */
+.btn {
+  display: inline-block;
+  padding: 12px 22px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+  color: #020617;
+  font-weight: 600;
+  text-decoration: none;
+  margin-top: 20px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="logo">Ragelite AI</div>
+  <div class="user">Logged in as demo@ragelite.ai</div>
+</div>
+
+<div class="wrapper">
+
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <h4>Navigation</h4>
+    <a class="active" href="#">Dashboard</a>
+    <a href="#">Campaigns</a>
+    <a href="#">AI Insights</a>
+    <a href="#">Billing</a>
+    <a href="#">Settings</a>
+  </div>
+
+  <!-- MAIN -->
+  <div class="main">
+
+    <!-- METRICS -->
+    <div class="cards">
+      <div class="card">
+        <h3>Active Campaigns</h3>
+        <strong>4</strong>
+      </div>
+
+      <div class="card">
+        <h3>Monthly Spend</h3>
+        <strong>$2,430</strong>
+      </div>
+
+      <div class="card">
+        <h3>Leads Generated</h3>
+        <strong>312</strong>
+      </div>
+
+      <div class="card">
+        <h3>AI Status</h3>
+        <strong style="color:var(--accent)">Optimizing</strong>
+      </div>
+    </div>
+
+    <!-- CAMPAIGNS -->
+    <div class="section">
+      <h2>Active Campaigns</h2>
+
+      <div class="table">
+        <div class="row header">
+          <div>Campaign</div>
+          <div>Platform</div>
+          <div>Status</div>
+          <div>Spend</div>
+        </div>
+
+        <div class="row">
+          <div>Lead Gen – India</div>
+          <div>Meta</div>
+          <div>Running</div>
+          <div>$820</div>
+        </div>
+
+        <div class="row">
+          <div>Website Traffic</div>
+          <div>Google</div>
+          <div>Running</div>
+          <div>$640</div>
+        </div>
+
+        <div class="row">
+          <div>Retargeting</div>
+          <div>Meta</div>
+          <div>Optimizing</div>
+          <div>$310</div>
+        </div>
+      </div>
+
+      <a class="btn" href="#">+ Create New Campaign</a>
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>

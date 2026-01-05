@@ -1,257 +1,179 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<title>Ragelite — AI Growth Platform</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ragelite — AI Growth Platform</title>
 
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap');
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, sans-serif;
+    }
 
-* {
-  box-sizing: border-box;
-}
+    body {
+      background: #05080f;
+      color: #e5f1ff;
+      overflow-x: hidden;
+    }
 
-body {
-  margin: 0;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  background: radial-gradient(1200px at 20% 10%, #1e293b, #020617);
-  color: #e5e7eb;
-  overflow-x: hidden;
-}
+    /* Background glow */
+    .glow, .glow2 {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(140px);
+      opacity: 0.6;
+      z-index: -1;
+    }
 
-/* Background glows */
-.glow {
-  position: absolute;
-  width: 700px;
-  height: 700px;
-  background: radial-gradient(circle, rgba(99,102,241,0.4), transparent 60%);
-  top: -250px;
-  right: -250px;
-  filter: blur(120px);
-  animation: float 10s ease-in-out infinite;
-}
+    .glow {
+      width: 700px;
+      height: 700px;
+      background: radial-gradient(circle, #3b82f6, transparent);
+      top: -250px;
+      right: -250px;
+      animation: float 12s ease-in-out infinite;
+    }
 
-.glow2 {
-  position: absolute;
-  width: 600px;
-  height: 600px;
-  background: radial-gradient(circle, rgba(34,211,238,0.35), transparent 60%);
-  bottom: -200px;
-  left: -200px;
-  filter: blur(140px);
-  animation: float 12s ease-in-out infinite reverse;
-}
+    .glow2 {
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, #22d3ee, transparent);
+      bottom: -250px;
+      left: -250px;
+      animation: float 16s ease-in-out infinite reverse;
+    }
 
-@keyframes float {
-  0% { transform: translateY(0); }
-  50% { transform: translateY(30px); }
-  100% { transform: translateY(0); }
-}
+    @keyframes float {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(40px); }
+      100% { transform: translateY(0); }
+    }
 
-/* Container */
-.container {
-  max-width: 1100px;
-  margin: auto;
-  padding: 120px 24px;
-  position: relative;
-  z-index: 1;
-}
+    .container {
+      max-width: 1100px;
+      margin: auto;
+      padding: 140px 24px 80px;
+      text-align: center;
+    }
 
-/* Hero */
-.badge {
-  display: inline-block;
-  padding: 6px 14px;
-  border-radius: 999px;
-  background: rgba(99,102,241,0.15);
-  color: #a5b4fc;
-  font-size: 14px;
-  margin-bottom: 24px;
-  animation: fadeInUp 0.8s ease forwards;
-}
+    h1 {
+      font-size: 64px;
+      font-weight: 800;
+      letter-spacing: -1px;
+      margin-bottom: 20px;
+    }
 
-h1 {
-  font-size: 64px;
-  line-height: 1.05;
-  font-weight: 800;
-  letter-spacing: -1.5px;
-  margin-bottom: 20px;
-  animation: fadeInUp 1s ease forwards;
-}
+    h1 span {
+      background: linear-gradient(90deg, #60a5fa, #22d3ee);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
 
-.highlight {
-  background: linear-gradient(135deg, #22d3ee, #6366f1);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
+    p.subtitle {
+      font-size: 20px;
+      color: #9ca3af;
+      max-width: 720px;
+      margin: 0 auto 40px;
+      line-height: 1.6;
+    }
 
-.hero-text {
-  font-size: 22px;
-  color: #c7d2fe;
-  max-width: 760px;
-  margin-bottom: 48px;
-  animation: fadeInUp 1.2s ease forwards;
-}
+    .cta {
+      display: inline-block;
+      padding: 16px 34px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #3b82f6, #22d3ee);
+      color: #05080f;
+      font-weight: 600;
+      text-decoration: none;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      box-shadow: 0 20px 40px rgba(59,130,246,0.35);
+    }
 
-/* Buttons */
-.cta-group {
-  display: flex;
-  gap: 16px;
-  flex-wrap: wrap;
-  animation: fadeInUp 1.4s ease forwards;
-}
+    .cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 30px 60px rgba(34,211,238,0.45);
+    }
 
-.btn-primary {
-  padding: 16px 32px;
-  border-radius: 999px;
-  background: linear-gradient(135deg, #22d3ee, #6366f1);
-  color: #020617;
-  font-weight: 600;
-  text-decoration: none;
-}
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 24px;
+      margin-top: 90px;
+    }
 
-.btn-secondary {
-  padding: 16px 32px;
-  border-radius: 999px;
-  border: 1px solid rgba(255,255,255,0.15);
-  color: #e5e7eb;
-  text-decoration: none;
-}
+    .card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 18px;
+      padding: 30px;
+      text-align: left;
+      transition: transform 0.25s ease;
+    }
 
-/* Sections */
-.section {
-  margin-top: 160px;
-}
+    .card:hover {
+      transform: translateY(-6px);
+    }
 
-.section h2 {
-  font-size: 42px;
-  margin-bottom: 16px;
-}
+    .card h3 {
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
 
-.section p {
-  font-size: 18px;
-  color: #cbd5f5;
-  max-width: 760px;
-}
+    .card p {
+      color: #9ca3af;
+      font-size: 15px;
+      line-height: 1.6;
+    }
 
-/* Feature cards */
-.features {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 32px;
-  margin-top: 60px;
-}
-
-.feature {
-  background: rgba(255,255,255,0.05);
-  backdrop-filter: blur(16px);
-  border: 1px solid rgba(255,255,255,0.1);
-  border-radius: 22px;
-  padding: 32px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.feature:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 20px 60px rgba(99,102,241,0.25);
-}
-
-.feature h3 {
-  margin-bottom: 10px;
-}
-
-.feature p {
-  font-size: 15px;
-  color: #c7d2fe;
-}
-
-/* Footer */
-footer {
-  margin-top: 180px;
-  padding-top: 40px;
-  border-top: 1px solid rgba(255,255,255,0.1);
-  font-size: 14px;
-  color: #9ca3af;
-}
-
-/* Animations */
-@keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(30px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-</style>
+    footer {
+      margin-top: 120px;
+      padding-top: 40px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      color: #9ca3af;
+      font-size: 14px;
+    }
+  </style>
 </head>
 
 <body>
+  <div class="glow"></div>
+  <div class="glow2"></div>
 
-<div class="glow"></div>
-<div class="glow2"></div>
+  <div class="container">
+    <h1>RAGELITE <span>AI</span></h1>
 
-<div class="container">
-
-  <span class="badge">🚀 Autonomous AI Growth Platform</span>
-
-  <h1>
-    AI that <span class="highlight">designs, launches</span><br>
-    and scales customer acquisition
-  </h1>
-
-  <p class="hero-text">
-    <strong>Ragelite</strong> is an autonomous AI growth platform that replaces
-    agencies, manual ad work, and fragmented tools with one intelligent system.
-    From strategy to execution, Ragelite continuously optimizes Meta & Google ads
-    for scalable, predictable growth.
-  </p>
-
-  <div class="cta-group">
-    <a href="#" class="btn-primary">Request Early Access</a>
-    <a href="#" class="btn-secondary">How It Works</a>
-  </div>
-
-  <div class="section">
-    <h2>Why Ragelite?</h2>
-    <p>
-      Growth today is complex, expensive, and slow. Ragelite acts as an always-on
-      AI growth team — planning, launching, testing, and optimizing ads
-      automatically so founders can focus on building their business.
+    <p class="subtitle">
+      Ragelite is an AI-powered growth platform designed to help businesses
+      launch, optimize, and scale customer acquisition across Meta & Google —
+      autonomously, intelligently, and at speed.
     </p>
 
+    <a class="cta" href="#">Join Early Access</a>
+
     <div class="features">
-      <div class="feature">
-        <h3>AI Campaign Creation</h3>
-        <p>Create complete Meta & Google ad campaigns from a single prompt.</p>
+      <div class="card">
+        <h3>Autonomous Ad Creation</h3>
+        <p>Generate high-performing Meta & Google ad campaigns using simple prompts — no expertise required.</p>
       </div>
-      <div class="feature">
-        <h3>Self-Optimizing Engine</h3>
-        <p>Budgets, creatives, and targeting improve automatically over time.</p>
+
+      <div class="card">
+        <h3>AI Optimization Engine</h3>
+        <p>Ragelite continuously tests, learns, and optimizes creatives, audiences, and budgets automatically.</p>
       </div>
-      <div class="feature">
-        <h3>Unified Growth Brain</h3>
-        <p>Strategy, execution, and optimization in one intelligent system.</p>
-      </div>
-      <div class="feature">
+
+      <div class="card">
         <h3>Built for Scale</h3>
-        <p>Designed for startups and serious businesses aiming for long-term growth.</p>
+        <p>From startups to serious businesses, Ragelite scales acquisition without scaling complexity.</p>
       </div>
     </div>
+
+    <footer>
+      <p>Founded by <strong>Raj Bundela</strong>, <strong>Ashwani Singh</strong> & <strong>Karan Pal</strong></p>
+      <p style="margin-top:8px;">© 2026 Ragelite Corporation — AI-powered growth platform</p>
+    </footer>
   </div>
-
-  <footer>
-    © 2026 Ragelite Corporation · AI-powered growth platform · ragelite@gmail.com
-    <br><br>
-    <span style="color:#c7d2fe;">
-      Founded by <strong>Raj Bundela</strong>, <strong>Ashwani Singh</strong> & <strong>Karan Pal</strong><br>
-      <span style="font-size:13px; color:#9ca3af;">
-        Building autonomous AI systems for scalable growth
-      </span>
-    </span>
-  </footer>
-
-</div>
-
 </body>
 </html>
-
-
-
-

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Create Campaign — Ragelite</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body{margin:0;background:#050b14;color:#eaf2ff;font-family:Inter,Arial}
+header{padding:20px;border-bottom:1px solid #1f2937}
+header a{color:#eaf2ff;text-decoration:none;margin-right:15px;font-weight:600}
+.container{max-width:900px;margin:auto;padding:40px}
+.card{background:#0b1b33;padding:36px;border-radius:20px}
+input,textarea,select{
+width:100%;padding:14px;margin-bottom:16px;border-radius:10px;border:none
+}
+button{
+width:100%;padding:16px;border-radius:999px;border:none;
+background:linear-gradient(90deg,#22d3ee,#3b82f6);
+font-weight:700;cursor:pointer
+}
+.loading{display:none;color:#9fb3d1;text-align:center;margin-top:20px}
+</style>
+</head>
+
+<body>
+
+<header>
+  <a href="index.html">Home</a>
+  <a href="dashboard.html">Dashboard</a>
+</header>
+
+<div class="container">
+  <h1>Create Campaign</h1>
+  <p style="color:#9fb3d1">Describe your business. Ragelite’s AI handles everything else.</p>
+
+  <div class="card">
+    <form id="form">
+      <input placeholder="Business Name" required>
+      <input placeholder="Website URL">
+      <select>
+        <option>Generate Leads</option>
+        <option>Drive Sales</option>
+        <option>Website Traffic</option>
+      </select>
+      <input placeholder="Monthly Budget (USD)">
+      <textarea placeholder="Describe your business in 1–2 lines"></textarea>
+      <button type="submit">Generate Campaign with AI</button>
+      <div class="loading" id="loading">🤖 Generating campaign…</div>
+    </form>
+  </div>
+</div>
+
+<script>
+document.getElementById("form").onsubmit=function(e){
+e.preventDefault();
+document.getElementById("loading").style.display="block";
+setTimeout(()=>{window.location="dashboard.html"},3000);
+}
+</script>
+
+</body>
+</html>
+

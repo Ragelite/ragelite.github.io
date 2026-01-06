@@ -10,13 +10,13 @@
    DESIGN SYSTEM
 ========================= */
 :root {
-  --bg: #0b0d12;
-  --surface: #ffffff;
-  --surface-soft: #f8fafc;
+  --bg-dark: #0b0d12;
+  --bg-light: #ffffff;
+  --surface: #f8fafc;
   --border: #e5e7eb;
   --text-dark: #0f172a;
   --text-muted: #475569;
-  --primary: #635bff;   /* Stripe-like indigo */
+  --primary: #635bff;
   --primary-dark: #4f46e5;
   --radius: 14px;
 }
@@ -30,7 +30,7 @@
 }
 
 body {
-  background: var(--bg);
+  background: var(--bg-dark);
   color: var(--text-dark);
   line-height: 1.6;
 }
@@ -42,7 +42,8 @@ body {
   position: sticky;
   top: 0;
   z-index: 100;
-  background: var(--bg);
+  background: rgba(11,13,18,0.85);
+  backdrop-filter: blur(10px);
   border-bottom: 1px solid rgba(255,255,255,0.08);
 }
 
@@ -59,7 +60,6 @@ body {
   color: white;
   font-weight: 700;
   font-size: 18px;
-  letter-spacing: 0.3px;
 }
 
 .nav-links a {
@@ -74,6 +74,11 @@ body {
   color: white;
   padding: 8px 14px;
   border-radius: 999px;
+  transition: background .2s ease;
+}
+
+.nav-links a.primary:hover {
+  background: var(--primary-dark);
 }
 
 /* =========================
@@ -83,9 +88,9 @@ body {
   background: linear-gradient(
     180deg,
     #0b0d12 0%,
-    #0b0d12 60%,
-    #f8fafc 60%,
-    #f8fafc 100%
+    #0b0d12 55%,
+    #ffffff 55%,
+    #ffffff 100%
   );
 }
 
@@ -97,10 +102,13 @@ body {
 
 .hero h1 {
   color: white;
-  font-size: clamp(40px, 5vw, 64px);
+  font-size: clamp(42px, 5vw, 64px);
   line-height: 1.1;
   font-weight: 800;
   max-width: 760px;
+  opacity: 0;
+  transform: translateY(16px);
+  animation: fadeUp .8s ease forwards;
 }
 
 .hero p {
@@ -108,6 +116,10 @@ body {
   color: #cbd5f5;
   max-width: 620px;
   font-size: 18px;
+  opacity: 0;
+  transform: translateY(16px);
+  animation: fadeUp .8s ease forwards;
+  animation-delay: .15s;
 }
 
 .hero-cta {
@@ -115,6 +127,10 @@ body {
   display: flex;
   gap: 16px;
   flex-wrap: wrap;
+  opacity: 0;
+  transform: translateY(16px);
+  animation: fadeUp .8s ease forwards;
+  animation-delay: .3s;
 }
 
 .hero-cta a {
@@ -128,18 +144,24 @@ body {
 .hero-cta .primary {
   background: var(--primary);
   color: white;
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+
+.hero-cta .primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(99,91,255,.35);
 }
 
 .hero-cta .secondary {
-  border: 1px solid rgba(255,255,255,0.2);
+  border: 1px solid rgba(255,255,255,0.25);
   color: white;
 }
 
 /* =========================
-   SECTION BASE
+   SECTIONS
 ========================= */
 .section {
-  background: var(--surface);
+  background: var(--bg-light);
   padding: 90px 24px;
 }
 
@@ -162,7 +184,7 @@ body {
 }
 
 /* =========================
-   FEATURES GRID
+   FEATURE GRID
 ========================= */
 .grid {
   display: grid;
@@ -171,10 +193,18 @@ body {
 }
 
 .card {
-  background: var(--surface-soft);
+  background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: 28px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: transform .4s ease, opacity .4s ease;
+}
+
+.card.show {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .card h3 {
@@ -197,7 +227,14 @@ body {
 }
 
 .step {
-  padding-left: 4px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: .4s ease;
+}
+
+.step.show {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .step span {
@@ -238,7 +275,7 @@ body {
    FOOTER
 ========================= */
 footer {
-  background: var(--bg);
+  background: var(--bg-dark);
   color: #cbd5f5;
   padding: 50px 24px;
 }
@@ -247,18 +284,27 @@ footer {
   max-width: 1200px;
   margin: auto;
   font-size: 14px;
-  line-height: 1.8;
 }
 
 .footer-inner strong {
   color: white;
+}
+
+/* =========================
+   ANIMATION
+========================= */
+@keyframes fadeUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 </style>
 </head>
 
 <body>
 
-<!-- NAVBAR -->
+<!-- NAV -->
 <header class="navbar">
   <div class="nav-inner">
     <div class="logo">Ragelite</div>
@@ -287,25 +333,15 @@ footer {
 <!-- FEATURES -->
 <section class="section">
   <div class="section-inner">
-    <h2>Built for performance, not guesswork</h2>
+    <h2>Built for performance</h2>
     <p class="lead">
-      Ragelite automates strategy, execution, and optimization —
-      so teams can focus on product and revenue.
+      Strategy, execution, and optimization — fully automated.
     </p>
 
     <div class="grid">
-      <div class="card">
-        <h3>Campaign automation</h3>
-        <p>Create full ad campaigns from a simple business description.</p>
-      </div>
-      <div class="card">
-        <h3>Continuous optimization</h3>
-        <p>Budgets, targeting, and creatives improve automatically.</p>
-      </div>
-      <div class="card">
-        <h3>Cross-platform AI</h3>
-        <p>Run Meta and Google Ads from a single intelligent system.</p>
-      </div>
+      <div class="card"> <h3>Campaign automation</h3><p>Create ads from a single prompt.</p> </div>
+      <div class="card"> <h3>Continuous optimization</h3><p>Budgets and targeting improve automatically.</p> </div>
+      <div class="card"> <h3>Cross-platform AI</h3><p>Run Meta & Google Ads from one system.</p> </div>
     </div>
   </div>
 </section>
@@ -314,26 +350,12 @@ footer {
 <section id="how" class="section">
   <div class="section-inner">
     <h2>How Ragelite works</h2>
-    <p class="lead">
-      A simple workflow designed for founders and lean teams.
-    </p>
+    <p class="lead">Simple by design. Powerful by default.</p>
 
     <div class="steps">
-      <div class="step">
-        <span>01</span>
-        <h4>Describe your business</h4>
-        <p>Share your product, audience, and goal.</p>
-      </div>
-      <div class="step">
-        <span>02</span>
-        <h4>AI builds campaigns</h4>
-        <p>Ragelite creates ads, targeting, and budgets.</p>
-      </div>
-      <div class="step">
-        <span>03</span>
-        <h4>Optimize continuously</h4>
-        <p>The system learns and improves results automatically.</p>
-      </div>
+      <div class="step"><span>01</span><h4>Describe your business</h4><p>Share product, goal, and audience.</p></div>
+      <div class="step"><span>02</span><h4>AI builds campaigns</h4><p>Creatives, targeting, and budgets.</p></div>
+      <div class="step"><span>03</span><h4>Optimize continuously</h4><p>The system learns and improves.</p></div>
     </div>
   </div>
 </section>
@@ -345,17 +367,17 @@ footer {
 
     <div class="faq-item">
       <h4>Is Ragelite an agency?</h4>
-      <p>No. Ragelite is a software platform powered by AI.</p>
+      <p>No. Ragelite is software, not a service.</p>
     </div>
 
     <div class="faq-item">
-      <h4>Do I need advertising experience?</h4>
-      <p>No. Ragelite is designed for non-marketers.</p>
+      <h4>Do I need ad experience?</h4>
+      <p>No. Ragelite is designed for founders.</p>
     </div>
 
     <div class="faq-item">
       <h4>Which platforms are supported?</h4>
-      <p>Meta (Facebook & Instagram) and Google Ads.</p>
+      <p>Meta and Google Ads.</p>
     </div>
   </div>
 </section>
@@ -372,8 +394,19 @@ footer {
   </div>
 </footer>
 
+<script>
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) entry.target.classList.add("show");
+  });
+}, { threshold: 0.2 });
+
+document.querySelectorAll(".card, .step").forEach(el => observer.observe(el));
+</script>
+
 </body>
 </html>
+
 
 
 

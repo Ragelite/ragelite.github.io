@@ -5,60 +5,60 @@
 <title>Create Campaign — Ragelite</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<script>
+if(localStorage.getItem("ragelite_logged_in")!=="true"){
+  window.location="login.html";
+}
+</script>
+
 <style>
-body{margin:0;background:#050b14;color:#eaf2ff;font-family:Inter,Arial}
+body{margin:0;font-family:Arial;background:#050b14;color:#eaf2ff}
 header{padding:20px;border-bottom:1px solid #1f2937}
-header a{color:#eaf2ff;text-decoration:none;margin-right:15px;font-weight:600}
-.container{max-width:900px;margin:auto;padding:40px}
-.card{background:#0b1b33;padding:36px;border-radius:20px}
+header a{color:#eaf2ff;text-decoration:none;margin-right:15px;font-weight:bold}
+.container{max-width:700px;margin:auto;padding:40px}
 input,textarea,select{
-width:100%;padding:14px;margin-bottom:16px;border-radius:10px;border:none
+  width:100%;padding:12px;margin-bottom:16px;border:none;border-radius:8px
 }
 button{
-width:100%;padding:16px;border-radius:999px;border:none;
-background:linear-gradient(90deg,#22d3ee,#3b82f6);
-font-weight:700;cursor:pointer
+  width:100%;padding:14px;border:none;border-radius:30px;
+  background:#22d3ee;font-weight:bold;cursor:pointer
 }
-.loading{display:none;color:#9fb3d1;text-align:center;margin-top:20px}
 </style>
 </head>
 
 <body>
-
 <header>
-  <a href="index.html">Home</a>
   <a href="dashboard.html">Dashboard</a>
+  <a href="#" onclick="logout()">Logout</a>
 </header>
 
 <div class="container">
   <h1>Create Campaign</h1>
-  <p style="color:#9fb3d1">Describe your business. Ragelite’s AI handles everything else.</p>
 
-  <div class="card">
-    <form id="form">
-      <input placeholder="Business Name" required>
-      <input placeholder="Website URL">
-      <select>
-        <option>Generate Leads</option>
-        <option>Drive Sales</option>
-        <option>Website Traffic</option>
-      </select>
-      <input placeholder="Monthly Budget (USD)">
-      <textarea placeholder="Describe your business in 1–2 lines"></textarea>
-      <button type="submit">Generate Campaign with AI</button>
-      <div class="loading" id="loading">🤖 Generating campaign…</div>
-    </form>
-  </div>
+  <input placeholder="Business Name">
+  <input placeholder="Website URL">
+  <select>
+    <option>Generate Leads</option>
+    <option>Drive Sales</option>
+    <option>Website Traffic</option>
+  </select>
+  <input placeholder="Monthly Budget">
+  <textarea placeholder="Describe your business"></textarea>
+
+  <button onclick="create()">Generate Campaign</button>
 </div>
 
 <script>
-document.getElementById("form").onsubmit=function(e){
-e.preventDefault();
-document.getElementById("loading").style.display="block";
-setTimeout(()=>{window.location="dashboard.html"},3000);
+function create(){
+  alert("Campaign created (demo)");
+  window.location="dashboard.html";
+}
+function logout(){
+  localStorage.removeItem("ragelite_logged_in");
+  window.location="login.html";
 }
 </script>
-
 </body>
 </html>
+
 

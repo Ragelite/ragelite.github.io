@@ -59,8 +59,8 @@ a{color:#22d3ee;text-decoration:none}
 
   <input type="email" placeholder="Email address">
   <input type="password" placeholder="Password">
+<button id="loginBtn">Log In</button>
 
-  <button onclick="go()">Log In</button>
 
   <div class="link">
     Don’t have an account?
@@ -69,10 +69,11 @@ a{color:#22d3ee;text-decoration:none}
 </div>
 
 <script>
-function go(){
-  window.location="dashboard.html";
-}
+document.getElementById("loginBtn").addEventListener("click", function () {
+  window.location.href = "dashboard.html";
+});
 </script>
+
 
 </body>
 </html>

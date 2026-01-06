@@ -1,312 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
-  <a href="/create-campaign.html" class="signup-btn">Create Campaign</a>
 <head>
-<meta charset="UTF-8" />
-<title>Ragelite — AI Growth Platform</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8">
+<title>Ragelite — Autonomous AI Growth</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap');
-
 :root {
-  --bg: #050b14;
-  --card: rgba(255,255,255,0.06);
-  --border: rgba(255,255,255,0.12);
-  --text: #eaf2ff;
-  --muted: #9fb3d1;
-  --accent: #22d3ee;
-  --accent2: #3b82f6;
+  --bg:#050b14;
+  --card:#0b1b33;
+  --accent:#22d3ee;
+  --accent2:#3b82f6;
+  --text:#eaf2ff;
+  --muted:#9fb3d1;
 }
-
-* {
-  box-sizing: border-box;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+*{box-sizing:border-box;font-family:Inter,Arial,sans-serif}
+body{margin:0;background:radial-gradient(circle at top left,#0b1b33,#050b14);color:var(--text)}
+header{
+  position:sticky;top:0;z-index:10;
+  display:flex;justify-content:space-between;align-items:center;
+  padding:18px 32px;background:rgba(5,11,20,.8);backdrop-filter:blur(10px);
+  border-bottom:1px solid #1f2937
 }
-
-body {
-  margin: 0;
-  background: radial-gradient(circle at top left, #0b1b33, #050b14);
-  color: var(--text);
-  overflow-x: hidden;
-  padding-top: 90px;
-}
-
-/* ========== NAVBAR ========== */
-.topbar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  padding: 18px 32px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: rgba(5,11,20,0.75);
-  backdrop-filter: blur(16px);
-  border-bottom: 1px solid rgba(255,255,255,0.08);
-  z-index: 1000;
-}
-
-.logo {
-  font-size: 20px;
-  font-weight: 800;
-  letter-spacing: 0.5px;
-}
-
-.nav-actions {
-  display: flex;
-  gap: 14px;
-}
-
-.login-btn {
-  padding: 10px 18px;
-  border-radius: 999px;
-  border: 1px solid rgba(255,255,255,0.2);
-  color: var(--text);
-  text-decoration: none;
-  font-size: 14px;
-}
-
-.signup-btn {
-  padding: 10px 22px;
-  border-radius: 999px;
-  background: linear-gradient(90deg, var(--accent), var(--accent2));
-  color: #020617;
-  font-weight: 600;
-  text-decoration: none;
-  font-size: 14px;
-}
-
-/* ========== BACKGROUND GLOW ========== */
-.glow, .glow2 {
-  position: fixed;
-  border-radius: 50%;
-  filter: blur(140px);
-  z-index: 0;
-  animation: float 12s ease-in-out infinite;
-}
-
-.glow {
-  width: 600px;
-  height: 600px;
-  background: rgba(34,211,238,0.3);
-  top: -200px;
-  right: -200px;
-}
-
-.glow2 {
-  width: 500px;
-  height: 500px;
-  background: rgba(59,130,246,0.3);
-  bottom: -200px;
-  left: -200px;
-  animation-direction: reverse;
-}
-
-@keyframes float {
-  0% { transform: translateY(0); }
-  50% { transform: translateY(40px); }
-  100% { transform: translateY(0); }
-}
-
-/* ========== MAIN CONTENT ========== */
-.container {
-  max-width: 1100px;
-  margin: auto;
-  padding: 120px 24px 80px;
-  position: relative;
-  z-index: 1;
-  text-align: center;
-}
-
-h1 {
-  font-size: 52px;
-  margin-bottom: 16px;
-  background: linear-gradient(90deg, var(--accent), var(--accent2));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.subtitle {
-  font-size: 18px;
-  color: var(--muted);
-  max-width: 720px;
-  margin: 0 auto 40px;
-  line-height: 1.6;
-}
-
-/* ========== FEATURES ========== */
-.features {
-  margin-top: 80px;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 24px;
-}
-
-.card {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 18px;
-  padding: 28px;
-  text-align: left;
-  backdrop-filter: blur(14px);
-  transition: transform 0.3s ease, border 0.3s ease;
-}
-
-.card:hover {
-  transform: translateY(-6px);
-  border-color: var(--accent);
-}
-
-.card h3 {
-  margin-top: 0;
-  margin-bottom: 10px;
-}
-
-.card p {
-  color: var(--muted);
-  font-size: 15px;
-  line-height: 1.6;
-}
-
-/* ========== SIGNUP ========== */
-.signup {
-  margin-top: 100px;
-  max-width: 520px;
-  margin-left: auto;
-  margin-right: auto;
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 20px;
-  padding: 36px;
-}
-
-.signup h2 {
-  margin-top: 0;
-}
-
-.signup p {
-  color: var(--muted);
-  font-size: 15px;
-  margin-bottom: 28px;
-}
-
-.signup input {
-  width: 100%;
-  padding: 14px;
-  border-radius: 12px;
-  border: 1px solid var(--border);
-  background: rgba(255,255,255,0.05);
-  color: var(--text);
-  font-size: 15px;
-  margin-bottom: 16px;
-  outline: none;
-}
-
-.signup button {
-  width: 100%;
-  padding: 14px;
-  border-radius: 12px;
-  border: none;
-  font-weight: 600;
-  cursor: pointer;
-  background: linear-gradient(90deg, var(--accent), var(--accent2));
-  color: #020617;
-}
-
-#successMessage {
-  display: none;
-  margin-top: 16px;
-  color: var(--accent);
-  font-size: 14px;
-}
-
-/* ========== FOOTER ========== */
-footer {
-  margin-top: 120px;
-  text-align: center;
-  font-size: 14px;
-  color: var(--muted);
-  border-top: 1px solid var(--border);
-  padding-top: 40px;
-}
+header a{color:var(--text);text-decoration:none;font-weight:600;margin-left:16px}
+.hero{text-align:center;padding:120px 20px}
+.hero h1{font-size:56px;margin-bottom:16px;
+background:linear-gradient(90deg,var(--accent),var(--accent2));
+-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero p{max-width:720px;margin:auto;color:var(--muted);font-size:18px}
+.btn{
+display:inline-block;margin-top:30px;padding:14px 30px;border-radius:999px;
+background:linear-gradient(90deg,var(--accent),var(--accent2));
+color:#020617;font-weight:700;text-decoration:none}
+section{max-width:1100px;margin:auto;padding:80px 20px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px}
+.card{background:var(--card);padding:28px;border-radius:18px}
+footer{text-align:center;padding:40px;color:var(--muted);border-top:1px solid #1f2937}
 </style>
 </head>
 
 <body>
 
-<header class="topbar">
-  <div class="logo">Ragelite</div>
-  <div class="nav-actions">
-    <a href="/dashboard.html" class="login-btn">Login</a>
-<a href="/dashboard.html" class="signup-btn">Create Account</a>
-
-  </div>
+<header>
+  <strong>Ragelite</strong>
+  <nav>
+    <a href="dashboard.html">Dashboard</a>
+    <a href="create-campaign.html">Create Campaign</a>
+  </nav>
 </header>
 
-<div class="glow"></div>
-<div class="glow2"></div>
-
-<div class="container">
-  <h1>Autonomous AI for Business Growth</h1>
-  <p class="subtitle">
-    Ragelite is an AI growth platform that designs, launches, and optimizes
-    Meta & Google ads automatically — replacing agencies and manual work
-    with one intelligent system.
+<div class="hero">
+  <h1>Autonomous AI for Growth</h1>
+  <p>
+    Ragelite designs, launches, and optimizes Meta & Google Ads automatically.
+    No agencies. No guesswork. Just AI-driven growth.
   </p>
-
-  <div class="features">
-    <div class="card">
-      <h3>AI Campaign Creation</h3>
-      <p>Create complete ad campaigns from a simple business description.</p>
-    </div>
-    <div class="card">
-      <h3>Self-Optimizing Engine</h3>
-      <p>Budgets, creatives, and targeting improve automatically over time.</p>
-    </div>
-    <div class="card">
-      <h3>Built for Scale</h3>
-      <p>Designed for startups and serious businesses aiming for long-term growth.</p>
-    </div>
-  </div>
-
-  <!-- SIGNUP -->
-  <div class="signup" id="signup">
-    <h2>Join Early Access</h2>
-    <p>Get access to Ragelite before public launch.</p>
-
-    <form id="signupForm" action="https://formspree.io/f/xzdzqerj" method="POST">
-      <input type="email" name="email" placeholder="Enter your email" required>
-      <button type="submit">Request Early Access</button>
-    </form>
-
-    <div id="successMessage">
-      ✅ You’re on the waitlist. We’ll be in touch soon.
-    </div>
-  </div>
-
-  <footer>
-    Founded by <strong>Raj Bundela</strong>, <strong>Ashwani Singh</strong> & <strong>Karan Pal</strong><br>
-    © 2026 Ragelite Corporation · AI-powered growth platform<br>
-    Contact: <a href="mailto:ragelitecorporation@gmail.com" style="color:var(--accent); text-decoration:none;">
-      ragelitecorporation@gmail.com
-    </a>
-  </footer>
+  <a class="btn" href="dashboard.html">Enter Platform</a>
 </div>
 
-<script>
-const form = document.getElementById("signupForm");
-const success = document.getElementById("successMessage");
+<section>
+  <div class="grid">
+    <div class="card">
+      <h3>AI Strategy</h3>
+      <p>Ragelite understands your business and builds ad strategy automatically.</p>
+    </div>
+    <div class="card">
+      <h3>Campaign Automation</h3>
+      <p>Create campaigns using plain English — AI handles execution.</p>
+    </div>
+    <div class="card">
+      <h3>Continuous Optimization</h3>
+      <p>Budgets, creatives, and targeting improve 24/7.</p>
+    </div>
+  </div>
+</section>
 
-form.addEventListener("submit", function () {
-  setTimeout(() => {
-    form.style.display = "none";
-    success.style.display = "block";
-  }, 500);
-});
-</script>
+<footer>
+  Founded by <strong>Raj Bundela</strong>, <strong>Ashwani Singh</strong> & <strong>Karan Pal</strong><br>
+  © 2026 Ragelite Corporation · ragelitecorporation@gmail.com
+</footer>
 
 </body>
 </html>
-

@@ -2,47 +2,224 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Ragelite — AI Growth Platform</title>
+<title>Ragelite — Autonomous AI Growth</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap');
+
+:root{
+  --bg:#050b14;
+  --card:rgba(255,255,255,0.06);
+  --border:rgba(255,255,255,0.12);
+  --text:#eaf2ff;
+  --muted:#9fb3d1;
+  --accent:#22d3ee;
+  --accent2:#3b82f6;
+}
+
+*{
+  box-sizing:border-box;
+  font-family:'Inter',sans-serif;
+}
+
 body{
-  margin:0;font-family:Arial,sans-serif;
-  background:#050b14;color:#eaf2ff;text-align:center
+  margin:0;
+  background:radial-gradient(circle at top left,#0b1b33,#050b14);
+  color:var(--text);
+  overflow-x:hidden;
 }
+
+/* ===== GLOW EFFECTS ===== */
+.glow,.glow2{
+  position:fixed;
+  width:600px;
+  height:600px;
+  border-radius:50%;
+  filter:blur(140px);
+  opacity:.45;
+  z-index:-1;
+}
+.glow{
+  background:#22d3ee;
+  top:-200px;
+  right:-200px;
+}
+.glow2{
+  background:#3b82f6;
+  bottom:-200px;
+  left:-200px;
+}
+
+/* ===== NAVBAR ===== */
 header{
-  padding:20px;border-bottom:1px solid #1f2937
+  position:fixed;
+  top:0;left:0;right:0;
+  padding:18px 32px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  background:rgba(5,11,20,.75);
+  backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--border);
+  z-index:100;
 }
-header a{
-  color:#eaf2ff;text-decoration:none;margin:0 12px;font-weight:bold
+
+.logo{
+  font-size:20px;
+  font-weight:800;
+  letter-spacing:.5px;
 }
-.hero{padding:100px 20px}
-h1{font-size:44px}
-p{color:#9fb3d1;max-width:700px;margin:20px auto}
-.btn{
-  display:inline-block;margin:15px;padding:14px 28px;
-  border-radius:30px;background:#22d3ee;color:#020617;
-  font-weight:bold;text-decoration:none
+
+nav a{
+  color:var(--text);
+  text-decoration:none;
+  margin-left:18px;
+  font-weight:600;
+}
+
+.primary{
+  padding:10px 22px;
+  border-radius:999px;
+  background:linear-gradient(90deg,var(--accent),var(--accent2));
+  color:#020617;
+}
+
+/* ===== HERO ===== */
+.hero{
+  padding:160px 20px 120px;
+  text-align:center;
+  max-width:1100px;
+  margin:auto;
+}
+
+.hero h1{
+  font-size:64px;
+  line-height:1.05;
+  margin-bottom:20px;
+  background:linear-gradient(90deg,var(--accent),var(--accent2));
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+
+.hero p{
+  max-width:760px;
+  margin:auto;
+  font-size:20px;
+  color:var(--muted);
+}
+
+.cta{
+  margin-top:40px;
+}
+
+.cta a{
+  display:inline-block;
+  padding:16px 34px;
+  border-radius:999px;
+  font-weight:700;
+  text-decoration:none;
+  background:linear-gradient(90deg,var(--accent),var(--accent2));
+  color:#020617;
+}
+
+/* ===== FEATURES ===== */
+section{
+  max-width:1100px;
+  margin:auto;
+  padding:80px 20px;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:28px;
+}
+
+.card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:22px;
+  padding:30px;
+  backdrop-filter:blur(14px);
+  transition:.3s;
+}
+
+.card:hover{
+  transform:translateY(-6px);
+  border-color:var(--accent);
+}
+
+.card h3{
+  margin-top:0;
+}
+
+.card p{
+  color:var(--muted);
+  font-size:15px;
+}
+
+/* ===== FOOTER ===== */
+footer{
+  padding:60px 20px;
+  text-align:center;
+  color:var(--muted);
+  border-top:1px solid var(--border);
+  font-size:14px;
 }
 </style>
 </head>
 
 <body>
+
+<div class="glow"></div>
+<div class="glow2"></div>
+
 <header>
-  <a href="index.html">Home</a>
-  <a href="login.html">Login</a>
-  <a href="signup.html">Create Account</a>
+  <div class="logo">Ragelite</div>
+  <nav>
+    <a href="login.html">Login</a>
+    <a href="signup.html" class="primary">Create Account</a>
+  </nav>
 </header>
 
 <div class="hero">
-  <h1>Autonomous AI for Business Growth</h1>
+  <h1>Autonomous AI<br>for Business Growth</h1>
   <p>
-    Ragelite helps businesses design, launch, and optimize ads across
-    Meta & Google using AI — no agencies required.
+    Ragelite is an AI-powered growth platform that designs, launches,
+    and optimizes Meta & Google Ads automatically —
+    replacing agencies with intelligent automation.
   </p>
-  <a class="btn" href="signup.html">Get Started</a>
+
+  <div class="cta">
+    <a href="signup.html">Get Started with AI</a>
+  </div>
 </div>
+
+<section>
+  <div class="grid">
+    <div class="card">
+      <h3>AI Campaign Creation</h3>
+      <p>Create complete ad campaigns from a simple business description.</p>
+    </div>
+    <div class="card">
+      <h3>Self-Optimizing Engine</h3>
+      <p>Budgets, creatives, and targeting improve automatically 24/7.</p>
+    </div>
+    <div class="card">
+      <h3>Built for Scale</h3>
+      <p>From startups to serious businesses, Ragelite grows with you.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  Founded by <strong>Raj Bundela</strong>, <strong>Ashwani Singh</strong> & <strong>Karan Pal</strong><br>
+  © 2026 Ragelite Corporation · ragelitecorporation@gmail.com
+</footer>
+
 </body>
 </html>
+
 
 

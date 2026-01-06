@@ -301,6 +301,57 @@ footer{
   font-size:14px;
   color:var(--muted);
 }
+  /* ===== STATS ===== */
+.stats{
+  text-align:center;
+}
+
+.stats h2{
+  font-size:42px;
+  margin-bottom:10px;
+}
+
+.stats-sub{
+  max-width:720px;
+  margin:0 auto 50px;
+  color:var(--muted);
+  font-size:18px;
+}
+
+.stats-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:32px;
+}
+
+.stat-card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:22px;
+  padding:40px 20px;
+  backdrop-filter:blur(16px);
+  transition:.6s;
+}
+
+.stat-card:hover{
+  border-color:var(--accent);
+  box-shadow:0 0 45px rgba(34,211,238,.3);
+}
+
+.stat-card h3{
+  font-size:46px;
+  margin:0;
+  background:linear-gradient(90deg,var(--accent),var(--accent2));
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+
+.stat-card p{
+  margin-top:10px;
+  color:var(--muted);
+  font-size:15px;
+}
+
 
 </style>
 </head>
@@ -355,6 +406,38 @@ footer{
       Founders and growth teams are already using Ragelite
       to simplify and scale their advertising.
     </p>
+    <section>
+  <div class="stats">
+    <h2>Ragelite in Action</h2>
+    <p class="stats-sub">
+      Our AI is already helping teams launch, optimize,
+      and scale advertising performance.
+    </p>
+
+    <div class="stats-grid">
+      <div class="stat-card hidden">
+        <h3><span class="counter" data-target="125000">0</span>+</h3>
+        <p>Ad Spend Optimized ($)</p>
+      </div>
+
+      <div class="stat-card hidden">
+        <h3><span class="counter" data-target="3200">0</span>+</h3>
+        <p>Leads Generated</p>
+      </div>
+
+      <div class="stat-card hidden">
+        <h3><span class="counter" data-target="18400">0</span>+</h3>
+        <p>AI Decisions Made</p>
+      </div>
+
+      <div class="stat-card hidden">
+        <h3><span class="counter" data-target="48">0</span></h3>
+        <p>Active Campaigns</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 
     <div class="test-grid">
       <div class="test-card hidden">
@@ -436,16 +519,44 @@ footer{
 </footer>
 
 <script>
-const observer=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{
-    if(e.isIntersecting){
-      e.target.classList.add("show");
+const counters = document.querySelectorAll(".counter");
+let started = false;
+
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add("show");
+
+      if (!started && entry.target.querySelector(".counter")) {
+        startCounters();
+        started = true;
+      }
     }
   });
-},{threshold:.2});
+}, { threshold: 0.25 });
 
-document.querySelectorAll(".hidden").forEach(el=>observer.observe(el));
+document.querySelectorAll(".hidden").forEach(el => observer.observe(el));
+
+function startCounters() {
+  counters.forEach(counter => {
+    const target = +counter.dataset.target;
+    let current = 0;
+    const increment = Math.ceil(target / 120);
+
+    const update = () => {
+      current += increment;
+      if (current < target) {
+        counter.innerText = current.toLocaleString();
+        requestAnimationFrame(update);
+      } else {
+        counter.innerText = target.toLocaleString();
+      }
+    };
+    update();
+  });
+}
 </script>
+
 
 </body>
 </html>

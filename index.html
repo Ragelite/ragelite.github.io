@@ -3,57 +3,49 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ragelite — Autonomous AI Growth</title>
+<title>Ragelite — AI Growth Platform</title>
 
 <style>
-/* =========================
-   CORE DESIGN SYSTEM
-========================= */
 :root{
-  --bg:#050b14;
-  --panel:#0b1b33;
-  --glass:rgba(255,255,255,.06);
-  --border:rgba(255,255,255,.14);
-  --text:#eaf2ff;
-  --muted:#9fb3d1;
-  --accent:#22d3ee;
-  --accent2:#3b82f6;
-  --radius:18px;
+  --bg:#0e0f13;
+  --panel:#161821;
+  --border:#262a38;
+  --text:#eaeaf0;
+  --muted:#a1a6b3;
+  --accent:#7c7cff;
+  --accent2:#2dd4bf;
+  --radius:14px;
 }
 
 *{
   box-sizing:border-box;
   margin:0;
   padding:0;
-  font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial;
+  font-family:Inter,system-ui,-apple-system,"Segoe UI",Arial;
 }
 
 body{
-  background:
-    radial-gradient(1200px 600px at 10% -10%, #12345a, transparent),
-    radial-gradient(1000px 500px at 90% 10%, #0c2a4a, transparent),
-    var(--bg);
+  background:radial-gradient(800px 400px at 20% -10%, #2a2d55, transparent),
+             radial-gradient(800px 400px at 80% 10%, #12343a, transparent),
+             var(--bg);
   color:var(--text);
   line-height:1.6;
-  overflow-x:hidden;
 }
 
-/* =========================
-   NAVBAR
-========================= */
+/* ---------- NAV ---------- */
 header{
   position:sticky;
   top:0;
-  z-index:100;
-  backdrop-filter:blur(14px);
-  background:rgba(5,11,20,.85);
+  z-index:10;
+  background:rgba(14,15,19,.9);
+  backdrop-filter:blur(10px);
   border-bottom:1px solid var(--border);
 }
 
 .nav{
-  max-width:1200px;
+  max-width:1100px;
   margin:auto;
-  padding:18px 24px;
+  padding:16px 22px;
   display:flex;
   justify-content:space-between;
   align-items:center;
@@ -61,194 +53,177 @@ header{
 
 .logo{
   font-weight:800;
-  font-size:20px;
+  font-size:18px;
 }
 
-.nav a{
+.nav button{
+  background:none;
+  border:1px solid var(--border);
   color:var(--text);
-  text-decoration:none;
-  margin-left:18px;
-  font-size:14px;
+  padding:8px 14px;
+  border-radius:999px;
+  margin-left:10px;
+  cursor:pointer;
+  transition:.2s;
 }
 
-.nav .primary{
-  padding:10px 20px;
-  border-radius:999px;
+.nav button.primary{
   background:linear-gradient(90deg,var(--accent),var(--accent2));
+  border:none;
   color:#020617;
   font-weight:600;
 }
 
-/* =========================
-   HERO (PSEUDO-3D)
-========================= */
-.hero{
-  max-width:1200px;
-  margin:auto;
-  padding:110px 24px 90px;
-  position:relative;
+.nav button:hover{
+  transform:translateY(-1px);
 }
 
-.hero::before{
-  content:"";
-  position:absolute;
-  inset:-80px;
-  background:
-    linear-gradient(120deg,rgba(34,211,238,.12),transparent 60%),
-    linear-gradient(-120deg,rgba(59,130,246,.12),transparent 60%);
-  filter:blur(60px);
-  z-index:-1;
+/* ---------- HERO ---------- */
+.hero{
+  max-width:1100px;
+  margin:auto;
+  padding:90px 22px 70px;
 }
 
 .hero h1{
-  font-size:clamp(42px,5vw,68px);
-  line-height:1.05;
-  max-width:820px;
-  background:linear-gradient(90deg,var(--accent),var(--accent2));
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-  transform:translateZ(40px);
+  font-size:clamp(36px,5vw,56px);
+  line-height:1.1;
 }
 
 .hero p{
-  margin-top:22px;
-  max-width:640px;
+  margin-top:18px;
+  max-width:600px;
   color:var(--muted);
-  font-size:19px;
+  font-size:18px;
 }
 
-.hero-actions{
-  margin-top:38px;
-  display:flex;
-  gap:16px;
-  flex-wrap:wrap;
+.hero .actions{
+  margin-top:30px;
 }
 
-.hero-actions a{
-  text-decoration:none;
-  padding:14px 30px;
+.hero .actions button{
+  padding:14px 26px;
   border-radius:999px;
   font-weight:600;
-}
-
-.hero-actions .primary{
+  cursor:pointer;
+  border:none;
   background:linear-gradient(90deg,var(--accent),var(--accent2));
   color:#020617;
 }
 
-.hero-actions .secondary{
-  border:1px solid var(--border);
-  color:var(--text);
-}
-
-/* =========================
-   SECTION BASE
-========================= */
+/* ---------- SECTIONS ---------- */
 .section{
-  max-width:1200px;
+  max-width:1100px;
   margin:auto;
-  padding:90px 24px;
+  padding:70px 22px;
 }
 
 .section h2{
-  font-size:40px;
-  margin-bottom:14px;
+  font-size:34px;
+  margin-bottom:12px;
 }
 
-.section .lead{
-  max-width:700px;
+.section p.lead{
   color:var(--muted);
-  font-size:18px;
-  margin-bottom:50px;
+  max-width:650px;
+  margin-bottom:40px;
 }
 
-/* =========================
-   FEATURE CARDS (DEPTH)
-========================= */
+/* ---------- CARDS ---------- */
 .grid{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-  gap:28px;
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:22px;
 }
 
 .card{
-  background:var(--glass);
+  background:var(--panel);
   border:1px solid var(--border);
   border-radius:var(--radius);
-  padding:34px;
-  backdrop-filter:blur(16px);
-  transform:translateY(30px);
-  opacity:0;
-  transition:.6s;
+  padding:26px;
 }
 
-.card.show{
-  transform:translateY(0);
-  opacity:1;
-}
-
-.card:hover{
-  box-shadow:0 30px 80px rgba(0,0,0,.35);
-}
-
-/* =========================
-   DASHBOARD PREVIEW
-========================= */
+/* ---------- DASHBOARD ---------- */
 .dashboard{
-  background:linear-gradient(180deg,#0b1b33,#050b14);
-  border:1px solid var(--border);
-  border-radius:22px;
-  padding:30px;
   display:grid;
-  grid-template-columns:220px 1fr;
-  gap:24px;
+  grid-template-columns:200px 1fr;
+  gap:20px;
 }
 
-.sidebar{
-  background:rgba(255,255,255,.04);
-  border-radius:16px;
+.sidebar,.main{
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
   padding:20px;
 }
 
-.sidebar div{
-  margin-bottom:14px;
-  color:var(--muted);
-}
-
-.panel{
-  background:rgba(255,255,255,.06);
-  border-radius:16px;
-  padding:24px;
-}
-
-/* =========================
-   FAQ
-========================= */
+/* ---------- FAQ ---------- */
 .faq-item{
   border-top:1px solid var(--border);
-  padding:18px 0;
+  padding:16px 0;
 }
 
 .faq-item h4{
   margin-bottom:6px;
 }
 
-/* =========================
-   FOOTER
-========================= */
+/* ---------- FORMS ---------- */
+.modal{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.6);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:50;
+}
+
+.modal.active{display:flex;}
+
+.modal-box{
+  background:var(--panel);
+  border-radius:var(--radius);
+  padding:28px;
+  width:320px;
+}
+
+.modal-box h3{
+  margin-bottom:14px;
+}
+
+.modal-box input{
+  width:100%;
+  padding:12px;
+  margin-bottom:12px;
+  border-radius:8px;
+  border:1px solid var(--border);
+  background:#0e0f13;
+  color:var(--text);
+}
+
+.modal-box button{
+  width:100%;
+  padding:12px;
+  border-radius:8px;
+  border:none;
+  background:linear-gradient(90deg,var(--accent),var(--accent2));
+  font-weight:600;
+  cursor:pointer;
+}
+
+.loader{
+  display:none;
+  text-align:center;
+  margin-top:10px;
+}
+
+/* ---------- FOOTER ---------- */
 footer{
   border-top:1px solid var(--border);
-  padding:50px 24px;
+  padding:40px 22px;
   text-align:center;
   color:var(--muted);
   font-size:14px;
-}
-
-/* =========================
-   ANIMATIONS
-========================= */
-@keyframes fadeUp{
-  to{opacity:1;transform:translateY(0)}
 }
 </style>
 </head>
@@ -259,79 +234,97 @@ footer{
   <div class="nav">
     <div class="logo">Ragelite</div>
     <div>
-      <a href="#">Login</a>
-      <a href="#" class="primary">Create Account</a>
+      <button onclick="openLogin()">Login</button>
+      <button class="primary" onclick="openSignup()">Sign up</button>
     </div>
   </div>
 </header>
 
 <section class="hero">
-  <h1>Autonomous AI that runs your ads</h1>
-  <p>
-    Ragelite is an AI growth engine that creates, launches,
-    and optimizes Meta & Google Ads — without agencies.
-  </p>
-  <div class="hero-actions">
-    <a href="#" class="primary">Start Free</a>
-    <a href="#dashboard" class="secondary">View Dashboard</a>
+  <h1>AI that runs your growth</h1>
+  <p>Launch, manage, and optimize ads automatically with intelligent automation.</p>
+  <div class="actions">
+    <button onclick="scrollToAccess()">Join Early Access</button>
   </div>
 </section>
 
 <section class="section">
-  <h2>Everything automated</h2>
-  <p class="lead">
-    From strategy to execution to optimization —
-    Ragelite handles the entire lifecycle.
-  </p>
-
+  <h2>Features</h2>
+  <p class="lead">Everything you need to grow — automated.</p>
   <div class="grid">
     <div class="card">AI Campaign Creation</div>
-    <div class="card">Real-time Optimization</div>
-    <div class="card">Cross-Platform Scaling</div>
-  </div>
-</section>
-
-<section id="dashboard" class="section">
-  <h2>Live dashboard preview</h2>
-  <p class="lead">This is what users see after login.</p>
-
-  <div class="dashboard">
-    <div class="sidebar">
-      <div>Overview</div>
-      <div>Campaigns</div>
-      <div>Analytics</div>
-      <div>Settings</div>
-    </div>
-    <div class="panel">
-      AI optimizing campaigns…<br><br>
-      Spend: $125,000<br>
-      Leads: 3,200+
-    </div>
+    <div class="card">Smart Optimization</div>
+    <div class="card">Real-time Analytics</div>
   </div>
 </section>
 
 <section class="section">
-  <h2>Frequently asked questions</h2>
+  <h2>Dashboard Preview</h2>
+  <div class="dashboard">
+    <div class="sidebar">Overview<br>Campaigns<br>Settings</div>
+    <div class="main">Spend: $125k<br>Leads: 3,200+</div>
+  </div>
+</section>
 
-  <div class="faq-item"><h4>Is this an agency?</h4><p>No. This is software.</p></div>
-  <div class="faq-item"><h4>Do I need experience?</h4><p>No. AI handles it.</p></div>
-  <div class="faq-item"><h4>Which platforms?</h4><p>Meta & Google Ads.</p></div>
+<section id="access" class="section">
+  <h2>Join Early Access</h2>
+  <form action="https://formspree.io/f/xzdzqerj" method="POST">
+    <input name="email" placeholder="Your email" required>
+    <button type="submit">Request Access</button>
+  </form>
+</section>
+
+<section class="section">
+  <h2>FAQ</h2>
+  <div class="faq-item"><h4>Is this an agency?</h4><p>No, it’s AI software.</p></div>
+  <div class="faq-item"><h4>Do I need experience?</h4><p>No.</p></div>
 </section>
 
 <footer>
-  Founded by <strong>Raj Bundela</strong>, <strong>Ashwani Singh</strong> & <strong>Karan Pal</strong><br>
-  © 2026 Ragelite Corporation
+  Terms & Conditions · Privacy Policy<br>
+  © 2026 Ragelite
 </footer>
 
+<!-- LOGIN -->
+<div class="modal" id="loginModal">
+  <div class="modal-box">
+    <h3>Login</h3>
+    <input placeholder="Email">
+    <input placeholder="Password" type="password">
+    <button onclick="fakeAuth()">Login</button>
+    <div class="loader" id="loginLoad">Loading...</div>
+  </div>
+</div>
+
+<!-- SIGNUP -->
+<div class="modal" id="signupModal">
+  <div class="modal-box">
+    <h3>Sign up</h3>
+    <input placeholder="Email">
+    <input placeholder="Password" type="password">
+    <button onclick="fakeAuth()">Create account</button>
+    <div class="loader" id="signupLoad">Creating account...</div>
+  </div>
+</div>
+
 <script>
-const observer=new IntersectionObserver(e=>{
-  e.forEach(i=>{if(i.isIntersecting)i.target.classList.add("show")});
-},{threshold:.2});
-document.querySelectorAll(".card").forEach(el=>observer.observe(el));
+function openLogin(){loginModal.classList.add("active")}
+function openSignup(){signupModal.classList.add("active")}
+function scrollToAccess(){document.getElementById("access").scrollIntoView({behavior:"smooth"})}
+
+function fakeAuth(){
+  document.querySelectorAll(".loader").forEach(l=>l.style.display="block");
+  setTimeout(()=>{
+    alert("Logged in (demo)");
+    document.querySelectorAll(".modal").forEach(m=>m.classList.remove("active"));
+    document.querySelectorAll(".loader").forEach(l=>l.style.display="none");
+  },1500);
+}
 </script>
 
 </body>
 </html>
+
 
 
 

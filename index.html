@@ -10,8 +10,8 @@
 
 :root{
   --bg:#050b14;
-  --card:rgba(255,255,255,0.06);
-  --border:rgba(255,255,255,0.12);
+  --card:rgba(255,255,255,0.07);
+  --border:rgba(255,255,255,0.14);
   --text:#eaf2ff;
   --muted:#9fb3d1;
   --accent:#22d3ee;
@@ -30,25 +30,32 @@ body{
   overflow-x:hidden;
 }
 
-/* ===== GLOW EFFECTS ===== */
+/* ===== BACKGROUND GLOW ===== */
 .glow,.glow2{
   position:fixed;
-  width:600px;
-  height:600px;
+  width:700px;
+  height:700px;
   border-radius:50%;
-  filter:blur(140px);
+  filter:blur(160px);
   opacity:.45;
   z-index:-1;
+  animation: float 10s ease-in-out infinite;
 }
 .glow{
   background:#22d3ee;
-  top:-200px;
-  right:-200px;
+  top:-300px;
+  right:-300px;
 }
 .glow2{
   background:#3b82f6;
-  bottom:-200px;
-  left:-200px;
+  bottom:-300px;
+  left:-300px;
+  animation-delay:4s;
+}
+
+@keyframes float{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-40px)}
 }
 
 /* ===== NAVBAR ===== */
@@ -83,23 +90,29 @@ nav a{
   border-radius:999px;
   background:linear-gradient(90deg,var(--accent),var(--accent2));
   color:#020617;
+  box-shadow:0 0 30px rgba(34,211,238,.45);
+  transition:.3s;
+}
+.primary:hover{
+  box-shadow:0 0 60px rgba(59,130,246,.7);
 }
 
 /* ===== HERO ===== */
 .hero{
-  padding:160px 20px 120px;
+  padding:170px 20px 120px;
   text-align:center;
   max-width:1100px;
   margin:auto;
 }
 
 .hero h1{
-  font-size:64px;
+  font-size:68px;
   line-height:1.05;
   margin-bottom:20px;
   background:linear-gradient(90deg,var(--accent),var(--accent2));
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
+  animation: slideUp .9s ease forwards;
 }
 
 .hero p{
@@ -107,20 +120,37 @@ nav a{
   margin:auto;
   font-size:20px;
   color:var(--muted);
+  opacity:0;
+  animation: slideUp .9s ease forwards;
+  animation-delay:.2s;
+}
+
+@keyframes slideUp{
+  from{opacity:0;transform:translateY(30px)}
+  to{opacity:1;transform:translateY(0)}
 }
 
 .cta{
   margin-top:40px;
+  opacity:0;
+  animation: slideUp .9s ease forwards;
+  animation-delay:.4s;
 }
 
 .cta a{
   display:inline-block;
-  padding:16px 34px;
+  padding:18px 36px;
   border-radius:999px;
   font-weight:700;
   text-decoration:none;
   background:linear-gradient(90deg,var(--accent),var(--accent2));
   color:#020617;
+  box-shadow:0 0 40px rgba(34,211,238,.5);
+  transition:.3s;
+}
+.cta a:hover{
+  transform:scale(1.05);
+  box-shadow:0 0 70px rgba(59,130,246,.8);
 }
 
 /* ===== FEATURES ===== */
@@ -133,40 +163,45 @@ section{
 .grid{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-  gap:28px;
+  gap:30px;
 }
 
 .card{
   background:var(--card);
   border:1px solid var(--border);
   border-radius:22px;
-  padding:30px;
-  backdrop-filter:blur(14px);
-  transition:.3s;
+  padding:32px;
+  backdrop-filter:blur(16px);
+  transform:translateY(30px);
+  opacity:0;
+  transition:.6s;
+}
+
+.card.show{
+  transform:translateY(0);
+  opacity:1;
 }
 
 .card:hover{
-  transform:translateY(-6px);
   border-color:var(--accent);
-}
-
-.card h3{
-  margin-top:0;
+  box-shadow:0 0 40px rgba(34,211,238,.25);
 }
 
 .card p{
   color:var(--muted);
-  font-size:15px;
 }
 
 /* ===== FOOTER ===== */
 footer{
-  padding:60px 20px;
+  padding:70px 20px;
   text-align:center;
   color:var(--muted);
   border-top:1px solid var(--border);
   font-size:14px;
 }
+
+/* ===== SCROLL ANIMATION ===== */
+.hidden{opacity:0}
 </style>
 </head>
 
@@ -186,11 +221,9 @@ footer{
 <div class="hero">
   <h1>Autonomous AI<br>for Business Growth</h1>
   <p>
-    Ragelite is an AI-powered growth platform that designs, launches,
-    and optimizes Meta & Google Ads automatically —
+    Ragelite designs, launches, and optimizes Meta & Google Ads automatically —
     replacing agencies with intelligent automation.
   </p>
-
   <div class="cta">
     <a href="signup.html">Get Started with AI</a>
   </div>
@@ -198,17 +231,17 @@ footer{
 
 <section>
   <div class="grid">
-    <div class="card">
+    <div class="card hidden">
       <h3>AI Campaign Creation</h3>
-      <p>Create complete ad campaigns from a simple business description.</p>
+      <p>Create complete ad campaigns from a single business description.</p>
     </div>
-    <div class="card">
+    <div class="card hidden">
       <h3>Self-Optimizing Engine</h3>
-      <p>Budgets, creatives, and targeting improve automatically 24/7.</p>
+      <p>Budgets, creatives, and targeting improve continuously.</p>
     </div>
-    <div class="card">
+    <div class="card hidden">
       <h3>Built for Scale</h3>
-      <p>From startups to serious businesses, Ragelite grows with you.</p>
+      <p>From startups to global businesses, Ragelite grows with you.</p>
     </div>
   </div>
 </section>
@@ -218,8 +251,21 @@ footer{
   © 2026 Ragelite Corporation · ragelitecorporation@gmail.com
 </footer>
 
+<script>
+const observer=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.classList.add("show");
+    }
+  });
+},{threshold:.2});
+
+document.querySelectorAll(".hidden").forEach(el=>observer.observe(el));
+</script>
+
 </body>
 </html>
+
 
 
 

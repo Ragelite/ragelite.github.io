@@ -1,301 +1,380 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Ragelite — AI Growth Platform</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Ragelite — AI Advertising Infrastructure</title>
 
-  <style>
-    :root {
-      --bg-dark: #020617;
-      --bg-gradient: linear-gradient(135deg, #020617, #020b2d, #031a2e);
-      --primary: #22d3ee;
-      --secondary: #60a5fa;
-      --text-main: #e5e7eb;
-      --text-muted: #9ca3af;
-      --card-bg: rgba(255, 255, 255, 0.04);
-      --border-soft: rgba(255, 255, 255, 0.08);
-    }
+<style>
+/* =========================
+   DESIGN SYSTEM
+========================= */
+:root {
+  --bg: #0b0d12;
+  --surface: #ffffff;
+  --surface-soft: #f8fafc;
+  --border: #e5e7eb;
+  --text-dark: #0f172a;
+  --text-muted: #475569;
+  --primary: #635bff;   /* Stripe-like indigo */
+  --primary-dark: #4f46e5;
+  --radius: 14px;
+}
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, sans-serif;
-    }
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Inter, Roboto, Helvetica, Arial, sans-serif;
+}
 
-    body {
-      background: var(--bg-gradient);
-      color: var(--text-main);
-      line-height: 1.6;
-    }
+body {
+  background: var(--bg);
+  color: var(--text-dark);
+  line-height: 1.6;
+}
 
-    a {
-      text-decoration: none;
-      color: inherit;
-    }
+/* =========================
+   NAVBAR
+========================= */
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--bg);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
 
-    /* NAVBAR */
-    .navbar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 18px 48px;
-      border-bottom: 1px solid var(--border-soft);
-    }
+.nav-inner {
+  max-width: 1200px;
+  margin: auto;
+  padding: 18px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 
-    .logo {
-      font-size: 20px;
-      font-weight: 700;
-      letter-spacing: 0.4px;
-    }
+.logo {
+  color: white;
+  font-weight: 700;
+  font-size: 18px;
+  letter-spacing: 0.3px;
+}
 
-    .nav-actions {
-      display: flex;
-      gap: 14px;
-      align-items: center;
-    }
+.nav-links a {
+  color: #cbd5f5;
+  text-decoration: none;
+  margin-left: 22px;
+  font-size: 14px;
+}
 
-    .login-link {
-      color: var(--text-muted);
-      font-size: 14px;
-    }
+.nav-links a.primary {
+  background: var(--primary);
+  color: white;
+  padding: 8px 14px;
+  border-radius: 999px;
+}
 
-    .cta-btn {
-      background: linear-gradient(135deg, var(--primary), var(--secondary));
-      color: #020617;
-      padding: 10px 18px;
-      border-radius: 999px;
-      font-weight: 600;
-      font-size: 14px;
-    }
+/* =========================
+   HERO
+========================= */
+.hero {
+  background: linear-gradient(
+    180deg,
+    #0b0d12 0%,
+    #0b0d12 60%,
+    #f8fafc 60%,
+    #f8fafc 100%
+  );
+}
 
-    /* HERO */
-    .hero {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 90px 24px 70px;
-      text-align: center;
-    }
+.hero-inner {
+  max-width: 1200px;
+  margin: auto;
+  padding: 120px 24px 80px;
+}
 
-    .hero h1 {
-      font-size: clamp(36px, 5vw, 56px);
-      font-weight: 800;
-      margin-bottom: 18px;
-      letter-spacing: -0.02em;
-    }
+.hero h1 {
+  color: white;
+  font-size: clamp(40px, 5vw, 64px);
+  line-height: 1.1;
+  font-weight: 800;
+  max-width: 760px;
+}
 
-    .hero p {
-      color: var(--text-muted);
-      max-width: 720px;
-      margin: 0 auto 36px;
-      font-size: 18px;
-    }
+.hero p {
+  margin-top: 22px;
+  color: #cbd5f5;
+  max-width: 620px;
+  font-size: 18px;
+}
 
-    .hero-buttons {
-      display: flex;
-      justify-content: center;
-      gap: 16px;
-      flex-wrap: wrap;
-    }
+.hero-cta {
+  margin-top: 36px;
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
 
-    .secondary-btn {
-      border: 1px solid var(--border-soft);
-      padding: 12px 20px;
-      border-radius: 999px;
-      color: var(--text-main);
-      font-size: 14px;
-    }
+.hero-cta a {
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 15px;
+  padding: 12px 20px;
+  border-radius: 10px;
+}
 
-    /* FORM SECTION */
-    .form-section {
-      max-width: 700px;
-      margin: 0 auto;
-      padding: 60px 24px;
-    }
+.hero-cta .primary {
+  background: var(--primary);
+  color: white;
+}
 
-    .card {
-      background: var(--card-bg);
-      border: 1px solid var(--border-soft);
-      border-radius: 16px;
-      padding: 36px;
-    }
+.hero-cta .secondary {
+  border: 1px solid rgba(255,255,255,0.2);
+  color: white;
+}
 
-    .card h2 {
-      font-size: 26px;
-      margin-bottom: 10px;
-    }
+/* =========================
+   SECTION BASE
+========================= */
+.section {
+  background: var(--surface);
+  padding: 90px 24px;
+}
 
-    .card p {
-      color: var(--text-muted);
-      margin-bottom: 28px;
-    }
+.section-inner {
+  max-width: 1200px;
+  margin: auto;
+}
 
-    form {
-      display: grid;
-      gap: 16px;
-    }
+.section h2 {
+  font-size: 36px;
+  font-weight: 700;
+  margin-bottom: 16px;
+}
 
-    input, textarea {
-      background: #020617;
-      border: 1px solid var(--border-soft);
-      padding: 14px 16px;
-      border-radius: 10px;
-      color: var(--text-main);
-      font-size: 14px;
-    }
+.section p.lead {
+  max-width: 680px;
+  color: var(--text-muted);
+  font-size: 18px;
+  margin-bottom: 48px;
+}
 
-    textarea {
-      resize: none;
-      height: 120px;
-    }
+/* =========================
+   FEATURES GRID
+========================= */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 32px;
+}
 
-    button {
-      background: linear-gradient(135deg, var(--primary), var(--secondary));
-      border: none;
-      padding: 14px;
-      border-radius: 10px;
-      font-weight: 700;
-      cursor: pointer;
-      color: #020617;
-    }
+.card {
+  background: var(--surface-soft);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 28px;
+}
 
-    /* FAQ */
-    .faq {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 70px 24px;
-    }
+.card h3 {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
 
-    .faq h2 {
-      text-align: center;
-      font-size: 34px;
-      margin-bottom: 40px;
-    }
+.card p {
+  color: var(--text-muted);
+  font-size: 15px;
+}
 
-    .faq-item {
-      background: var(--card-bg);
-      border: 1px solid var(--border-soft);
-      border-radius: 14px;
-      padding: 22px;
-      margin-bottom: 16px;
-    }
+/* =========================
+   HOW IT WORKS
+========================= */
+.steps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 40px;
+}
 
-    .faq-item h3 {
-      font-size: 18px;
-      margin-bottom: 8px;
-    }
+.step {
+  padding-left: 4px;
+}
 
-    .faq-item p {
-      color: var(--text-muted);
-      font-size: 15px;
-    }
+.step span {
+  display: block;
+  color: var(--primary);
+  font-weight: 700;
+  margin-bottom: 6px;
+}
 
-    /* FOOTER */
-    footer {
-      border-top: 1px solid var(--border-soft);
-      padding: 40px 24px;
-      text-align: center;
-      color: var(--text-muted);
-      font-size: 14px;
-    }
+.step h4 {
+  font-size: 18px;
+  margin-bottom: 6px;
+}
 
-    footer strong {
-      color: var(--text-main);
-    }
-  </style>
+/* =========================
+   FAQ
+========================= */
+.faq {
+  max-width: 900px;
+}
+
+.faq-item {
+  border-top: 1px solid var(--border);
+  padding: 18px 0;
+}
+
+.faq-item h4 {
+  font-size: 16px;
+  margin-bottom: 6px;
+}
+
+.faq-item p {
+  color: var(--text-muted);
+  font-size: 15px;
+}
+
+/* =========================
+   FOOTER
+========================= */
+footer {
+  background: var(--bg);
+  color: #cbd5f5;
+  padding: 50px 24px;
+}
+
+.footer-inner {
+  max-width: 1200px;
+  margin: auto;
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+.footer-inner strong {
+  color: white;
+}
+</style>
 </head>
 
 <body>
 
-  <!-- NAV -->
-  <header class="navbar">
+<!-- NAVBAR -->
+<header class="navbar">
+  <div class="nav-inner">
     <div class="logo">Ragelite</div>
-    <div class="nav-actions">
-      <a href="#" class="login-link">Login</a>
-      <a href="#" class="cta-btn">Create Account</a>
-    </div>
-  </header>
+    <nav class="nav-links">
+      <a href="login.html">Login</a>
+      <a href="signup.html" class="primary">Create account</a>
+    </nav>
+  </div>
+</header>
 
-  <!-- HERO -->
-  <section class="hero">
-    <h1>AI Growth Platform for Serious Businesses</h1>
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <h1>AI infrastructure for advertising growth</h1>
     <p>
-      Design, launch, and scale customer acquisition across Meta & Google.
-      Ragelite handles strategy, execution, and optimization — automatically.
+      Ragelite is an autonomous AI platform that designs, launches,
+      and optimizes Meta & Google Ads — replacing agencies with software.
+    </p>
+    <div class="hero-cta">
+      <a href="signup.html" class="primary">Start with Ragelite</a>
+      <a href="#how" class="secondary">How it works</a>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="section">
+  <div class="section-inner">
+    <h2>Built for performance, not guesswork</h2>
+    <p class="lead">
+      Ragelite automates strategy, execution, and optimization —
+      so teams can focus on product and revenue.
     </p>
 
-    <div class="hero-buttons">
-      <a href="#signup" class="cta-btn">Join Early Access</a>
-      <a href="#faq" class="secondary-btn">How it Works</a>
+    <div class="grid">
+      <div class="card">
+        <h3>Campaign automation</h3>
+        <p>Create full ad campaigns from a simple business description.</p>
+      </div>
+      <div class="card">
+        <h3>Continuous optimization</h3>
+        <p>Budgets, targeting, and creatives improve automatically.</p>
+      </div>
+      <div class="card">
+        <h3>Cross-platform AI</h3>
+        <p>Run Meta and Google Ads from a single intelligent system.</p>
+      </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- SIGNUP FORM -->
-  <section id="signup" class="form-section">
-    <div class="card">
-      <h2>Get Early Access</h2>
-      <p>
-        Be among the first teams to launch campaigns powered by autonomous AI.
-      </p>
-
-      <form action="https://formspree.io/f/xzdzqerj" method="POST">
-        <input type="text" name="name" placeholder="Your name" required />
-        <input type="email" name="email" placeholder="Your email" required />
-        <textarea name="message" placeholder="What are you trying to grow?"></textarea>
-        <button type="submit">Request Access</button>
-      </form>
-    </div>
-  </section>
-
-  <!-- FAQ -->
-  <section id="faq" class="faq">
-    <h2>Frequently Asked Questions</h2>
-
-    <div class="faq-item">
-      <h3>Is Ragelite an agency?</h3>
-      <p>
-        No. Ragelite is a product. Our AI replaces manual ad management by
-        continuously learning and optimizing campaigns on its own.
-      </p>
-    </div>
-
-    <div class="faq-item">
-      <h3>Do I need ad experience?</h3>
-      <p>
-        Not at all. Ragelite is built for founders and teams without performance
-        marketing expertise.
-      </p>
-    </div>
-
-    <div class="faq-item">
-      <h3>Which platforms are supported?</h3>
-      <p>
-        Meta (Facebook & Instagram) and Google Ads at launch. More coming soon.
-      </p>
-    </div>
-
-    <div class="faq-item">
-      <h3>When will Ragelite be available?</h3>
-      <p>
-        We are onboarding early users right now. Join early access to get priority.
-      </p>
-    </div>
-  </section>
-
-  <!-- FOOTER -->
-  <footer>
-    <p>
-      Founded by <strong>Raj Bundela</strong>, <strong>Ashwani Singh</strong> & <strong>Karan Pal</strong>
+<!-- HOW IT WORKS -->
+<section id="how" class="section">
+  <div class="section-inner">
+    <h2>How Ragelite works</h2>
+    <p class="lead">
+      A simple workflow designed for founders and lean teams.
     </p>
+
+    <div class="steps">
+      <div class="step">
+        <span>01</span>
+        <h4>Describe your business</h4>
+        <p>Share your product, audience, and goal.</p>
+      </div>
+      <div class="step">
+        <span>02</span>
+        <h4>AI builds campaigns</h4>
+        <p>Ragelite creates ads, targeting, and budgets.</p>
+      </div>
+      <div class="step">
+        <span>03</span>
+        <h4>Optimize continuously</h4>
+        <p>The system learns and improves results automatically.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section">
+  <div class="section-inner faq">
+    <h2>Frequently asked questions</h2>
+
+    <div class="faq-item">
+      <h4>Is Ragelite an agency?</h4>
+      <p>No. Ragelite is a software platform powered by AI.</p>
+    </div>
+
+    <div class="faq-item">
+      <h4>Do I need advertising experience?</h4>
+      <p>No. Ragelite is designed for non-marketers.</p>
+    </div>
+
+    <div class="faq-item">
+      <h4>Which platforms are supported?</h4>
+      <p>Meta (Facebook & Instagram) and Google Ads.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
     <p>
-      Contact: <a href="mailto:ragelitecorporation@gmail.com">ragelitecorporation@gmail.com</a>
+      Founded by <strong>Raj Bundela</strong>,
+      <strong>Ashwani Singh</strong> & <strong>Karan Pal</strong>
     </p>
+    <p>Contact: ragelitecorporation@gmail.com</p>
     <p>© 2026 Ragelite Corporation</p>
-  </footer>
+  </div>
+</footer>
 
 </body>
 </html>
+
 
 
 

@@ -248,6 +248,60 @@ footer{
 
 /* ===== SCROLL ANIMATION ===== */
 .hidden{opacity:0}
+  /* ===== TESTIMONIALS ===== */
+.testimonials{
+  text-align:center;
+}
+
+.testimonials h2{
+  font-size:42px;
+  margin-bottom:10px;
+}
+
+.test-sub{
+  max-width:720px;
+  margin:0 auto 50px;
+  color:var(--muted);
+  font-size:18px;
+}
+
+.test-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:32px;
+}
+
+.test-card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:22px;
+  padding:36px;
+  backdrop-filter:blur(16px);
+  transition:.6s;
+  text-align:left;
+}
+
+.test-card:hover{
+  border-color:var(--accent);
+  box-shadow:0 0 50px rgba(34,211,238,.25);
+}
+
+.quote{
+  font-size:16px;
+  line-height:1.6;
+  color:#eaf2ff;
+}
+
+.author{
+  margin-top:22px;
+}
+
+.author span{
+  display:block;
+  font-size:14px;
+  color:var(--muted);
+}
+
 </style>
 </head>
 
@@ -294,6 +348,51 @@ footer{
   <section>
   <div class="how">
     <h2>How Ragelite Works</h2>
+    <section>
+  <div class="testimonials">
+    <h2>Trusted by Early Teams</h2>
+    <p class="test-sub">
+      Founders and growth teams are already using Ragelite
+      to simplify and scale their advertising.
+    </p>
+
+    <div class="test-grid">
+      <div class="test-card hidden">
+        <p class="quote">
+          “Ragelite feels like having an in-house growth team.
+          We launched campaigns in minutes without any ad expertise.”
+        </p>
+        <div class="author">
+          <strong>Ankit Sharma</strong>
+          <span>Startup Founder</span>
+        </div>
+      </div>
+
+      <div class="test-card hidden">
+        <p class="quote">
+          “The AI-driven approach is impressive.
+          It removed complexity and helped us focus on our product.”
+        </p>
+        <div class="author">
+          <strong>Riya Verma</strong>
+          <span>Marketing Lead</span>
+        </div>
+      </div>
+
+      <div class="test-card hidden">
+        <p class="quote">
+          “We replaced freelancers and tools with Ragelite.
+          The automation and insights are on another level.”
+        </p>
+        <div class="author">
+          <strong>Mohit Jain</strong>
+          <span>Early User</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
     <p class="how-sub">
       Launch high-performing ads in minutes. Ragelite’s AI handles strategy,
       execution, and optimization — automatically.

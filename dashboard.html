@@ -30,6 +30,7 @@ if (localStorage.getItem("ragelite_logged_in") !== "true") {
 
 
 <header>
+  <a href="#" onclick="logout()" style="color:#22d3ee;">Logout</a>
   <a href="index.html">Home</a>
   <a href="dashboard.html">Dashboard</a>
   <a href="create-campaign.html">Create Campaign</a>
@@ -59,6 +60,13 @@ if (localStorage.getItem("ragelite_logged_in") !== "true") {
 
   <a class="btn" href="create-campaign.html">+ Create New Campaign</a>
 </div>
+  <script>
+function logout() {
+  localStorage.removeItem("ragelite_logged_in");
+  window.location.href = "login.html";
+}
+</script>
+
 
 </body>
 </html>

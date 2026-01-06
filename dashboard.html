@@ -5,69 +5,46 @@
 <title>Dashboard — Ragelite</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<script>
+if(localStorage.getItem("ragelite_logged_in")!=="true"){
+  window.location="login.html";
+}
+</script>
+
 <style>
-body{margin:0;background:#050b14;color:#eaf2ff;font-family:Inter,Arial}
+body{margin:0;font-family:Arial;background:#050b14;color:#eaf2ff}
 header{padding:20px;border-bottom:1px solid #1f2937}
-header a{color:#eaf2ff;text-decoration:none;margin-right:15px;font-weight:600}
+header a{color:#eaf2ff;text-decoration:none;margin-right:15px;font-weight:bold}
 .container{padding:40px}
-.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px}
 .card{background:#0b1b33;padding:24px;border-radius:16px}
-.table{margin-top:40px;background:#0b1b33;border-radius:16px;overflow:hidden}
-.row{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;padding:14px;border-bottom:1px solid #1f2937}
-.row.header{color:#9fb3d1;font-size:14px}
-.btn{display:inline-block;margin-top:30px;padding:12px 26px;border-radius:999px;
-background:#22d3ee;color:#020617;font-weight:700;text-decoration:none}
 </style>
 </head>
 
 <body>
-
-  <script>
-if (localStorage.getItem("ragelite_logged_in") !== "true") {
-  window.location.href = "login.html";
-}
-</script>
-
-
 <header>
-  <a href="#" onclick="logout()" style="color:#22d3ee;">Logout</a>
-  <a href="index.html">Home</a>
   <a href="dashboard.html">Dashboard</a>
   <a href="create-campaign.html">Create Campaign</a>
+  <a href="#" onclick="logout()">Logout</a>
 </header>
 
 <div class="container">
   <h1>Dashboard</h1>
 
   <div class="cards">
-    <div class="card"><h3>Active Campaigns</h3><p>3</p></div>
-    <div class="card"><h3>Monthly Spend</h3><p>$2,140</p></div>
-    <div class="card"><h3>Leads Generated</h3><p>286</p></div>
-    <div class="card"><h3>AI Status</h3><p style="color:#22d3ee">Optimizing</p></div>
+    <div class="card"><h3>Campaigns</h3><p>3</p></div>
+    <div class="card"><h3>Spend</h3><p>$1,250</p></div>
+    <div class="card"><h3>Leads</h3><p>198</p></div>
   </div>
-
-  <div class="table">
-    <div class="row header">
-      <div>Campaign</div><div>Platform</div><div>Status</div><div>Spend</div>
-    </div>
-    <div class="row">
-      <div>Lead Gen – India</div><div>Meta</div><div>Running</div><div>$840</div>
-    </div>
-    <div class="row">
-      <div>Website Traffic</div><div>Google</div><div>Running</div><div>$620</div>
-    </div>
-  </div>
-
-  <a class="btn" href="create-campaign.html">+ Create New Campaign</a>
 </div>
-  <script>
-function logout() {
+
+<script>
+function logout(){
   localStorage.removeItem("ragelite_logged_in");
-  window.location.href = "login.html";
+  window.location="login.html";
 }
 </script>
-
-
 </body>
 </html>
+
 

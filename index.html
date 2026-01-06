@@ -6,6 +6,52 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
+  /* ===== HOW IT WORKS ===== */
+.how{
+  text-align:center;
+}
+
+.how h2{
+  font-size:42px;
+  margin-bottom:10px;
+}
+
+.how-sub{
+  max-width:720px;
+  margin:0 auto 50px;
+  color:var(--muted);
+  font-size:18px;
+}
+
+.how-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:32px;
+}
+
+.how-card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:22px;
+  padding:34px;
+  backdrop-filter:blur(16px);
+  transition:.6s;
+}
+
+.how-card:hover{
+  border-color:var(--accent);
+  box-shadow:0 0 45px rgba(34,211,238,.3);
+}
+
+.step{
+  display:inline-block;
+  font-size:14px;
+  font-weight:700;
+  letter-spacing:1px;
+  color:var(--accent);
+  margin-bottom:10px;
+}
+
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap');
 
 :root{
@@ -245,6 +291,45 @@ footer{
     </div>
   </div>
 </section>
+  <section>
+  <div class="how">
+    <h2>How Ragelite Works</h2>
+    <p class="how-sub">
+      Launch high-performing ads in minutes. Ragelite’s AI handles strategy,
+      execution, and optimization — automatically.
+    </p>
+
+    <div class="how-grid">
+      <div class="how-card hidden">
+        <span class="step">01</span>
+        <h3>Describe Your Business</h3>
+        <p>
+          Share what you do, your goal, and budget.
+          No ad experience required.
+        </p>
+      </div>
+
+      <div class="how-card hidden">
+        <span class="step">02</span>
+        <h3>AI Builds Campaigns</h3>
+        <p>
+          Ragelite creates ads, targeting, and creatives
+          across Meta & Google.
+        </p>
+      </div>
+
+      <div class="how-card hidden">
+        <span class="step">03</span>
+        <h3>Continuous Optimization</h3>
+        <p>
+          Our AI monitors performance and improves results
+          24/7 — automatically.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
 
 <footer>
   Founded by <strong>Raj Bundela</strong>, <strong>Ashwani Singh</strong> & <strong>Karan Pal</strong><br>

@@ -1,53 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Ragelite — AI Advertising Infrastructure</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ragelite — AI Growth Platform</title>
 
 <style>
-/* =========================
+/* =======================
    DESIGN SYSTEM
-========================= */
+======================= */
 :root {
-  --bg-dark: #0b0d12;
-  --bg-light: #ffffff;
-  --surface: #f8fafc;
-  --border: #e5e7eb;
-  --text-dark: #0f172a;
-  --text-muted: #475569;
-  --primary: #635bff;
-  --primary-dark: #4f46e5;
-  --radius: 14px;
+  --bg-main: #050b14;
+  --bg-panel: #0b1b33;
+  --border: rgba(255,255,255,0.12);
+  --text-main: #eaf2ff;
+  --text-muted: #9fb3d1;
+  --accent: #22d3ee;
+  --accent-2: #3b82f6;
+  --radius: 18px;
 }
 
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
-    Inter, Roboto, Helvetica, Arial, sans-serif;
+  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
 }
 
 body {
-  background: var(--bg-dark);
-  color: var(--text-dark);
+  background: radial-gradient(circle at top left, #0b1b33, #050b14);
+  color: var(--text-main);
   line-height: 1.6;
 }
 
-/* =========================
+/* =======================
    NAVBAR
-========================= */
-.navbar {
+======================= */
+header {
   position: sticky;
   top: 0;
   z-index: 100;
-  background: rgba(11,13,18,0.85);
-  backdrop-filter: blur(10px);
-  border-bottom: 1px solid rgba(255,255,255,0.08);
+  background: rgba(5,11,20,0.85);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--border);
 }
 
-.nav-inner {
+.nav {
   max-width: 1200px;
   margin: auto;
   padding: 18px 24px;
@@ -57,123 +55,95 @@ body {
 }
 
 .logo {
-  color: white;
-  font-weight: 700;
-  font-size: 18px;
+  font-weight: 800;
+  font-size: 20px;
+  letter-spacing: .5px;
 }
 
-.nav-links a {
-  color: #cbd5f5;
+.nav a {
+  color: var(--text-main);
   text-decoration: none;
-  margin-left: 22px;
+  margin-left: 18px;
   font-size: 14px;
 }
 
-.nav-links a.primary {
-  background: var(--primary);
-  color: white;
-  padding: 8px 14px;
+.nav .primary {
+  padding: 10px 20px;
   border-radius: 999px;
-  transition: background .2s ease;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  color: #020617;
+  font-weight: 600;
 }
 
-.nav-links a.primary:hover {
-  background: var(--primary-dark);
-}
-
-/* =========================
+/* =======================
    HERO
-========================= */
+======================= */
 .hero {
-  background: linear-gradient(
-    180deg,
-    #0b0d12 0%,
-    #0b0d12 55%,
-    #ffffff 55%,
-    #ffffff 100%
-  );
-}
-
-.hero-inner {
   max-width: 1200px;
   margin: auto;
-  padding: 120px 24px 80px;
+  padding: 100px 24px 80px;
 }
 
 .hero h1 {
-  color: white;
-  font-size: clamp(42px, 5vw, 64px);
-  line-height: 1.1;
-  font-weight: 800;
+  font-size: clamp(40px, 5vw, 64px);
+  line-height: 1.05;
   max-width: 760px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
   opacity: 0;
-  transform: translateY(16px);
-  animation: fadeUp .8s ease forwards;
+  animation: fadeUp .9s ease forwards;
 }
 
 .hero p {
   margin-top: 22px;
-  color: #cbd5f5;
   max-width: 620px;
-  font-size: 18px;
+  color: var(--text-muted);
+  font-size: 19px;
   opacity: 0;
-  transform: translateY(16px);
-  animation: fadeUp .8s ease forwards;
+  animation: fadeUp .9s ease forwards;
   animation-delay: .15s;
 }
 
-.hero-cta {
+.hero-actions {
   margin-top: 36px;
   display: flex;
   gap: 16px;
   flex-wrap: wrap;
   opacity: 0;
-  transform: translateY(16px);
-  animation: fadeUp .8s ease forwards;
+  animation: fadeUp .9s ease forwards;
   animation-delay: .3s;
 }
 
-.hero-cta a {
+.hero-actions a {
   text-decoration: none;
+  padding: 14px 28px;
+  border-radius: 999px;
   font-weight: 600;
-  font-size: 15px;
-  padding: 12px 20px;
-  border-radius: 10px;
 }
 
-.hero-cta .primary {
-  background: var(--primary);
-  color: white;
-  transition: transform .15s ease, box-shadow .15s ease;
+.hero-actions .primary {
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  color: #020617;
 }
 
-.hero-cta .primary:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 6px 20px rgba(99,91,255,.35);
+.hero-actions .secondary {
+  border: 1px solid var(--border);
+  color: var(--text-main);
 }
 
-.hero-cta .secondary {
-  border: 1px solid rgba(255,255,255,0.25);
-  color: white;
-}
-
-/* =========================
-   SECTIONS
-========================= */
+/* =======================
+   SECTION BASE
+======================= */
 .section {
-  background: var(--bg-light);
-  padding: 90px 24px;
-}
-
-.section-inner {
   max-width: 1200px;
   margin: auto;
+  padding: 80px 24px;
 }
 
 .section h2 {
-  font-size: 36px;
-  font-weight: 700;
-  margin-bottom: 16px;
+  font-size: 38px;
+  margin-bottom: 14px;
 }
 
 .section p.lead {
@@ -183,23 +153,23 @@ body {
   margin-bottom: 48px;
 }
 
-/* =========================
-   FEATURE GRID
-========================= */
+/* =======================
+   CARDS / FEATURES
+======================= */
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 32px;
+  gap: 28px;
 }
 
 .card {
-  background: var(--surface);
+  background: rgba(255,255,255,0.05);
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  padding: 28px;
+  padding: 32px;
   opacity: 0;
-  transform: translateY(20px);
-  transition: transform .4s ease, opacity .4s ease;
+  transform: translateY(24px);
+  transition: .5s ease;
 }
 
 .card.show {
@@ -208,7 +178,6 @@ body {
 }
 
 .card h3 {
-  font-size: 18px;
   margin-bottom: 10px;
 }
 
@@ -217,19 +186,19 @@ body {
   font-size: 15px;
 }
 
-/* =========================
+/* =======================
    HOW IT WORKS
-========================= */
+======================= */
 .steps {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 40px;
+  gap: 36px;
 }
 
 .step {
   opacity: 0;
-  transform: translateY(20px);
-  transition: .4s ease;
+  transform: translateY(24px);
+  transition: .5s ease;
 }
 
 .step.show {
@@ -238,61 +207,64 @@ body {
 }
 
 .step span {
-  display: block;
-  color: var(--primary);
+  color: var(--accent);
   font-weight: 700;
-  margin-bottom: 6px;
 }
 
-.step h4 {
-  font-size: 18px;
-  margin-bottom: 6px;
+/* =======================
+   STATS
+======================= */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 28px;
 }
 
-/* =========================
+.stat {
+  text-align: center;
+}
+
+.stat h3 {
+  font-size: 44px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.stat p {
+  color: var(--text-muted);
+}
+
+/* =======================
    FAQ
-========================= */
-.faq {
-  max-width: 900px;
-}
-
+======================= */
 .faq-item {
   border-top: 1px solid var(--border);
   padding: 18px 0;
 }
 
 .faq-item h4 {
-  font-size: 16px;
   margin-bottom: 6px;
 }
 
-.faq-item p {
-  color: var(--text-muted);
-  font-size: 15px;
-}
-
-/* =========================
+/* =======================
    FOOTER
-========================= */
+======================= */
 footer {
-  background: var(--bg-dark);
-  color: #cbd5f5;
+  border-top: 1px solid var(--border);
   padding: 50px 24px;
-}
-
-.footer-inner {
-  max-width: 1200px;
-  margin: auto;
+  text-align: center;
+  color: var(--text-muted);
   font-size: 14px;
 }
 
-.footer-inner strong {
-  color: white;
+footer strong {
+  color: var(--text-main);
 }
 
-/* =========================
-   ANIMATION
-========================= */
+/* =======================
+   ANIMATIONS
+======================= */
 @keyframes fadeUp {
   to {
     opacity: 1;
@@ -304,100 +276,80 @@ footer {
 
 <body>
 
-<!-- NAV -->
-<header class="navbar">
-  <div class="nav-inner">
+<header>
+  <div class="nav">
     <div class="logo">Ragelite</div>
-    <nav class="nav-links">
+    <div>
       <a href="login.html">Login</a>
-      <a href="signup.html" class="primary">Create account</a>
-    </nav>
+      <a href="signup.html" class="primary">Create Account</a>
+    </div>
   </div>
 </header>
 
-<!-- HERO -->
 <section class="hero">
-  <div class="hero-inner">
-    <h1>AI infrastructure for advertising growth</h1>
-    <p>
-      Ragelite is an autonomous AI platform that designs, launches,
-      and optimizes Meta & Google Ads — replacing agencies with software.
-    </p>
-    <div class="hero-cta">
-      <a href="signup.html" class="primary">Start with Ragelite</a>
-      <a href="#how" class="secondary">How it works</a>
-    </div>
+  <h1>Autonomous AI for Advertising Growth</h1>
+  <p>
+    Ragelite designs, launches, and optimizes Meta & Google Ads automatically —
+    replacing agencies with intelligent software.
+  </p>
+  <div class="hero-actions">
+    <a href="signup.html" class="primary">Get Started</a>
+    <a href="#how" class="secondary">How it works</a>
   </div>
 </section>
 
-<!-- FEATURES -->
 <section class="section">
-  <div class="section-inner">
-    <h2>Built for performance</h2>
-    <p class="lead">
-      Strategy, execution, and optimization — fully automated.
-    </p>
+  <h2>Built for serious growth</h2>
+  <p class="lead">
+    Strategy, execution, and optimization — fully automated by AI.
+  </p>
 
-    <div class="grid">
-      <div class="card"> <h3>Campaign automation</h3><p>Create ads from a single prompt.</p> </div>
-      <div class="card"> <h3>Continuous optimization</h3><p>Budgets and targeting improve automatically.</p> </div>
-      <div class="card"> <h3>Cross-platform AI</h3><p>Run Meta & Google Ads from one system.</p> </div>
-    </div>
+  <div class="grid">
+    <div class="card"><h3>AI Campaign Creation</h3><p>Launch ads from a simple business description.</p></div>
+    <div class="card"><h3>Self-Optimizing Engine</h3><p>Budgets and targeting improve continuously.</p></div>
+    <div class="card"><h3>Cross-Platform Ads</h3><p>Meta & Google managed from one system.</p></div>
   </div>
 </section>
 
-<!-- HOW IT WORKS -->
 <section id="how" class="section">
-  <div class="section-inner">
-    <h2>How Ragelite works</h2>
-    <p class="lead">Simple by design. Powerful by default.</p>
+  <h2>How Ragelite works</h2>
+  <p class="lead">Simple input. Powerful automation.</p>
 
-    <div class="steps">
-      <div class="step"><span>01</span><h4>Describe your business</h4><p>Share product, goal, and audience.</p></div>
-      <div class="step"><span>02</span><h4>AI builds campaigns</h4><p>Creatives, targeting, and budgets.</p></div>
-      <div class="step"><span>03</span><h4>Optimize continuously</h4><p>The system learns and improves.</p></div>
-    </div>
+  <div class="steps">
+    <div class="step"><span>01</span><h4>Describe your business</h4><p>Share goals and audience.</p></div>
+    <div class="step"><span>02</span><h4>AI builds campaigns</h4><p>Creatives, targeting, budgets.</p></div>
+    <div class="step"><span>03</span><h4>Optimize continuously</h4><p>Performance improves 24/7.</p></div>
   </div>
 </section>
 
-<!-- FAQ -->
 <section class="section">
-  <div class="section-inner faq">
-    <h2>Frequently asked questions</h2>
-
-    <div class="faq-item">
-      <h4>Is Ragelite an agency?</h4>
-      <p>No. Ragelite is software, not a service.</p>
-    </div>
-
-    <div class="faq-item">
-      <h4>Do I need ad experience?</h4>
-      <p>No. Ragelite is designed for founders.</p>
-    </div>
-
-    <div class="faq-item">
-      <h4>Which platforms are supported?</h4>
-      <p>Meta and Google Ads.</p>
-    </div>
+  <h2>Ragelite in action</h2>
+  <div class="stats">
+    <div class="stat"><h3>3,200+</h3><p>Leads Generated</p></div>
+    <div class="stat"><h3>$125k+</h3><p>Ad Spend Optimized</p></div>
+    <div class="stat"><h3>18k+</h3><p>AI Decisions</p></div>
+    <div class="stat"><h3>48</h3><p>Active Campaigns</p></div>
   </div>
 </section>
 
-<!-- FOOTER -->
+<section class="section">
+  <h2>Frequently asked questions</h2>
+
+  <div class="faq-item"><h4>Is Ragelite an agency?</h4><p>No. Ragelite is a product powered by AI.</p></div>
+  <div class="faq-item"><h4>Do I need ad experience?</h4><p>No. It’s built for non-marketers.</p></div>
+  <div class="faq-item"><h4>Which platforms are supported?</h4><p>Meta and Google Ads.</p></div>
+</section>
+
 <footer>
-  <div class="footer-inner">
-    <p>
-      Founded by <strong>Raj Bundela</strong>,
-      <strong>Ashwani Singh</strong> & <strong>Karan Pal</strong>
-    </p>
-    <p>Contact: ragelitecorporation@gmail.com</p>
-    <p>© 2026 Ragelite Corporation</p>
-  </div>
+  <p>Founded by <strong>Raj Bundela</strong>, <strong>Ashwani Singh</strong> & <strong>Karan Pal</strong></p>
+  <p>ragelitecorporation@gmail.com</p>
+  <p>© 2026 Ragelite Corporation</p>
 </footer>
 
 <script>
 const observer = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) entry.target.classList.add("show");
+  entries.forEach(e => {
+    if (e.isIntersecting) e.target.classList.add("show");
   });
 }, { threshold: 0.2 });
 
@@ -406,6 +358,7 @@ document.querySelectorAll(".card, .step").forEach(el => observer.observe(el));
 
 </body>
 </html>
+
 
 
 

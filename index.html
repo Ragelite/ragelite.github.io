@@ -350,8 +350,33 @@ footer{
   color:var(--muted);
   font-size:15px;
 }
+/* ===== MOBILE NAV FIX ===== */
+@media (max-width: 640px) {
+  header {
+    padding: 14px 16px;
+  }
 
+  .logo {
+    font-size: 18px;
+  }
 
+  nav {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  nav a {
+    margin-left: 0;
+    font-size: 14px;
+    padding: 8px 14px;
+  }
+
+  .primary {
+    padding: 8px 16px;
+    font-size: 14px;
+  }
+}
 
 </style>
 </head>

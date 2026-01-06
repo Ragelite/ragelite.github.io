@@ -2,78 +2,50 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Create Account — Ragelite</title>
+<title>Signup — Ragelite</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
 body{
-  margin:0;
-  font-family:Inter,Arial,sans-serif;
-  background:radial-gradient(circle at top left,#0b1b33,#050b14);
-  color:#eaf2ff;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  height:100vh;
+  margin:0;font-family:Arial;
+  background:#050b14;color:#eaf2ff;
+  display:flex;justify-content:center;align-items:center;height:100vh
 }
 .card{
-  background:#0b1b33;
-  padding:40px;
-  border-radius:20px;
-  width:100%;
-  max-width:420px;
-  box-shadow:0 20px 60px rgba(0,0,0,.4);
+  background:#0b1b33;padding:40px;border-radius:18px;
+  width:100%;max-width:400px;text-align:center
 }
-h1{text-align:center;margin-bottom:8px}
-p{text-align:center;color:#9fb3d1;margin-bottom:28px}
-input{
-  width:100%;
-  padding:14px;
-  border-radius:10px;
-  border:none;
-  margin-bottom:16px;
-}
+input{width:100%;padding:14px;margin-bottom:16px;border:none;border-radius:10px}
 button{
-  width:100%;
-  padding:14px;
-  border-radius:999px;
-  border:none;
-  background:linear-gradient(90deg,#22d3ee,#3b82f6);
-  font-weight:700;
-  cursor:pointer;
-}
-.link{
-  text-align:center;
-  margin-top:18px;
-  font-size:14px;
+  width:100%;padding:14px;border:none;border-radius:30px;
+  background:#22d3ee;font-weight:bold;cursor:pointer
 }
 a{color:#22d3ee;text-decoration:none}
 </style>
 </head>
 
 <body>
-
 <div class="card">
-  <h1>Create Account</h1>
-  <p>Start using Ragelite AI</p>
+  <h2>Create Account</h2>
+  <p style="color:#9fb3d1">Start using Ragelite</p>
 
-  <input type="text" placeholder="Full name">
-  <input type="email" placeholder="Email address">
-  <input type="password" placeholder="Password">
+  <input placeholder="Full Name">
+  <input placeholder="Email">
+  <input placeholder="Password" type="password">
 
-  <button onclick="go()">Create Account</button>
+  <button onclick="signup()">Create Account</button>
 
-  <div class="link">
-    Already have an account?
-    <a href="login.html">Log in</a>
-  </div>
+  <p style="margin-top:16px">
+    Already have an account? <a href="login.html">Log in</a>
+  </p>
 </div>
 
 <script>
-function go(){
+function signup(){
+  localStorage.setItem("ragelite_logged_in","true");
   window.location="dashboard.html";
 }
 </script>
-
 </body>
 </html>
+

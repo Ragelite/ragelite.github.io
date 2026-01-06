@@ -1,565 +1,302 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Ragelite — Autonomous AI Growth</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ragelite — AI Growth Platform</title>
 
-<style>
-  /* ===== HOW IT WORKS ===== */
-.how{
-  text-align:center;
-}
+  <style>
+    :root {
+      --bg-dark: #020617;
+      --bg-gradient: linear-gradient(135deg, #020617, #020b2d, #031a2e);
+      --primary: #22d3ee;
+      --secondary: #60a5fa;
+      --text-main: #e5e7eb;
+      --text-muted: #9ca3af;
+      --card-bg: rgba(255, 255, 255, 0.04);
+      --border-soft: rgba(255, 255, 255, 0.08);
+    }
 
-.how h2{
-  font-size:42px;
-  margin-bottom:10px;
-}
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, sans-serif;
+    }
 
-.how-sub{
-  max-width:720px;
-  margin:0 auto 50px;
-  color:var(--muted);
-  font-size:18px;
-}
+    body {
+      background: var(--bg-gradient);
+      color: var(--text-main);
+      line-height: 1.6;
+    }
 
-.how-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-  gap:32px;
-}
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
 
-.how-card{
-  background:var(--card);
-  border:1px solid var(--border);
-  border-radius:22px;
-  padding:34px;
-  backdrop-filter:blur(16px);
-  transition:.6s;
-}
+    /* NAVBAR */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 18px 48px;
+      border-bottom: 1px solid var(--border-soft);
+    }
 
-.how-card:hover{
-  border-color:var(--accent);
-  box-shadow:0 0 45px rgba(34,211,238,.3);
-}
+    .logo {
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: 0.4px;
+    }
 
-.step{
-  display:inline-block;
-  font-size:14px;
-  font-weight:700;
-  letter-spacing:1px;
-  color:var(--accent);
-  margin-bottom:10px;
-}
+    .nav-actions {
+      display: flex;
+      gap: 14px;
+      align-items: center;
+    }
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap');
+    .login-link {
+      color: var(--text-muted);
+      font-size: 14px;
+    }
 
-:root{
-  --bg:#050b14;
-  --card:rgba(255,255,255,0.07);
-  --border:rgba(255,255,255,0.14);
-  --text:#eaf2ff;
-  --muted:#9fb3d1;
-  --accent:#22d3ee;
-  --accent2:#3b82f6;
-}
+    .cta-btn {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: #020617;
+      padding: 10px 18px;
+      border-radius: 999px;
+      font-weight: 600;
+      font-size: 14px;
+    }
 
-*{
-  box-sizing:border-box;
-  font-family:'Inter',sans-serif;
-}
+    /* HERO */
+    .hero {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 90px 24px 70px;
+      text-align: center;
+    }
 
-body{
-  margin:0;
-  background:radial-gradient(circle at top left,#0b1b33,#050b14);
-  color:var(--text);
-  overflow-x:hidden;
-}
+    .hero h1 {
+      font-size: clamp(36px, 5vw, 56px);
+      font-weight: 800;
+      margin-bottom: 18px;
+      letter-spacing: -0.02em;
+    }
 
-/* ===== BACKGROUND GLOW ===== */
-.glow,.glow2{
-  position:fixed;
-  width:700px;
-  height:700px;
-  border-radius:50%;
-  filter:blur(160px);
-  opacity:.45;
-  z-index:-1;
-  animation: float 10s ease-in-out infinite;
-}
-.glow{
-  background:#22d3ee;
-  top:-300px;
-  right:-300px;
-}
-.glow2{
-  background:#3b82f6;
-  bottom:-300px;
-  left:-300px;
-  animation-delay:4s;
-}
+    .hero p {
+      color: var(--text-muted);
+      max-width: 720px;
+      margin: 0 auto 36px;
+      font-size: 18px;
+    }
 
-@keyframes float{
-  0%,100%{transform:translateY(0)}
-  50%{transform:translateY(-40px)}
-}
+    .hero-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
 
-/* ===== NAVBAR ===== */
-header{
-  position:fixed;
-  top:0;left:0;right:0;
-  padding:18px 32px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  background:rgba(5,11,20,.75);
-  backdrop-filter:blur(16px);
-  border-bottom:1px solid var(--border);
-  z-index:100;
-}
+    .secondary-btn {
+      border: 1px solid var(--border-soft);
+      padding: 12px 20px;
+      border-radius: 999px;
+      color: var(--text-main);
+      font-size: 14px;
+    }
 
-.logo{
-  font-size:20px;
-  font-weight:800;
-  letter-spacing:.5px;
-}
+    /* FORM SECTION */
+    .form-section {
+      max-width: 700px;
+      margin: 0 auto;
+      padding: 60px 24px;
+    }
 
-nav a{
-  color:var(--text);
-  text-decoration:none;
-  margin-left:18px;
-  font-weight:600;
-}
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-soft);
+      border-radius: 16px;
+      padding: 36px;
+    }
 
-.primary{
-  padding:10px 22px;
-  border-radius:999px;
-  background:linear-gradient(90deg,var(--accent),var(--accent2));
-  color:#020617;
-  box-shadow:0 0 30px rgba(34,211,238,.45);
-  transition:.3s;
-}
-.primary:hover{
-  box-shadow:0 0 60px rgba(59,130,246,.7);
-}
+    .card h2 {
+      font-size: 26px;
+      margin-bottom: 10px;
+    }
 
-/* ===== HERO ===== */
-.hero{
-  padding:170px 20px 120px;
-  text-align:center;
-  max-width:1100px;
-  margin:auto;
-}
+    .card p {
+      color: var(--text-muted);
+      margin-bottom: 28px;
+    }
 
-.hero h1{
-  font-size:68px;
-  line-height:1.05;
-  margin-bottom:20px;
-  background:linear-gradient(90deg,var(--accent),var(--accent2));
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-  animation: slideUp .9s ease forwards;
-}
+    form {
+      display: grid;
+      gap: 16px;
+    }
 
-.hero p{
-  max-width:760px;
-  margin:auto;
-  font-size:20px;
-  color:var(--muted);
-  opacity:0;
-  animation: slideUp .9s ease forwards;
-  animation-delay:.2s;
-}
+    input, textarea {
+      background: #020617;
+      border: 1px solid var(--border-soft);
+      padding: 14px 16px;
+      border-radius: 10px;
+      color: var(--text-main);
+      font-size: 14px;
+    }
 
-@keyframes slideUp{
-  from{opacity:0;transform:translateY(30px)}
-  to{opacity:1;transform:translateY(0)}
-}
+    textarea {
+      resize: none;
+      height: 120px;
+    }
 
-.cta{
-  margin-top:40px;
-  opacity:0;
-  animation: slideUp .9s ease forwards;
-  animation-delay:.4s;
-}
+    button {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      border: none;
+      padding: 14px;
+      border-radius: 10px;
+      font-weight: 700;
+      cursor: pointer;
+      color: #020617;
+    }
 
-.cta a{
-  display:inline-block;
-  padding:18px 36px;
-  border-radius:999px;
-  font-weight:700;
-  text-decoration:none;
-  background:linear-gradient(90deg,var(--accent),var(--accent2));
-  color:#020617;
-  box-shadow:0 0 40px rgba(34,211,238,.5);
-  transition:.3s;
-}
-.cta a:hover{
-  transform:scale(1.05);
-  box-shadow:0 0 70px rgba(59,130,246,.8);
-}
+    /* FAQ */
+    .faq {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 70px 24px;
+    }
 
-/* ===== FEATURES ===== */
-section{
-  max-width:1100px;
-  margin:auto;
-  padding:80px 20px;
-}
+    .faq h2 {
+      text-align: center;
+      font-size: 34px;
+      margin-bottom: 40px;
+    }
 
-.grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-  gap:30px;
-}
+    .faq-item {
+      background: var(--card-bg);
+      border: 1px solid var(--border-soft);
+      border-radius: 14px;
+      padding: 22px;
+      margin-bottom: 16px;
+    }
 
-.card{
-  background:var(--card);
-  border:1px solid var(--border);
-  border-radius:22px;
-  padding:32px;
-  backdrop-filter:blur(16px);
-  transform:translateY(30px);
-  opacity:0;
-  transition:.6s;
-}
+    .faq-item h3 {
+      font-size: 18px;
+      margin-bottom: 8px;
+    }
 
-.card.show{
-  transform:translateY(0);
-  opacity:1;
-}
+    .faq-item p {
+      color: var(--text-muted);
+      font-size: 15px;
+    }
 
-.card:hover{
-  border-color:var(--accent);
-  box-shadow:0 0 40px rgba(34,211,238,.25);
-}
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--border-soft);
+      padding: 40px 24px;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 14px;
+    }
 
-.card p{
-  color:var(--muted);
-}
-
-/* ===== FOOTER ===== */
-footer{
-  padding:70px 20px;
-  text-align:center;
-  color:var(--muted);
-  border-top:1px solid var(--border);
-  font-size:14px;
-}
-
-/* ===== SCROLL ANIMATION ===== */
-.hidden{opacity:0}
-  /* ===== TESTIMONIALS ===== */
-.testimonials{
-  text-align:center;
-}
-
-.testimonials h2{
-  font-size:42px;
-  margin-bottom:10px;
-}
-
-.test-sub{
-  max-width:720px;
-  margin:0 auto 50px;
-  color:var(--muted);
-  font-size:18px;
-}
-
-.test-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-  gap:32px;
-}
-
-.test-card{
-  background:var(--card);
-  border:1px solid var(--border);
-  border-radius:22px;
-  padding:36px;
-  backdrop-filter:blur(16px);
-  transition:.6s;
-  text-align:left;
-}
-
-.test-card:hover{
-  border-color:var(--accent);
-  box-shadow:0 0 50px rgba(34,211,238,.25);
-}
-
-.quote{
-  font-size:16px;
-  line-height:1.6;
-  color:#eaf2ff;
-}
-
-.author{
-  margin-top:22px;
-}
-
-.author span{
-  display:block;
-  font-size:14px;
-  color:var(--muted);
-}
-  /* ===== STATS ===== */
-.stats{
-  text-align:center;
-}
-
-.stats h2{
-  font-size:42px;
-  margin-bottom:10px;
-}
-
-.stats-sub{
-  max-width:720px;
-  margin:0 auto 50px;
-  color:var(--muted);
-  font-size:18px;
-}
-
-.stats-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-  gap:32px;
-}
-
-.stat-card{
-  background:var(--card);
-  border:1px solid var(--border);
-  border-radius:22px;
-  padding:40px 20px;
-  backdrop-filter:blur(16px);
-  transition:.6s;
-}
-
-.stat-card:hover{
-  border-color:var(--accent);
-  box-shadow:0 0 45px rgba(34,211,238,.3);
-}
-
-.stat-card h3{
-  font-size:46px;
-  margin:0;
-  background:linear-gradient(90deg,var(--accent),var(--accent2));
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-}
-
-.stat-card p{
-  margin-top:10px;
-  color:var(--muted);
-  font-size:15px;
-}
-
-
-</style>
+    footer strong {
+      color: var(--text-main);
+    }
+  </style>
 </head>
 
 <body>
 
-<div class="glow"></div>
-<div class="glow2"></div>
-
-<header>
-  <div class="logo">Ragelite</div>
-  <nav>
-    <a href="login.html">Login</a>
-    <a href="signup.html" class="primary">Create Account</a>
-  </nav>
-</header>
-
-<div class="hero">
-  <h1>Autonomous AI<br>for Business Growth</h1>
-  <p>
-    Ragelite designs, launches, and optimizes Meta & Google Ads automatically —
-    replacing agencies with intelligent automation.
-  </p>
-  <div class="cta">
-    <a href="signup.html">Get Started with AI</a>
-  </div>
-</div>
-
-<section>
-  <div class="grid">
-    <div class="card hidden">
-      <h3>AI Campaign Creation</h3>
-      <p>Create complete ad campaigns from a single business description.</p>
+  <!-- NAV -->
+  <header class="navbar">
+    <div class="logo">Ragelite</div>
+    <div class="nav-actions">
+      <a href="#" class="login-link">Login</a>
+      <a href="#" class="cta-btn">Create Account</a>
     </div>
-    <div class="card hidden">
-      <h3>Self-Optimizing Engine</h3>
-      <p>Budgets, creatives, and targeting improve continuously.</p>
-    </div>
-    <div class="card hidden">
-      <h3>Built for Scale</h3>
-      <p>From startups to global businesses, Ragelite grows with you.</p>
-    </div>
-  </div>
-</section>
-  <section>
-  <div class="how">
-    <h2>How Ragelite Works</h2>
-    <section>
-  <div class="testimonials">
-    <h2>Trusted by Early Teams</h2>
-    <p class="test-sub">
-      Founders and growth teams are already using Ragelite
-      to simplify and scale their advertising.
-    </p>
-    <section>
-  <div class="stats">
-    <h2>Ragelite in Action</h2>
-    <p class="stats-sub">
-      Our AI is already helping teams launch, optimize,
-      and scale advertising performance.
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <h1>AI Growth Platform for Serious Businesses</h1>
+    <p>
+      Design, launch, and scale customer acquisition across Meta & Google.
+      Ragelite handles strategy, execution, and optimization — automatically.
     </p>
 
-    <div class="stats-grid">
-      <div class="stat-card hidden">
-        <h3><span class="counter" data-target="125000">0</span>+</h3>
-        <p>Ad Spend Optimized ($)</p>
-      </div>
-
-      <div class="stat-card hidden">
-        <h3><span class="counter" data-target="3200">0</span>+</h3>
-        <p>Leads Generated</p>
-      </div>
-
-      <div class="stat-card hidden">
-        <h3><span class="counter" data-target="18400">0</span>+</h3>
-        <p>AI Decisions Made</p>
-      </div>
-
-      <div class="stat-card hidden">
-        <h3><span class="counter" data-target="48">0</span></h3>
-        <p>Active Campaigns</p>
-      </div>
+    <div class="hero-buttons">
+      <a href="#signup" class="cta-btn">Join Early Access</a>
+      <a href="#faq" class="secondary-btn">How it Works</a>
     </div>
-  </div>
-</section>
+  </section>
 
+  <!-- SIGNUP FORM -->
+  <section id="signup" class="form-section">
+    <div class="card">
+      <h2>Get Early Access</h2>
+      <p>
+        Be among the first teams to launch campaigns powered by autonomous AI.
+      </p>
 
-    <div class="test-grid">
-      <div class="test-card hidden">
-        <p class="quote">
-          “Ragelite feels like having an in-house growth team.
-          We launched campaigns in minutes without any ad expertise.”
-        </p>
-        <div class="author">
-          <strong>Ankit Sharma</strong>
-          <span>Startup Founder</span>
-        </div>
-      </div>
-
-      <div class="test-card hidden">
-        <p class="quote">
-          “The AI-driven approach is impressive.
-          It removed complexity and helped us focus on our product.”
-        </p>
-        <div class="author">
-          <strong>Riya Verma</strong>
-          <span>Marketing Lead</span>
-        </div>
-      </div>
-
-      <div class="test-card hidden">
-        <p class="quote">
-          “We replaced freelancers and tools with Ragelite.
-          The automation and insights are on another level.”
-        </p>
-        <div class="author">
-          <strong>Mohit Jain</strong>
-          <span>Early User</span>
-        </div>
-      </div>
+      <form action="https://formspree.io/f/xzdzqerj" method="POST">
+        <input type="text" name="name" placeholder="Your name" required />
+        <input type="email" name="email" placeholder="Your email" required />
+        <textarea name="message" placeholder="What are you trying to grow?"></textarea>
+        <button type="submit">Request Access</button>
+      </form>
     </div>
-  </div>
-</section>
+  </section>
 
-    <p class="how-sub">
-      Launch high-performing ads in minutes. Ragelite’s AI handles strategy,
-      execution, and optimization — automatically.
+  <!-- FAQ -->
+  <section id="faq" class="faq">
+    <h2>Frequently Asked Questions</h2>
+
+    <div class="faq-item">
+      <h3>Is Ragelite an agency?</h3>
+      <p>
+        No. Ragelite is a product. Our AI replaces manual ad management by
+        continuously learning and optimizing campaigns on its own.
+      </p>
+    </div>
+
+    <div class="faq-item">
+      <h3>Do I need ad experience?</h3>
+      <p>
+        Not at all. Ragelite is built for founders and teams without performance
+        marketing expertise.
+      </p>
+    </div>
+
+    <div class="faq-item">
+      <h3>Which platforms are supported?</h3>
+      <p>
+        Meta (Facebook & Instagram) and Google Ads at launch. More coming soon.
+      </p>
+    </div>
+
+    <div class="faq-item">
+      <h3>When will Ragelite be available?</h3>
+      <p>
+        We are onboarding early users right now. Join early access to get priority.
+      </p>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>
+      Founded by <strong>Raj Bundela</strong>, <strong>Ashwani Singh</strong> & <strong>Karan Pal</strong>
     </p>
-
-    <div class="how-grid">
-      <div class="how-card hidden">
-        <span class="step">01</span>
-        <h3>Describe Your Business</h3>
-        <p>
-          Share what you do, your goal, and budget.
-          No ad experience required.
-        </p>
-      </div>
-
-      <div class="how-card hidden">
-        <span class="step">02</span>
-        <h3>AI Builds Campaigns</h3>
-        <p>
-          Ragelite creates ads, targeting, and creatives
-          across Meta & Google.
-        </p>
-      </div>
-
-      <div class="how-card hidden">
-        <span class="step">03</span>
-        <h3>Continuous Optimization</h3>
-        <p>
-          Our AI monitors performance and improves results
-          24/7 — automatically.
-        </p>
-      </div>
-    </div>
-  </div>
-</section>
-
-
-<footer>
-  Founded by <strong>Raj Bundela</strong>, <strong>Ashwani Singh</strong> & <strong>Karan Pal</strong><br>
-  © 2026 Ragelite Corporation · ragelitecorporation@gmail.com
-</footer>
-
-<script>
-const counters = document.querySelectorAll(".counter");
-let started = false;
-
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add("show");
-
-      if (!started && entry.target.querySelector(".counter")) {
-        startCounters();
-        started = true;
-      }
-    }
-  });
-}, { threshold: 0.25 });
-
-document.querySelectorAll(".hidden").forEach(el => observer.observe(el));
-
-function startCounters() {
-  counters.forEach(counter => {
-    const target = +counter.dataset.target;
-    let current = 0;
-    const increment = Math.ceil(target / 120);
-
-    const update = () => {
-      current += increment;
-      if (current < target) {
-        counter.innerText = current.toLocaleString();
-        requestAnimationFrame(update);
-      } else {
-        counter.innerText = target.toLocaleString();
-      }
-    };
-    update();
-  });
-}
-</script>
-
+    <p>
+      Contact: <a href="mailto:ragelitecorporation@gmail.com">ragelitecorporation@gmail.com</a>
+    </p>
+    <p>© 2026 Ragelite Corporation</p>
+  </footer>
 
 </body>
 </html>
+
 
 
 

@@ -412,11 +412,26 @@ footer{
 
 <header>
   <div class="logo">Ragelite</div>
-  <nav>
+
+  <!-- HAMBURGER BUTTON (THIS WAS MISSING) -->
+  <div class="hamburger"
+       role="button"
+       tabindex="0"
+       aria-label="Toggle navigation menu"
+       aria-expanded="false"
+       onclick="toggleMenu()"
+       onkeydown="handleHamburgerKey(event)">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+
+  <nav id="mobileNav">
     <a href="login.html">Login</a>
     <a href="signup.html" class="primary">Create Account</a>
   </nav>
 </header>
+
 
 <div class="hero">
   <h1>Autonomous AI<br>for Business Growth</h1>

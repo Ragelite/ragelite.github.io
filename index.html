@@ -686,12 +686,44 @@ function startCounters() {
     update();
   });
 }
-</script>
-  <script>
+<script>
+const hamburger = document.querySelector(".hamburger");
+const mobileNav = document.getElementById("mobileNav");
+
 function toggleMenu() {
-  document.getElementById("mobileNav").classList.toggle("show");
+  const isOpen = mobileNav.classList.toggle("show");
+  hamburger.classList.toggle("active", isOpen);
+  hamburger.setAttribute("aria-expanded", isOpen);
 }
+
+// Keyboard support
+function handleHamburgerKey(event) {
+  if (event.key === "Enter" || event.key === " ") {
+    event.preventDefault();
+    toggleMenu();
+  }
+}
+
+// Close on link click
+mobileNav.querySelectorAll("a").forEach(link => {
+  link.addEventListener("click", () => {
+    mobileNav.classList.remove("show");
+    hamburger.classList.remove("active");
+    hamburger.setAttribute("aria-expanded", "false");
+  });
+});
+
+// Close on Escape
+document.addEventListener("keydown", e => {
+  if (e.key === "Escape" && mobileNav.classList.contains("show")) {
+    mobileNav.classList.remove("show");
+    hamburger.classList.remove("active");
+    hamburger.setAttribute("aria-expanded", "false");
+    hamburger.focus();
+  }
+});
 </script>
+
 
 </body>
 </html>

@@ -7,6 +7,7 @@
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap');
+  
 
 :root{
   --bg:#050b14;
@@ -374,6 +375,28 @@ footer{
   .primary {
     padding: 8px 16px;
     font-size: 14px;
+  }
+}
+/* ===== MOBILE HERO TEXT SCALING ===== */
+@media (max-width: 640px) {
+  .hero {
+    padding-top: 120px;
+    padding-bottom: 80px;
+  }
+
+  .hero h1 {
+    font-size: 38px;
+    line-height: 1.1;
+  }
+
+  .hero p {
+    font-size: 16px;
+    margin-top: 14px;
+  }
+
+  .cta a {
+    padding: 14px 24px;
+    font-size: 15px;
   }
 }
 

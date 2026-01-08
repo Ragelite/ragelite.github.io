@@ -683,7 +683,18 @@ a:active, button:active {
   opacity: 1;
   transform: translateY(0);
 }
-  
+  /* ===== ACCESSIBLE FOCUS STYLES ===== */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 8px;
+}
+
+button:focus:not(:focus-visible),
+a:focus:not(:focus-visible) {
+  outline: none;
+}
+
 </style>
 </head>
 
@@ -1068,7 +1079,7 @@ document.querySelectorAll(".faq-question").forEach(btn => {
 
       <button type="submit" class="primary full-btn">
         <span class="btn-text">Continue</span>
-        <span class="loader"></span>
+      <span class="loader" aria-live="polite" aria-label="Loading"></span>
       </button>
     </form>
 
@@ -1137,6 +1148,7 @@ btn.setAttribute("aria-busy", "true");
   setTimeout(() => {
     btn.classList.remove("loading");
     alert(authMode === "login" ? "Logged in (demo)" : "Account created (demo)");
+    btn.removeAttribute("aria-busy");
     closeAuth();
   }, 1400);
 }

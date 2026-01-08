@@ -454,6 +454,7 @@ footer{
   }
 }
 
+
   #mobileNav.show {
     padding: 24px 0;
     max-height: 300px;
@@ -793,7 +794,17 @@ a:focus:not(:focus-visible) {
   </div>
 </section>
 
+<section>
+  <div class="testimonials">
+    <h2>Trusted by Early Teams</h2>
+
+    <p class="test-sub">
+      Founders and growth teams are already using Ragelite
+      to simplify and scale their advertising.
+    </p>
+
     <div class="test-grid">
+
       <div class="test-card hidden">
         <p class="quote">
           “Ragelite feels like having an in-house growth team.
@@ -826,9 +837,11 @@ a:focus:not(:focus-visible) {
           <span>Early User</span>
         </div>
       </div>
+
     </div>
   </div>
 </section>
+
     <section>
   <div class="stats">
     <h2>Ragelite in Action</h2>
@@ -915,17 +928,6 @@ a:focus:not(:focus-visible) {
 
   </div>
 </section>
-
-
-    <div class="how">
-      <div class="how-card hidden">
-        <span class="step">01</span>
-        <h3>Describe Your Business</h3>
-        <p>
-          Share what you do, your goal, and budget.
-          No ad experience required.
-        </p>
-      </div>
 
       <div class="how-card hidden">
         <span class="step">02</span>
@@ -1037,7 +1039,8 @@ document.querySelectorAll(".faq-question").forEach(btn => {
 
     document.querySelectorAll(".faq-item").forEach(i => {
       i.classList.remove("open");
-      i.querySelector(".faq-question").setAttribute("aria-expanded", "false");
+      i.querySelector(".faq-question")
+       .setAttribute("aria-expanded", "false");
     });
 
     if (!isOpen) {
@@ -1053,9 +1056,10 @@ document.querySelectorAll(".faq-question").forEach(btn => {
     }
   });
 });
-
-
+</script>
+  
   // Keyboard accessibility
+  <script>
   btn.addEventListener("keydown", e => {
     if (e.key === "Enter" || e.key === " ") {
       e.preventDefault();
@@ -1106,9 +1110,9 @@ function openAuth(mode) {
   updateAuthText();
 
   // Focus first input
-  setTimeout btn.removeAttribute("aria-busy"); => {
-    overlay.querySelector("input").focus();
-  }, 100);
+setTimeout(() => {
+  overlay.querySelector("input").focus();
+}, 100);
 }
 
 function closeAuth() {

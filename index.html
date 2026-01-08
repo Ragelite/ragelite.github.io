@@ -434,27 +434,22 @@ footer{
   transition: max-height .4s ease, opacity .3s ease;
 }
 
-@media (max-width: 640px) {
+@media (min-width: 641px) {
   .hamburger {
-    display: flex;
+    display: none;
   }
 
   #mobileNav {
-    position: absolute;
-    top: 64px;
-    left: 0;
-    right: 0;
-    background: rgba(5,11,20,.95);
-    backdrop-filter: blur(12px);
-    flex-direction: column;
-    align-items: center;
+    position: static;
+    max-height: none;
+    opacity: 1;
+    display: flex;
+    flex-direction: row;
     gap: 18px;
-    padding: 0;
-    max-height: 0;
-    overflow: hidden;
-    opacity: 0;
-    border-bottom: 1px solid var(--border);
+    background: none;
+    border: none;
   }
+}
 
   #mobileNav.show {
     padding: 24px 0;
@@ -659,7 +654,7 @@ footer{
 <header>
   <div class="logo">Ragelite</div>
 
-  <!-- HAMBURGER BUTTON (THIS WAS MISSING) -->
+  <!-- Hamburger -->
   <div class="hamburger"
        role="button"
        tabindex="0"
@@ -671,11 +666,14 @@ footer{
     <span></span>
     <span></span>
   </div>
+
+  <!-- Navigation -->
   <nav id="mobileNav">
-  <a href="#" onclick="openAuth('login')">Login</a>
-  <a href="#" onclick="openAuth('signup')" class="primary">Create Account</a>
-</nav>
+    <a href="#" onclick="openAuth('login')">Login</a>
+    <a href="#" class="primary" onclick="openAuth('signup')">Create Account</a>
+  </nav>
 </header>
+
 
 
 <div class="hero">

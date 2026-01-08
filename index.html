@@ -7,6 +7,7 @@
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap');
+  
 
 :root{
   --bg:#050b14;
@@ -17,8 +18,14 @@
   --accent:#22d3ee;
   --accent2:#3b82f6;
 }
+  body.modal-open {
+  overflow: hidden;
+}
 
-*{box-sizing:border-box;font-family:'Inter',sans-serif}
+*{
+  box-sizing:border-box;
+  font-family:'Inter',sans-serif;
+}
 
 body{
   margin:0;
@@ -27,27 +34,38 @@ body{
   overflow-x:hidden;
 }
 
-body.modal-open{overflow:hidden}
-
-/* BACKGROUND */
+/* ===== BACKGROUND GLOW ===== */
 .glow,.glow2{
   position:fixed;
-  width:700px;height:700px;
+  width:700px;
+  height:700px;
   border-radius:50%;
   filter:blur(160px);
   opacity:.45;
   z-index:-1;
-  animation:float 10s ease-in-out infinite;
+  animation: float 10s ease-in-out infinite;
 }
-.glow{background:#22d3ee;top:-300px;right:-300px}
-.glow2{background:#3b82f6;bottom:-300px;left:-300px;animation-delay:4s}
+.glow{
+  background:#22d3ee;
+  top:-300px;
+  right:-300px;
+}
+.glow2{
+  background:#3b82f6;
+  bottom:-300px;
+  left:-300px;
+  animation-delay:4s;
+}
 
-@keyframes float{50%{transform:translateY(-40px)}}
+@keyframes float{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-40px)}
+}
 
-/* NAVBAR */
+/* ===== NAVBAR ===== */
 header{
   position:fixed;
-  inset:0 0 auto 0;
+  top:0;left:0;right:0;
   padding:18px 32px;
   display:flex;
   justify-content:space-between;
@@ -58,13 +76,16 @@ header{
   z-index:100;
 }
 
-.logo{font-size:20px;font-weight:800}
-
-nav{display:flex;gap:18px}
+.logo{
+  font-size:20px;
+  font-weight:800;
+  letter-spacing:.5px;
+}
 
 nav a{
   color:var(--text);
   text-decoration:none;
+  margin-left:18px;
   font-weight:600;
 }
 
@@ -74,32 +95,13 @@ nav a{
   background:linear-gradient(90deg,var(--accent),var(--accent2));
   color:#020617;
   box-shadow:0 0 30px rgba(34,211,238,.45);
+  transition:.3s;
+}
+.primary:hover{
+  box-shadow:0 0 60px rgba(59,130,246,.7);
 }
 
-/* HAMBURGER */
-.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer}
-.hamburger span{width:26px;height:3px;background:#fff;border-radius:2px;transition:.3s}
-.hamburger.active span:nth-child(1){transform:translateY(8px) rotate(45deg)}
-.hamburger.active span:nth-child(2){opacity:0}
-.hamburger.active span:nth-child(3){transform:translateY(-8px) rotate(-45deg)}
-
-@media(max-width:640px){
-  .hamburger{display:flex}
-  nav{
-    position:absolute;
-    top:64px;left:0;right:0;
-    background:#050b14;
-    flex-direction:column;
-    align-items:center;
-    max-height:0;
-    overflow:hidden;
-    opacity:0;
-    transition:.4s;
-  }
-  nav.show{max-height:300px;opacity:1;padding:20px 0}
-}
-
-/* HERO */
+/* ===== HERO ===== */
 .hero{
   padding:170px 20px 120px;
   text-align:center;
@@ -109,91 +111,591 @@ nav a{
 
 .hero h1{
   font-size:68px;
+  line-height:1.05;
+  margin-bottom:20px;
   background:linear-gradient(90deg,var(--accent),var(--accent2));
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
+  animation: slideUp .9s ease forwards;
 }
 
-.hero p{max-width:760px;margin:auto;font-size:20px;color:var(--muted)}
-
-@media(max-width:640px){
-  .hero h1{font-size:38px}
-  .hero p{font-size:16px}
+.hero p{
+  max-width:760px;
+  margin:auto;
+  font-size:20px;
+  color:var(--muted);
+  opacity:0;
+  animation: slideUp .9s ease forwards;
+  animation-delay:.2s;
 }
 
-/* SECTIONS */
-section{max-width:1100px;margin:auto;padding:80px 20px}
+@keyframes slideUp{
+  from{opacity:0;transform:translateY(30px)}
+  to{opacity:1;transform:translateY(0)}
+}
 
-.grid,.how-grid,.test-grid,.stats-grid{
+.cta{
+  margin-top:40px;
+  opacity:0;
+  animation: slideUp .9s ease forwards;
+  animation-delay:.4s;
+}
+
+.cta a{
+  display:inline-block;
+  padding:18px 36px;
+  border-radius:999px;
+  font-weight:700;
+  text-decoration:none;
+  background:linear-gradient(90deg,var(--accent),var(--accent2));
+  color:#020617;
+  box-shadow:0 0 40px rgba(34,211,238,.5);
+  transition:.3s;
+}
+.cta a:hover{
+  transform:scale(1.05);
+  box-shadow:0 0 70px rgba(59,130,246,.8);
+}
+
+/* ===== FEATURES ===== */
+section{
+  max-width:1100px;
+  margin:auto;
+  padding:80px 20px;
+}
+
+.grid{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
   gap:30px;
 }
 
-.card,.how-card,.test-card,.stat-card{
+.card{
   background:var(--card);
   border:1px solid var(--border);
   border-radius:22px;
   padding:32px;
   backdrop-filter:blur(16px);
-  transition:.4s;
+  transform:translateY(30px);
+  opacity:0;
+  transition:.6s;
 }
 
-.card:hover,.how-card:hover,.test-card:hover,.stat-card:hover{
-  transform:translateY(-6px);
+.card.show{
+  transform:translateY(0);
+  opacity:1;
+}
+
+.card:hover{
   border-color:var(--accent);
+  box-shadow:0 0 40px rgba(34,211,238,.25);
 }
 
-/* FAQ */
-.faq{text-align:center}
-.faq-list{text-align:left}
-.faq-item{border:1px solid var(--border);border-radius:18px;margin-bottom:18px}
-.faq-question{
-  width:100%;
-  background:none;
-  border:none;
-  padding:22px;
-  font-size:17px;
-  color:#fff;
-  display:flex;
-  justify-content:space-between;
-  cursor:pointer;
+.card p{
+  color:var(--muted);
 }
-.faq-answer{max-height:0;overflow:hidden;padding:0 22px;color:var(--muted);transition:.3s}
-.faq-item.open .faq-answer{max-height:300px;padding-bottom:22px}
 
-/* FOOTER */
-footer{text-align:center;color:var(--muted);border-top:1px solid var(--border);padding:60px 20px}
-
-/* AUTH MODAL */
-.auth-overlay{
-  position:fixed;inset:0;
-  background:rgba(5,11,20,.85);
-  display:none;
-  align-items:center;
-  justify-content:center;
-  z-index:999;
+/* ===== FOOTER ===== */
+footer{
+  padding:70px 20px;
+  text-align:center;
+  color:var(--muted);
+  border-top:1px solid var(--border);
+  font-size:14px;
 }
-.auth-overlay.show{display:flex}
 
-.auth-modal{
+/* ===== SCROLL ANIMATION ===== */
+.hidden{opacity:0}
+  /* ===== HOW IT WORKS ===== */
+.how{
+  text-align:center;
+}
+
+.how h2{
+  font-size:42px;
+  margin-bottom:10px;
+}
+
+.how-sub{
+  max-width:720px;
+  margin:0 auto 50px;
+  color:var(--muted);
+  font-size:18px;
+}
+
+.how-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:32px;
+}
+
+.how-card{
   background:var(--card);
   border:1px solid var(--border);
   border-radius:22px;
-  padding:40px;
-  max-width:420px;
-  width:100%;
+  padding:34px;
+  backdrop-filter:blur(16px);
+  transition:.6s;
 }
 
-.auth-modal input{
-  width:100%;
-  padding:14px;
-  margin-bottom:14px;
-  border-radius:12px;
-  background:#000;
-  border:1px solid var(--border);
-  color:#fff;
+.how-card:hover{
+  border-color:var(--accent);
+  box-shadow:0 0 45px rgba(34,211,238,.3);
 }
+
+.step{
+  display:inline-block;
+  font-size:14px;
+  font-weight:700;
+  letter-spacing:1px;
+  color:var(--accent);
+  margin-bottom:10px;
+}
+  /* ===== TESTIMONIALS ===== */
+.testimonials{
+  text-align:center;
+}
+
+.testimonials h2{
+  font-size:42px;
+  margin-bottom:10px;
+}
+
+.test-sub{
+  max-width:720px;
+  margin:0 auto 50px;
+  color:var(--muted);
+  font-size:18px;
+}
+
+.test-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:32px;
+}
+
+.test-card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:22px;
+  padding:36px;
+  backdrop-filter:blur(16px);
+  transition:.6s;
+  text-align:left;
+}
+
+.test-card:hover{
+  border-color:var(--accent);
+  box-shadow:0 0 50px rgba(34,211,238,.25);
+}
+
+.quote{
+  font-size:16px;
+  line-height:1.6;
+  color:#eaf2ff;
+}
+
+.author{
+  margin-top:22px;
+}
+
+.author span{
+  display:block;
+  font-size:14px;
+  color:var(--muted);
+}
+  /* ===== STATS ===== */
+.stats{
+  text-align:center;
+}
+
+.stats h2{
+  font-size:42px;
+  margin-bottom:10px;
+}
+
+.stats-sub{
+  max-width:720px;
+  margin:0 auto 50px;
+  color:var(--muted);
+  font-size:18px;
+}
+
+.stats-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:32px;
+}
+
+.stat-card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:22px;
+  padding:40px 20px;
+  backdrop-filter:blur(16px);
+  transition:.6s;
+}
+
+.stat-card:hover{
+  border-color:var(--accent);
+  box-shadow:0 0 45px rgba(34,211,238,.3);
+}
+
+.stat-card h3{
+  font-size:46px;
+  margin:0;
+  background:linear-gradient(90deg,var(--accent),var(--accent2));
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+
+.stat-card p{
+  margin-top:10px;
+  color:var(--muted);
+  font-size:15px;
+}
+/* ===== MOBILE NAV FIX ===== */
+@media (max-width: 640px) {
+  header {
+    padding: 14px 16px;
+  }
+
+  .logo {
+    font-size: 18px;
+  }
+
+  nav {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  nav a {
+    margin-left: 0;
+    font-size: 14px;
+    padding: 8px 14px;
+  }
+
+  .primary {
+    padding: 8px 16px;
+    font-size: 14px;
+  }
+}
+/* ===== MOBILE HERO TEXT SCALING ===== */
+@media (max-width: 640px) {
+  .hero {
+    padding-top: 120px;
+    padding-bottom: 80px;
+  }
+
+  .hero h1 {
+    font-size: 38px;
+    line-height: 1.1;
+  }
+
+  .hero p {
+    font-size: 16px;
+    margin-top: 14px;
+  }
+
+  .cta a {
+    padding: 14px 24px;
+    font-size: 15px;
+  }
+}
+/* ===== HAMBURGER ICON ===== */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+}
+
+.hamburger span {
+  width: 26px;
+  height: 3px;
+  background: var(--text);
+  border-radius: 2px;
+  transition: .3s ease;
+}
+
+/* Animate to X */
+.hamburger.active span:nth-child(1) {
+  transform: translateY(8px) rotate(45deg);
+}
+
+.hamburger.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+  transform: translateY(-8px) rotate(-45deg);
+}
+
+/* ===== MOBILE NAV ANIMATION ===== */
+#mobileNav {
+  transition: max-height .4s ease, opacity .3s ease;
+}
+
+@media (min-width: 641px) {
+  .hamburger {
+    display: none;
+  }
+
+  #mobileNav {
+    position: static;
+    max-height: none;
+    opacity: 1;
+    display: flex;
+    flex-direction: row;
+    gap: 18px;
+    background: none;
+    border: none;
+  }
+}
+
+
+  #mobileNav.show {
+    padding: 24px 0;
+    max-height: 300px;
+    opacity: 1;
+  }
+
+  #mobileNav a {
+    margin: 0;
+    font-size: 16px;
+  }
+}
+/* ===== FAQ ===== */
+.faq {
+  max-width: 900px;
+  margin: auto;
+  padding: 80px 20px;
+  text-align: center;
+}
+
+.faq h2 {
+  font-size: 42px;
+  margin-bottom: 10px;
+}
+
+.faq-sub {
+  color: var(--muted);
+  margin-bottom: 50px;
+  font-size: 18px;
+}
+
+.faq-list {
+  text-align: left;
+}
+
+.faq-item {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  margin-bottom: 18px;
+  overflow: hidden;
+  transition: border .3s;
+}
+
+.faq-item:hover {
+  border-color: var(--accent);
+}
+
+.faq-question {
+  width: 100%;
+  background: none;
+  border: none;
+  color: var(--text);
+  padding: 22px 24px;
+  font-size: 17px;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+}
+
+.faq-question:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+}
+
+.arrow {
+  font-size: 22px;
+  transition: transform .3s ease;
+}
+
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  padding: 0 24px;
+  color: var(--muted);
+  line-height: 1.6;
+  transition: max-height .35s ease, padding .35s ease;
+}
+
+/* Open state */
+.faq-item.open .faq-answer {
+  max-height: 300px;
+  padding: 0 24px 22px;
+}
+
+.faq-item.open .arrow {
+  transform: rotate(45deg);
+}
+  /* ===== AUTH MODAL ===== */
+.auth-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(5,11,20,.85);
+  backdrop-filter: blur(10px);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+.auth-overlay.show {
+  display: flex;
+}
+
+.auth-modal {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  padding: 40px 32px;
+  width: 100%;
+  max-width: 420px;
+  position: relative;
+  animation: slideUp .4s ease;
+}
+
+.auth-modal h2 {
+  margin-top: 0;
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.auth-modal input {
+  width: 100%;
+  padding: 14px 16px;
+  margin-bottom: 14px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: rgba(255,255,255,.04);
+  color: var(--text);
+  font-size: 15px;
+}
+
+.auth-modal input:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.full-btn {
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.loader {
+  width: 18px;
+  height: 18px;
+  border: 2px solid rgba(0,0,0,.3);
+  border-top-color: #020617;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  display: none;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.loading .btn-text {
+  visibility: hidden;
+}
+
+.loading .loader {
+  display: inline-block;
+}
+
+.auth-close {
+  position: absolute;
+  top: 14px;
+  right: 18px;
+  background: none;
+  border: none;
+  color: var(--text);
+  font-size: 26px;
+  cursor: pointer;
+}
+
+.auth-switch {
+  margin-top: 18px;
+  text-align: center;
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.auth-switch a {
+  color: var(--accent);
+  font-weight: 600;
+  margin-left: 4px;
+  text-decoration: none;
+}
+/* ===== PREMIUM MICRO ANIMATIONS ===== */
+
+/* Button hover lift */
+a, button {
+  transition: transform .18s ease, box-shadow .18s ease;
+}
+
+a:hover, button:hover {
+  transform: translateY(-1px);
+}
+
+/* Button active press */
+a:active, button:active {
+  transform: translateY(0);
+}
+
+/* Card subtle hover */
+.card, .how-card, .test-card, .stat-card {
+  transition: transform .35s ease, box-shadow .35s ease, border-color .35s ease;
+}
+
+.card:hover,
+.how-card:hover,
+.test-card:hover,
+.stat-card:hover {
+  transform: translateY(-6px);
+}
+
+/* Fade-in on scroll (already wired, now smoother) */
+.hidden {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity .7s ease, transform .7s ease;
+}
+
+.hidden.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+  /* ===== ACCESSIBLE FOCUS STYLES ===== */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 8px;
+}
+
+button:focus:not(:focus-visible),
+a:focus:not(:focus-visible) {
+  outline: none;
+}
+
 </style>
 </head>
 
@@ -205,88 +707,499 @@ footer{text-align:center;color:var(--muted);border-top:1px solid var(--border);p
 <header>
   <div class="logo">Ragelite</div>
 
-  <div class="hamburger" tabindex="0" onclick="toggleMenu()">
-    <span></span><span></span><span></span>
+  <!-- Hamburger -->
+  <div class="hamburger"
+       role="button"
+       tabindex="0"
+       aria-label="Toggle navigation menu"
+       aria-expanded="false"
+       onclick="toggleMenu()"
+       onkeydown="handleHamburgerKey(event)">
+    <span></span>
+    <span></span>
+    <span></span>
   </div>
 
-  <nav id="nav">
-    <a href="#" onclick="openAuth('login')">Login</a>
-    <a href="#" class="primary" onclick="openAuth('signup')">Create Account</a>
-  </nav>
+  <!-- Navigation -->
+<nav id="mobileNav">
+  <a href="#" onclick="openAuth('login')">Login</a>
+  <a href="#" class="primary" onclick="openAuth('signup')">Create Account</a>
+</nav>
 </header>
 
 <div class="hero">
   <h1>Autonomous AI<br>for Business Growth</h1>
-  <p>Ragelite builds, launches & optimizes ads automatically.</p>
+  <p>
+    Ragelite designs, launches, and optimizes Meta & Google Ads automatically —
+    replacing agencies with intelligent automation.
+  </p>
+  <div class="cta">
+    <a href="signup.html">Get Started with AI</a>
+  </div>
 </div>
 
 <section>
   <div class="grid">
-    <div class="card">AI Campaign Creation</div>
-    <div class="card">Self Optimizing Engine</div>
-    <div class="card">Built for Scale</div>
+    <div class="card hidden">
+      <h3>AI Campaign Creation</h3>
+      <p>Create complete ad campaigns from a single business description.</p>
+    </div>
+    <div class="card hidden">
+      <h3>Self-Optimizing Engine</h3>
+      <p>Budgets, creatives, and targeting improve continuously.</p>
+    </div>
+    <div class="card hidden">
+      <h3>Built for Scale</h3>
+      <p>From startups to global businesses, Ragelite grows with you.</p>
+    </div>
   </div>
 </section>
+  <section>
+  <div class="how">
+    <h2>How Ragelite Works</h2>
 
-<section>
-  <h2>How Ragelite Works</h2>
-  <div class="how-grid">
-    <div class="how-card">Describe Business</div>
-    <div class="how-card">AI Builds Ads</div>
-    <div class="how-card">Auto Optimization</div>
-  </div>
-</section>
+    <p class="how-sub">
+      Launch high-performing ads in minutes. Ragelite’s AI handles strategy,
+      execution, and optimization — automatically.
+    </p>
 
-<section>
-  <h2>Trusted by Early Teams</h2>
-  <div class="test-grid">
-    <div class="test-card">“In-house growth team replacement.”</div>
-    <div class="test-card">“Zero ad expertise required.”</div>
-    <div class="test-card">“Automation is next level.”</div>
-  </div>
-</section>
+    <div class="how-grid">
+      <div class="how-card hidden">
+        <span class="step">01</span>
+        <h3>Describe Your Business</h3>
+        <p>
+          Share what you do, your goal, and budget.
+          No ad experience required.
+        </p>
+      </div>
 
-<section class="faq">
-  <h2>FAQs</h2>
-  <div class="faq-list">
-    <div class="faq-item">
-      <button class="faq-question">How does it work?</button>
-      <div class="faq-answer">AI builds & optimizes ads.</div>
+      <div class="how-card hidden">
+        <span class="step">02</span>
+        <h3>AI Builds Campaigns</h3>
+        <p>
+          Ragelite creates ads, targeting, and creatives
+          across Meta & Google.
+        </p>
+      </div>
+
+      <div class="how-card hidden">
+        <span class="step">03</span>
+        <h3>Continuous Optimization</h3>
+        <p>
+          Our AI monitors performance and improves results
+          24/7 — automatically.
+        </p>
+      </div>
     </div>
   </div>
 </section>
 
+<section>
+  <div class="testimonials">
+    <h2>Trusted by Early Teams</h2>
+
+    <p class="test-sub">
+      Founders and growth teams are already using Ragelite
+      to simplify and scale their advertising.
+    </p>
+
+    <div class="test-grid">
+
+      <div class="test-card hidden">
+        <p class="quote">
+          “Ragelite feels like having an in-house growth team.
+          We launched campaigns in minutes without any ad expertise.”
+        </p>
+        <div class="author">
+          <strong>Ankit Sharma</strong>
+          <span>Startup Founder</span>
+        </div>
+      </div>
+
+      <div class="test-card hidden">
+        <p class="quote">
+          “The AI-driven approach is impressive.
+          It removed complexity and helped us focus on our product.”
+        </p>
+        <div class="author">
+          <strong>Riya Verma</strong>
+          <span>Marketing Lead</span>
+        </div>
+      </div>
+
+      <div class="test-card hidden">
+        <p class="quote">
+          “We replaced freelancers and tools with Ragelite.
+          The automation and insights are on another level.”
+        </p>
+        <div class="author">
+          <strong>Mohit Jain</strong>
+          <span>Early User</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+    <section>
+  <div class="stats">
+    <h2>Ragelite in Action</h2>
+    <p class="stats-sub">
+      Our AI is already helping teams launch, optimize,
+      and scale advertising performance.
+    </p>
+
+    <div class="stats-grid">
+      <div class="stat-card hidden">
+        <h3><span class="counter" data-target="125000">0</span>+</h3>
+        <p>Ad Spend Optimized ($)</p>
+      </div>
+
+      <div class="stat-card hidden">
+        <h3><span class="counter" data-target="3200">0</span>+</h3>
+        <p>Leads Generated</p>
+      </div>
+
+      <div class="stat-card hidden">
+        <h3><span class="counter" data-target="18400">0</span>+</h3>
+        <p>AI Decisions Made</p>
+      </div>
+
+      <div class="stat-card hidden">
+        <h3><span class="counter" data-target="48">0</span></h3>
+        <p>Active Campaigns</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+  <section class="faq">
+  <h2>Frequently Asked Questions</h2>
+  <p class="faq-sub">
+    Everything you need to know before getting started with Ragelite.
+  </p>
+
+  <div class="faq-list">
+
+    <div class="faq-item">
+      <button class="faq-question" aria-expanded="false">
+        How does Ragelite create ads automatically?
+        <span class="arrow">+</span>
+      </button>
+      <div class="faq-answer">
+        Ragelite uses AI to understand your business, audience, and goals, then
+        generates complete ad campaigns including creatives, targeting, and budgets.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" aria-expanded="false">
+        Do I need any ads experience?
+        <span class="arrow">+</span>
+      </button>
+      <div class="faq-answer">
+        No. Ragelite is built for founders and teams with zero advertising experience.
+        The AI handles everything end-to-end.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" aria-expanded="false">
+        Which platforms are supported?
+        <span class="arrow">+</span>
+      </button>
+      <div class="faq-answer">
+        We currently support Meta (Facebook & Instagram) and Google Ads, with more
+        platforms coming soon.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" aria-expanded="false">
+        Is my ad budget safe?
+        <span class="arrow">+</span>
+      </button>
+      <div class="faq-answer">
+        Yes. You stay in full control of your budget. Ragelite only optimizes
+        performance within limits you set.
+      </div>
+    </div>
+
+  </div>
+</section>
+
+      <div class="how-card hidden">
+        <span class="step">02</span>
+        <h3>AI Builds Campaigns</h3>
+        <p>
+          Ragelite creates ads, targeting, and creatives
+          across Meta & Google.
+        </p>
+      </div>
+
+      <div class="how-card hidden">
+        <span class="step">03</span>
+        <h3>Continuous Optimization</h3>
+        <p>
+          Our AI monitors performance and improves results
+          24/7 — automatically.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
 <footer>
-  © 2026 Ragelite Corporation
+  Founded by <strong>Raj Bundela</strong>, <strong>Ashwani Singh</strong> & <strong>Karan Pal</strong><br>
+  © 2026 Ragelite Corporation · ragelitecorporation@gmail.com
 </footer>
 
-<div class="auth-overlay" id="auth">
-  <div class="auth-modal">
-    <h2 id="authTitle">Login</h2>
-    <input placeholder="Email">
-    <input placeholder="Password">
-    <button class="primary" onclick="closeAuth()">Continue</button>
-  </div>
-</div>
-
 <script>
-const nav=document.getElementById("nav");
-const burger=document.querySelector(".hamburger");
-function toggleMenu(){
-  nav.classList.toggle("show");
-  burger.classList.toggle("active");
+const counters = document.querySelectorAll(".counter");
+let started = false;
+
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add("show");
+
+      if (!started && entry.target.querySelector(".counter")) {
+        startCounters();
+        started = true;
+      }
+    }
+  });
+}, { threshold: 0.25 });
+
+document.querySelectorAll(".hidden").forEach(el => observer.observe(el));
+
+function startCounters() {
+  counters.forEach(counter => {
+    const target = +counter.dataset.target;
+    let current = 0;
+    const increment = Math.ceil(target / 120);
+
+    const update = () => {
+      current += increment;
+      if (current < target) {
+        counter.innerText = current.toLocaleString();
+        requestAnimationFrame(update);
+      } else {
+        counter.innerText = target.toLocaleString();
+      }
+    };
+    update();
+  });
+}
+  </script>
+<script>
+const hamburger = document.querySelector(".hamburger");
+const mobileNav = document.getElementById("mobileNav");
+
+function toggleMenu() {
+  const isOpen = mobileNav.classList.toggle("show");
+  hamburger.classList.toggle("active", isOpen);
+  hamburger.setAttribute("aria-expanded", isOpen);
 }
 
-document.querySelectorAll(".faq-question").forEach(btn=>{
-  btn.onclick=()=>btn.parentElement.classList.toggle("open");
+// Keyboard support
+function handleHamburgerKey(event) {
+  if (event.key === "Enter" || event.key === " ") {
+    event.preventDefault();
+    toggleMenu();
+  }
+}
+
+// Close on link click
+mobileNav.querySelectorAll("a").forEach(link => {
+  link.addEventListener("click", () => {
+    mobileNav.classList.remove("show");
+    hamburger.classList.remove("active");
+    hamburger.setAttribute("aria-expanded", "false");
+  });
 });
 
-function openAuth(){document.getElementById("auth").classList.add("show")}
-function closeAuth(){document.getElementById("auth").classList.remove("show")}
+// Close on Escape
+document.addEventListener("keydown", e => {
+  if (e.key === "Escape" && mobileNav.classList.contains("show")) {
+    mobileNav.classList.remove("show");
+    hamburger.classList.remove("active");
+    hamburger.setAttribute("aria-expanded", "false");
+    hamburger.focus();
+  }
+});
+</script>
+<script>
+document.querySelectorAll(".faq-question").forEach(btn => {
+  btn.addEventListener("click", () => {
+    const item = btn.parentElement;
+    const isOpen = item.classList.contains("open");
+
+    document.querySelectorAll(".faq-item").forEach(i => {
+      i.classList.remove("open");
+      i.querySelector(".faq-question")
+       .setAttribute("aria-expanded", "false");
+    });
+
+    if (!isOpen) {
+      item.classList.add("open");
+      btn.setAttribute("aria-expanded", "true");
+    }
+  });
+
+  btn.addEventListener("keydown", e => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      btn.click();
+    }
+  });
+});
+</script>
+  
+  // Keyboard accessibility
+  <script>
+  btn.addEventListener("keydown", e => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      btn.click();
+    }
+  });
+
+});
 </script>
 
+<div class="auth-overlay" id="authOverlay" aria-hidden="true">
+  <div class="auth-modal" role="dialog" aria-modal="true">
+
+    <button class="auth-close" onclick="closeAuth()">×</button>
+
+    <h2 id="authTitle">Login</h2>
+
+    <form id="authForm" onsubmit="submitAuth(event)">
+      <input type="email" placeholder="Email address" required>
+      <input type="password" placeholder="Password" required>
+
+      <button type="submit" class="primary full-btn">
+        <span class="btn-text">Continue</span>
+      <span class="loader" aria-live="polite" aria-label="Loading"></span>
+      </button>
+    </form>
+
+    <p class="auth-switch">
+      <span id="authSwitchText">Don’t have an account?</span>
+      <a href="#" onclick="switchAuth()">Create one</a>
+    </p>
+
+  </div>
+</div>
+<script>
+let lastFocusedElement = null;
+
+function openAuth(mode) {
+  authMode = mode;
+  lastFocusedElement = document.activeElement;
+
+  const overlay = document.getElementById("authOverlay");
+  overlay.classList.add("show");
+  overlay.setAttribute("aria-hidden", "false");
+
+  document.body.classList.add("modal-open");
+
+  updateAuthText();
+
+  // Focus first input
+setTimeout(() => {
+  overlay.querySelector("input").focus();
+}, 100);
+}
+
+function closeAuth() {
+  const overlay = document.getElementById("authOverlay");
+  overlay.classList.remove("show");
+  overlay.setAttribute("aria-hidden", "true");
+
+  document.body.classList.remove("modal-open");
+
+  // Restore focus
+  if (lastFocusedElement) {
+    lastFocusedElement.focus();
+  }
+}
+function switchAuth() {
+  authMode = authMode === "login" ? "signup" : "login";
+  updateAuthText();
+}
+
+function updateAuthText() {
+  document.getElementById("authTitle").innerText =
+    authMode === "login" ? "Login" : "Create Account";
+
+  document.getElementById("authSwitchText").innerText =
+    authMode === "login"
+      ? "Don’t have an account?"
+      : "Already have an account?";
+}
+
+function submitAuth(e) {
+  e.preventDefault();
+  const btn = e.target.querySelector("button");
+btn.classList.add("loading");
+btn.setAttribute("aria-busy", "true");
+
+
+  setTimeout(() => {
+    btn.classList.remove("loading");
+    alert(authMode === "login" ? "Logged in (demo)" : "Account created (demo)");
+    btn.removeAttribute("aria-busy");
+    closeAuth();
+  }, 1400);
+}
+document.addEventListener("keydown", e => {
+  const overlay = document.getElementById("authOverlay");
+  if (!overlay.classList.contains("show")) return;
+
+  if (e.key === "Tab") {
+    const focusable = overlay.querySelectorAll(
+      'input, button, a, [tabindex]:not([tabindex="-1"])'
+    );
+
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+
+    if (e.shiftKey && document.activeElement === first) {
+      e.preventDefault();
+      last.focus();
+    } else if (!e.shiftKey && document.activeElement === last) {
+      e.preventDefault();
+      first.focus();
+    }
+  }
+});
+// Close with ESC
+document.addEventListener("keydown", e => {
+  if (e.key === "Escape") closeAuth();
+});
+</script>
 </body>
 </html>
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
  
 

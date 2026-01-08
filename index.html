@@ -467,8 +467,84 @@ footer{
     font-size: 16px;
   }
 }
+/* ===== FAQ ===== */
+.faq {
+  max-width: 900px;
+  margin: auto;
+  padding: 80px 20px;
+  text-align: center;
+}
 
+.faq h2 {
+  font-size: 42px;
+  margin-bottom: 10px;
+}
 
+.faq-sub {
+  color: var(--muted);
+  margin-bottom: 50px;
+  font-size: 18px;
+}
+
+.faq-list {
+  text-align: left;
+}
+
+.faq-item {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  margin-bottom: 18px;
+  overflow: hidden;
+  transition: border .3s;
+}
+
+.faq-item:hover {
+  border-color: var(--accent);
+}
+
+.faq-question {
+  width: 100%;
+  background: none;
+  border: none;
+  color: var(--text);
+  padding: 22px 24px;
+  font-size: 17px;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+}
+
+.faq-question:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+}
+
+.arrow {
+  font-size: 22px;
+  transition: transform .3s ease;
+}
+
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  padding: 0 24px;
+  color: var(--muted);
+  line-height: 1.6;
+  transition: max-height .35s ease, padding .35s ease;
+}
+
+/* Open state */
+.faq-item.open .faq-answer {
+  max-height: 300px;
+  padding: 0 24px 22px;
+}
+
+.faq-item.open .arrow {
+  transform: rotate(45deg);
+}
 
 </style>
 </head>
@@ -610,6 +686,62 @@ footer{
   </div>
 </section>
 
+  <section class="faq">
+  <h2>Frequently Asked Questions</h2>
+  <p class="faq-sub">
+    Everything you need to know before getting started with Ragelite.
+  </p>
+
+  <div class="faq-list">
+
+    <div class="faq-item">
+      <button class="faq-question" aria-expanded="false">
+        How does Ragelite create ads automatically?
+        <span class="arrow">+</span>
+      </button>
+      <div class="faq-answer">
+        Ragelite uses AI to understand your business, audience, and goals, then
+        generates complete ad campaigns including creatives, targeting, and budgets.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" aria-expanded="false">
+        Do I need any ads experience?
+        <span class="arrow">+</span>
+      </button>
+      <div class="faq-answer">
+        No. Ragelite is built for founders and teams with zero advertising experience.
+        The AI handles everything end-to-end.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" aria-expanded="false">
+        Which platforms are supported?
+        <span class="arrow">+</span>
+      </button>
+      <div class="faq-answer">
+        We currently support Meta (Facebook & Instagram) and Google Ads, with more
+        platforms coming soon.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" aria-expanded="false">
+        Is my ad budget safe?
+        <span class="arrow">+</span>
+      </button>
+      <div class="faq-answer">
+        Yes. You stay in full control of your budget. Ragelite only optimizes
+        performance within limits you set.
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
     <div class="how-grid">
       <div class="how-card hidden">
         <span class="step">01</span>
@@ -720,6 +852,33 @@ document.addEventListener("keydown", e => {
     hamburger.setAttribute("aria-expanded", "false");
     hamburger.focus();
   }
+});
+</script>
+
+  <script>
+document.querySelectorAll(".faq-question").forEach(btn => {
+  btn.addEventListener("click", () => {
+    const item = btn.parentElement;
+    const isOpen = item.classList.contains("open");
+
+    document.querySelectorAll(".faq-item").forEach(i => {
+      i.classList.remove("open");
+      i.querySelector(".faq-question").setAttribute("aria-expanded", "false");
+    });
+
+    if (!isOpen) {
+      item.classList.add("open");
+      btn.setAttribute("aria-expanded", "true");
+    }
+  });
+
+  // Keyboard support
+  btn.addEventListener("keydown", e => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      btn.click();
+    }
+  });
 });
 </script>
 

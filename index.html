@@ -695,6 +695,13 @@ button:focus:not(:focus-visible),
 a:focus:not(:focus-visible) {
   outline: none;
 }
+  .nav-btn {
+  background: none;
+  border: none;
+  color: var(--text);
+  font: inherit;
+  cursor: pointer;
+}
 
 </style>
 </head>
@@ -722,8 +729,8 @@ a:focus:not(:focus-visible) {
 
   <!-- Navigation -->
 <nav id="mobileNav">
-  <a href="#" onclick="openAuth('login')">Login</a>
-  <a href="#" class="primary" onclick="openAuth('signup')">Create Account</a>
+  <button onclick="openAuth('login')" class="nav-btn">Login</button>
+  <button onclick="openAuth('signup')" class="primary nav-btn">Create Account</button>
 </nav>
 </header>
 
@@ -1040,7 +1047,6 @@ document.querySelectorAll(".faq-question").forEach(btn => {
 });
 </script>
   
-  // Keyboard accessibility
   <script>
   btn.addEventListener("keydown", e => {
     if (e.key === "Enter" || e.key === " ") {

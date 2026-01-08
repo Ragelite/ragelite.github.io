@@ -18,6 +18,9 @@
   --accent:#22d3ee;
   --accent2:#3b82f6;
 }
+  body.modal-open {
+  overflow: hidden;
+}
 
 *{
   box-sizing:border-box;
@@ -979,26 +982,31 @@ document.addEventListener("keydown", e => {
   }
 });
 </script>
-
 <script>
 document.querySelectorAll(".faq-question").forEach(btn => {
-
   btn.addEventListener("click", () => {
     const item = btn.parentElement;
     const isOpen = item.classList.contains("open");
 
-    // Close all items
     document.querySelectorAll(".faq-item").forEach(i => {
       i.classList.remove("open");
       i.querySelector(".faq-question").setAttribute("aria-expanded", "false");
     });
 
-    // Open clicked one
     if (!isOpen) {
       item.classList.add("open");
       btn.setAttribute("aria-expanded", "true");
     }
   });
+
+  btn.addEventListener("keydown", e => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      btn.click();
+    }
+  });
+});
+
 
   // Keyboard accessibility
   btn.addEventListener("keydown", e => {
@@ -1036,19 +1044,39 @@ document.querySelectorAll(".faq-question").forEach(btn => {
   </div>
 </div>
 <script>
-let authMode = "login";
+let lastFocusedElement = null;
 
 function openAuth(mode) {
   authMode = mode;
-  document.getElementById("authOverlay").classList.add("show");
-  document.getElementById("authOverlay").setAttribute("aria-hidden", "false");
+  lastFocusedElement = document.activeElement;
+
+  const overlay = document.getElementById("authOverlay");
+  overlay.classList.add("show");
+  overlay.setAttribute("aria-hidden", "false");
+
+  document.body.classList.add("modal-open");
+
   updateAuthText();
+
+  // Focus first input
+  setTimeout(() => {
+    overlay.querySelector("input").focus();
+  }, 100);
 }
 
 function closeAuth() {
-  document.getElementById("authOverlay").classList.remove("show");
-  document.getElementById("authOverlay").setAttribute("aria-hidden", "true");
+  const overlay = document.getElementById("authOverlay");
+  overlay.classList.remove("show");
+  overlay.setAttribute("aria-hidden", "true");
+
+  document.body.classList.remove("modal-open");
+
+  // Restore focus
+  if (lastFocusedElement) {
+    lastFocusedElement.focus();
+  }
 }
+
 
 function switchAuth() {
   authMode = authMode === "login" ? "signup" : "login";

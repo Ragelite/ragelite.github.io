@@ -1076,8 +1076,6 @@ function closeAuth() {
     lastFocusedElement.focus();
   }
 }
-
-
 function switchAuth() {
   authMode = authMode === "login" ? "signup" : "login";
   updateAuthText();
@@ -1104,7 +1102,27 @@ function submitAuth(e) {
     closeAuth();
   }, 1400);
 }
+document.addEventListener("keydown", e => {
+  const overlay = document.getElementById("authOverlay");
+  if (!overlay.classList.contains("show")) return;
 
+  if (e.key === "Tab") {
+    const focusable = overlay.querySelectorAll(
+      'input, button, a, [tabindex]:not([tabindex="-1"])'
+    );
+
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+
+    if (e.shiftKey && document.activeElement === first) {
+      e.preventDefault();
+      last.focus();
+    } else if (!e.shiftKey && document.activeElement === last) {
+      e.preventDefault();
+      first.focus();
+    }
+  }
+});
 // Close with ESC
 document.addEventListener("keydown", e => {
   if (e.key === "Escape") closeAuth();

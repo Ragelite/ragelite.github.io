@@ -644,8 +644,46 @@ footer{
   margin-left: 4px;
   text-decoration: none;
 }
+/* ===== PREMIUM MICRO ANIMATIONS ===== */
 
+/* Button hover lift */
+a, button {
+  transition: transform .18s ease, box-shadow .18s ease;
+}
 
+a:hover, button:hover {
+  transform: translateY(-1px);
+}
+
+/* Button active press */
+a:active, button:active {
+  transform: translateY(0);
+}
+
+/* Card subtle hover */
+.card, .how-card, .test-card, .stat-card {
+  transition: transform .35s ease, box-shadow .35s ease, border-color .35s ease;
+}
+
+.card:hover,
+.how-card:hover,
+.test-card:hover,
+.stat-card:hover {
+  transform: translateY(-6px);
+}
+
+/* Fade-in on scroll (already wired, now smoother) */
+.hidden {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity .7s ease, transform .7s ease;
+}
+
+.hidden.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+  
 </style>
 </head>
 
@@ -671,13 +709,11 @@ footer{
   </div>
 
   <!-- Navigation -->
-  <nav id="mobileNav">
-    <a href="#" onclick="openAuth('login')">Login</a>
-    <a href="#" class="primary" onclick="openAuth('signup')">Create Account</a>
-  </nav>
+<nav id="mobileNav">
+  <a href="#" onclick="openAuth('login')">Login</a>
+  <a href="#" class="primary" onclick="openAuth('signup')">Create Account</a>
+</nav>
 </header>
-
-
 
 <div class="hero">
   <h1>Autonomous AI<br>for Business Growth</h1>
@@ -1059,7 +1095,7 @@ function openAuth(mode) {
   updateAuthText();
 
   // Focus first input
-  setTimeout(() => {
+  setTimeout btn.removeAttribute("aria-busy"); => {
     overlay.querySelector("input").focus();
   }, 100);
 }
@@ -1094,7 +1130,9 @@ function updateAuthText() {
 function submitAuth(e) {
   e.preventDefault();
   const btn = e.target.querySelector("button");
-  btn.classList.add("loading");
+btn.classList.add("loading");
+btn.setAttribute("aria-busy", "true");
+
 
   setTimeout(() => {
     btn.classList.remove("loading");
@@ -1130,6 +1168,10 @@ document.addEventListener("keydown", e => {
 </script>
 </body>
 </html>
+ 
+
+
+
 
 
 

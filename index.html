@@ -1038,13 +1038,6 @@ document.querySelectorAll(".faq-question").forEach(btn => {
     }
   });
 
-  btn.addEventListener("keydown", e => {
-    if (e.key === "Enter" || e.key === " ") {
-      e.preventDefault();
-      btn.click();
-    }
-  });
-});
 </script>
   
   <script>
@@ -1097,11 +1090,13 @@ function openAuth(mode) {
 
   updateAuthText();
 
-  // Focus first input
-setTimeout(() => {
-  overlay.querySelector("input").focus();
-}, 100);
+  // Focus first input safely
+  setTimeout(() => {
+    const firstInput = overlay.querySelector("input");
+    if (firstInput) firstInput.focus();
+  }, 100);
 }
+
 
 function closeAuth() {
   const overlay = document.getElementById("authOverlay");
@@ -1167,7 +1162,9 @@ document.addEventListener("keydown", e => {
 });
 // Close with ESC
 document.addEventListener("keydown", e => {
-  if (e.key === "Escape") closeAuth();
+  if (e.key === "Escape") {
+    closeAuth();
+  }
 });
 </script>
 </body>

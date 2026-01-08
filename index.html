@@ -545,6 +545,108 @@ footer{
 .faq-item.open .arrow {
   transform: rotate(45deg);
 }
+  /* ===== AUTH MODAL ===== */
+.auth-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(5,11,20,.85);
+  backdrop-filter: blur(10px);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+.auth-overlay.show {
+  display: flex;
+}
+
+.auth-modal {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  padding: 40px 32px;
+  width: 100%;
+  max-width: 420px;
+  position: relative;
+  animation: slideUp .4s ease;
+}
+
+.auth-modal h2 {
+  margin-top: 0;
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.auth-modal input {
+  width: 100%;
+  padding: 14px 16px;
+  margin-bottom: 14px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: rgba(255,255,255,.04);
+  color: var(--text);
+  font-size: 15px;
+}
+
+.auth-modal input:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.full-btn {
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.loader {
+  width: 18px;
+  height: 18px;
+  border: 2px solid rgba(0,0,0,.3);
+  border-top-color: #020617;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  display: none;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.loading .btn-text {
+  visibility: hidden;
+}
+
+.loading .loader {
+  display: inline-block;
+}
+
+.auth-close {
+  position: absolute;
+  top: 14px;
+  right: 18px;
+  background: none;
+  border: none;
+  color: var(--text);
+  font-size: 26px;
+  cursor: pointer;
+}
+
+.auth-switch {
+  margin-top: 18px;
+  text-align: center;
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.auth-switch a {
+  color: var(--accent);
+  font-weight: 600;
+  margin-left: 4px;
+  text-decoration: none;
+}
+
 
 </style>
 </head>
@@ -569,11 +671,10 @@ footer{
     <span></span>
     <span></span>
   </div>
-
-  <nav id="mobileNav">
   <a href="#" onclick="openAuth('login')">Login</a>
-  <a href="#" class="primary" onclick="openAuth('signup')">Create Account</a>
-</nav>
+<a href="#" class="primary" onclick="openAuth('signup')">Create Account</a>
+  <nav id="mobileNav">
+  </nav>
 </header>
 
 
@@ -610,6 +711,8 @@ footer{
     <p class="how-sub">
       Launch high-performing ads in minutes. Ragelite’s AI handles strategy,
       execution, and optimization — automatically.
+  </section>
+  
     </p>
   <div class="testimonials">
     <h2>Trusted by Early Teams</h2>
@@ -742,7 +845,7 @@ footer{
 </section>
 
 
-    <div class="how-grid">
+    <div class=".how">
       <div class="how-card hidden">
         <span class="step">01</span>
         <h3>Describe Your Business</h3>
@@ -863,16 +966,9 @@ document.querySelectorAll(".faq-question").forEach(btn => {
 
     document.querySelectorAll(".faq-item").forEach(i => {
       i.classList.remove("open");
-      i.querySelector(".faq-question").setAttribute("aria-expanded", "false");
-    });
+      document.querySelectorAll(".faq-question").forEach(btn => {
+  btn.addEventListener("click", () => { ... });
 
-    if (!isOpen) {
-      item.classList.add("open");
-      btn.setAttribute("aria-expanded", "true");
-    }
-  });
-
-  // Keyboard support
   btn.addEventListener("keydown", e => {
     if (e.key === "Enter" || e.key === " ") {
       e.preventDefault();
@@ -880,9 +976,79 @@ document.querySelectorAll(".faq-question").forEach(btn => {
     }
   });
 });
+
 </script>
+<div class="auth-overlay" id="authOverlay" aria-hidden="true">
+  <div class="auth-modal" role="dialog" aria-modal="true">
 
+    <button class="auth-close" onclick="closeAuth()">×</button>
 
+    <h2 id="authTitle">Login</h2>
+
+    <form id="authForm" onsubmit="submitAuth(event)">
+      <input type="email" placeholder="Email address" required>
+      <input type="password" placeholder="Password" required>
+
+      <button type="submit" class="primary full-btn">
+        <span class="btn-text">Continue</span>
+        <span class="loader"></span>
+      </button>
+    </form>
+
+    <p class="auth-switch">
+      <span id="authSwitchText">Don’t have an account?</span>
+      <a href="#" onclick="switchAuth()">Create one</a>
+    </p>
+
+  </div>
+</div>
+<script>
+let authMode = "login";
+
+function openAuth(mode) {
+  authMode = mode;
+  document.getElementById("authOverlay").classList.add("show");
+  document.getElementById("authOverlay").setAttribute("aria-hidden", "false");
+  updateAuthText();
+}
+
+function closeAuth() {
+  document.getElementById("authOverlay").classList.remove("show");
+  document.getElementById("authOverlay").setAttribute("aria-hidden", "true");
+}
+
+function switchAuth() {
+  authMode = authMode === "login" ? "signup" : "login";
+  updateAuthText();
+}
+
+function updateAuthText() {
+  document.getElementById("authTitle").innerText =
+    authMode === "login" ? "Login" : "Create Account";
+
+  document.getElementById("authSwitchText").innerText =
+    authMode === "login"
+      ? "Don’t have an account?"
+      : "Already have an account?";
+}
+
+function submitAuth(e) {
+  e.preventDefault();
+  const btn = e.target.querySelector("button");
+  btn.classList.add("loading");
+
+  setTimeout(() => {
+    btn.classList.remove("loading");
+    alert(authMode === "login" ? "Logged in (demo)" : "Account created (demo)");
+    closeAuth();
+  }, 1400);
+}
+
+// Close with ESC
+document.addEventListener("keydown", e => {
+  if (e.key === "Escape") closeAuth();
+});
+</script>
 </body>
 </html>
 

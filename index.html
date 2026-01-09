@@ -1035,8 +1035,6 @@ document.querySelectorAll(".faq-question").forEach(btn => {
     }
   });
 });
-
-  
   <script>
   btn.addEventListener("keydown", e => {
     if (e.key === "Enter" || e.key === " ") {
@@ -1088,6 +1086,7 @@ const supabase = supabaseJs.createClient(
 let lastFocusedElement = null;
 
 function openAuth(mode) {
+  let authMode = "login";
   authMode = mode;
   lastFocusedElement = document.activeElement;
 

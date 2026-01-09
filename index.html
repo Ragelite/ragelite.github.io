@@ -1018,8 +1018,6 @@ document.addEventListener("keydown", e => {
     hamburger.focus();
   }
 });
-</script>
-<script>
 document.querySelectorAll(".faq-question").forEach(btn => {
   btn.addEventListener("click", () => {
     const item = btn.parentElement;
@@ -1028,7 +1026,7 @@ document.querySelectorAll(".faq-question").forEach(btn => {
     document.querySelectorAll(".faq-item").forEach(i => {
       i.classList.remove("open");
       i.querySelector(".faq-question")
-       .setAttribute("aria-expanded", "false");
+        .setAttribute("aria-expanded", "false");
     });
 
     if (!isOpen) {
@@ -1036,8 +1034,8 @@ document.querySelectorAll(".faq-question").forEach(btn => {
       btn.setAttribute("aria-expanded", "true");
     }
   });
+});
 
-</script>
   
   <script>
   btn.addEventListener("keydown", e => {
@@ -1049,15 +1047,18 @@ document.querySelectorAll(".faq-question").forEach(btn => {
 
 });
 </script>
-    <script>
-const SUPABASE_URL ="https://zjidlmykyhmheykpumty.supabase.co";
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+const SUPABASE_URL = "https://zjidlmykyhmheykpumty.supabase.co";
 const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpqaWRsbXlreWhtaGV5a3B1bXR5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njc5MjM1MTcsImV4cCI6MjA4MzQ5OTUxN30.PwbUuGx3avK56GrRzZLqwdU4tpDogRz4MhwL2rABp3o";
 
-const supabase = supabase.createClient(
+const supabase = supabaseJs.createClient(
   SUPABASE_URL,
   SUPABASE_ANON_KEY
 );
 </script>
+
 
 <div class="auth-overlay" id="authOverlay" aria-hidden="true">
   <div class="auth-modal" role="dialog" aria-modal="true">
@@ -1165,7 +1166,7 @@ async function submitAuth(e) {
     alert(result.error.message);
     return;
   }
-
+  let authMode = "login";
   alert(authMode === "login" ? "Login successful" : "Account created");
   closeAuth();
 
@@ -1173,11 +1174,6 @@ async function submitAuth(e) {
   // window.location.href = "/dashboard.html";
 }
 
-
-  // OPTIONAL: redirect after login
-  console.log("User:", result.data.user);
-  alert("Login successful");
-}
 </script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </body>

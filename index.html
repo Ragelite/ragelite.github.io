@@ -1082,11 +1082,11 @@ const supabase = supabaseJs.createClient(
   </div>
 </div>
 <script>
+  <script>
+let authMode = "login";
 let lastFocusedElement = null;
-
 function openAuth(mode) {
-  let authMode = "login";
-  authMode = mode;
+  authMode = mode; // ✅ uses global variable
   lastFocusedElement = document.activeElement;
 
   const overlay = document.getElementById("authOverlay");
@@ -1094,17 +1094,13 @@ function openAuth(mode) {
   overlay.setAttribute("aria-hidden", "false");
 
   document.body.classList.add("modal-open");
-
   updateAuthText();
 
-  // Focus first input safely
   setTimeout(() => {
     const firstInput = overlay.querySelector("input");
     if (firstInput) firstInput.focus();
   }, 100);
 }
-
-
 function closeAuth() {
   const overlay = document.getElementById("authOverlay");
   overlay.classList.remove("show");
@@ -1146,15 +1142,9 @@ async function submitAuth(e) {
   let result;
 
   if (authMode === "login") {
-    result = await supabase.auth.signInWithPassword({
-      email,
-      password
-    });
+    result = await supabase.auth.signInWithPassword({ email, password });
   } else {
-    result = await supabase.auth.signUp({
-      email,
-      password
-    });
+    result = await supabase.auth.signUp({ email, password });
   }
 
   btn.classList.remove("loading");
@@ -1164,8 +1154,11 @@ async function submitAuth(e) {
     alert(result.error.message);
     return;
   }
+
   alert(authMode === "login" ? "Login successful" : "Account created");
   closeAuth();
+}
+
 
   // OPTIONAL: redirect
   // window.location.href = "/dashboard.html";

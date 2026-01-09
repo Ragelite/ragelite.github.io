@@ -946,6 +946,15 @@ a:focus:not(:focus-visible) {
 </footer>
 
 <script>
+const SUPABASE_URL ="https://zjidlmykyhmheykpumty.supabase.co";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpqaWRsbXlreWhtaGV5a3B1bXR5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njc5MjM1MTcsImV4cCI6MjA4MzQ5OTUxN30.PwbUuGx3avK56GrRzZLqwdU4tpDogRz4MhwL2rABp3o";
+
+const supabase = supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_ANON_KEY
+);
+</script>
+  <script>
 const counters = document.querySelectorAll(".counter");
 let started = false;
 
@@ -1124,49 +1133,48 @@ function updateAuthText() {
       ? "Don’t have an account?"
       : "Already have an account?";
 }
-
-function submitAuth(e) {
+  
+async function submitAuth(e) {
   e.preventDefault();
-  const btn = e.target.querySelector("button");
-btn.classList.add("loading");
-btn.setAttribute("aria-busy", "true");
 
+  const form = e.target;
+  const email = form.querySelector('input[type="email"]').value;
+  const password = form.querySelector('input[type="password"]').value;
 
-  setTimeout(() => {
-    btn.classList.remove("loading");
-    alert(authMode === "login" ? "Logged in (demo)" : "Account created (demo)");
-    btn.removeAttribute("aria-busy");
-    closeAuth();
-  }, 1400);
+  const btn = form.querySelector("button");
+  btn.classList.add("loading");
+  btn.setAttribute("aria-busy", "true");
+
+  let result;
+
+  if (authMode === "login") {
+    result = await supabase.auth.signInWithPassword({
+      email,
+      password
+    });
+  } else {
+    result = await supabase.auth.signUp({
+      email,
+      password
+    });
+  }
+
+  btn.classList.remove("loading");
+  btn.removeAttribute("aria-busy");
+
+  if (result.error) {
+    alert(result.error.message);
+    return;
+  }
+
+  closeAuth();
+
+  // OPTIONAL: redirect after login
+  console.log("User:", result.data.user);
+  alert("Login successful");
 }
-document.addEventListener("keydown", e => {
-  const overlay = document.getElementById("authOverlay");
-  if (!overlay.classList.contains("show")) return;
-
-  if (e.key === "Tab") {
-    const focusable = overlay.querySelectorAll(
-      'input, button, a, [tabindex]:not([tabindex="-1"])'
-    );
-
-    const first = focusable[0];
-    const last = focusable[focusable.length - 1];
-
-    if (e.shiftKey && document.activeElement === first) {
-      e.preventDefault();
-      last.focus();
-    } else if (!e.shiftKey && document.activeElement === last) {
-      e.preventDefault();
-      first.focus();
-    }
-  }
-});
-// Close with ESC
-document.addEventListener("keydown", e => {
-  if (e.key === "Escape") {
-    closeAuth();
-  }
-});
 </script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </body>
 </html>
  

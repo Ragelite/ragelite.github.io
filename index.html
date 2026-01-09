@@ -944,16 +944,6 @@ a:focus:not(:focus-visible) {
   Founded by <strong>Raj Bundela</strong>, <strong>Ashwani Singh</strong> & <strong>Karan Pal</strong><br>
   © 2026 Ragelite Corporation · ragelitecorporation@gmail.com
 </footer>
-
-<script>
-const SUPABASE_URL ="https://zjidlmykyhmheykpumty.supabase.co";
-const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpqaWRsbXlreWhtaGV5a3B1bXR5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njc5MjM1MTcsImV4cCI6MjA4MzQ5OTUxN30.PwbUuGx3avK56GrRzZLqwdU4tpDogRz4MhwL2rABp3o";
-
-const supabase = supabase.createClient(
-  SUPABASE_URL,
-  SUPABASE_ANON_KEY
-);
-</script>
   <script>
 const counters = document.querySelectorAll(".counter");
 let started = false;
@@ -1059,6 +1049,15 @@ document.querySelectorAll(".faq-question").forEach(btn => {
 
 });
 </script>
+    <script>
+const SUPABASE_URL ="https://zjidlmykyhmheykpumty.supabase.co";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpqaWRsbXlreWhtaGV5a3B1bXR5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njc5MjM1MTcsImV4cCI6MjA4MzQ5OTUxN30.PwbUuGx3avK56GrRzZLqwdU4tpDogRz4MhwL2rABp3o";
+
+const supabase = supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_ANON_KEY
+);
+</script>
 
 <div class="auth-overlay" id="authOverlay" aria-hidden="true">
   <div class="auth-modal" role="dialog" aria-modal="true">
@@ -1140,8 +1139,8 @@ async function submitAuth(e) {
   const form = e.target;
   const email = form.querySelector('input[type="email"]').value;
   const password = form.querySelector('input[type="password"]').value;
-
   const btn = form.querySelector("button");
+
   btn.classList.add("loading");
   btn.setAttribute("aria-busy", "true");
 
@@ -1167,7 +1166,13 @@ async function submitAuth(e) {
     return;
   }
 
+  alert(authMode === "login" ? "Login successful" : "Account created");
   closeAuth();
+
+  // OPTIONAL: redirect
+  // window.location.href = "/dashboard.html";
+}
+
 
   // OPTIONAL: redirect after login
   console.log("User:", result.data.user);

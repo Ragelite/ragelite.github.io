@@ -1018,6 +1018,7 @@ document.addEventListener("keydown", e => {
     hamburger.focus();
   }
 });
+<script>
 document.querySelectorAll(".faq-question").forEach(btn => {
   btn.addEventListener("click", () => {
     const item = btn.parentElement;
@@ -1034,15 +1035,13 @@ document.querySelectorAll(".faq-question").forEach(btn => {
       btn.setAttribute("aria-expanded", "true");
     }
   });
-});
-  <script>
+
   btn.addEventListener("keydown", e => {
     if (e.key === "Enter" || e.key === " ") {
       e.preventDefault();
       btn.click();
     }
   });
-
 });
 </script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -1165,7 +1164,6 @@ async function submitAuth(e) {
     alert(result.error.message);
     return;
   }
-  let authMode = "login";
   alert(authMode === "login" ? "Login successful" : "Account created");
   closeAuth();
 
@@ -1174,7 +1172,6 @@ async function submitAuth(e) {
 }
 
 </script>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </body>
 </html>
  

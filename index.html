@@ -1035,7 +1035,9 @@ document.querySelectorAll(".faq-question").forEach(btn => {
       btn.setAttribute("aria-expanded", "true");
     }
   });
-
+});
+</script>
+    <script>
   btn.addEventListener("keydown", e => {
     if (e.key === "Enter" || e.key === " ") {
       e.preventDefault();
@@ -1043,20 +1045,15 @@ document.querySelectorAll(".faq-question").forEach(btn => {
     }
   });
 });
-</script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
 <script>
 const SUPABASE_URL = "https://zjidlmykyhmheykpumty.supabase.co";
 const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpqaWRsbXlreWhtaGV5a3B1bXR5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njc5MjM1MTcsImV4cCI6MjA4MzQ5OTUxN30.PwbUuGx3avK56GrRzZLqwdU4tpDogRz4MhwL2rABp3o";
 
-const supabase = supabaseJs.createClient(
+const supabase = supabase.createClient(
   SUPABASE_URL,
   SUPABASE_ANON_KEY
 );
-</script>
-
-
 <div class="auth-overlay" id="authOverlay" aria-hidden="true">
   <div class="auth-modal" role="dialog" aria-modal="true">
 
@@ -1081,8 +1078,7 @@ const supabase = supabaseJs.createClient(
 
   </div>
 </div>
-<script>
-  <script>
+    <script>
 let authMode = "login";
 let lastFocusedElement = null;
 function openAuth(mode) {

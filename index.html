@@ -1141,9 +1141,12 @@ async function submitAuth(e) {
     alert(result.error.message);
     return;
   }
-
-  alert(authMode === "login" ? "Login successful" : "Account created");
-  closeAuth();
+if (authMode === "signup") {
+  alert("Account created! Please check your email to verify your account.");
+} else {
+  alert("Login successful");
+}
+closeAuth();
 }
 </script>
 </body>

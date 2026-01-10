@@ -1035,9 +1035,7 @@ document.querySelectorAll(".faq-question").forEach(btn => {
       btn.setAttribute("aria-expanded", "true");
     }
   });
-});
-</script>
-    <script>
+
   btn.addEventListener("keydown", e => {
     if (e.key === "Enter" || e.key === " ") {
       e.preventDefault();
@@ -1045,7 +1043,9 @@ document.querySelectorAll(".faq-question").forEach(btn => {
     }
   });
 });
+</script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <script>
 const SUPABASE_URL = "https://zjidlmykyhmheykpumty.supabase.co";
 const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpqaWRsbXlreWhtaGV5a3B1bXR5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njc5MjM1MTcsImV4cCI6MjA4MzQ5OTUxN30.PwbUuGx3avK56GrRzZLqwdU4tpDogRz4MhwL2rABp3o";
@@ -1054,11 +1054,10 @@ const supabase = supabase.createClient(
   SUPABASE_URL,
   SUPABASE_ANON_KEY
 );
+</script>
 <div class="auth-overlay" id="authOverlay" aria-hidden="true">
   <div class="auth-modal" role="dialog" aria-modal="true">
-
     <button class="auth-close" onclick="closeAuth()">×</button>
-
     <h2 id="authTitle">Login</h2>
 
     <form id="authForm" onsubmit="submitAuth(event)">
@@ -1067,7 +1066,7 @@ const supabase = supabase.createClient(
 
       <button type="submit" class="primary full-btn">
         <span class="btn-text">Continue</span>
-      <span class="loader" aria-live="polite" aria-label="Loading"></span>
+        <span class="loader"></span>
       </button>
     </form>
 
@@ -1075,40 +1074,37 @@ const supabase = supabase.createClient(
       <span id="authSwitchText">Don’t have an account?</span>
       <a href="#" onclick="switchAuth()">Create one</a>
     </p>
-
   </div>
 </div>
-    <script>
+<script>
 let authMode = "login";
 let lastFocusedElement = null;
+
 function openAuth(mode) {
-  authMode = mode; // ✅ uses global variable
+  authMode = mode;
   lastFocusedElement = document.activeElement;
 
   const overlay = document.getElementById("authOverlay");
   overlay.classList.add("show");
   overlay.setAttribute("aria-hidden", "false");
-
   document.body.classList.add("modal-open");
+
   updateAuthText();
 
   setTimeout(() => {
-    const firstInput = overlay.querySelector("input");
-    if (firstInput) firstInput.focus();
+    overlay.querySelector("input").focus();
   }, 100);
 }
+
 function closeAuth() {
   const overlay = document.getElementById("authOverlay");
   overlay.classList.remove("show");
   overlay.setAttribute("aria-hidden", "true");
-
   document.body.classList.remove("modal-open");
 
-  // Restore focus
-  if (lastFocusedElement) {
-    lastFocusedElement.focus();
-  }
+  if (lastFocusedElement) lastFocusedElement.focus();
 }
+
 function switchAuth() {
   authMode = authMode === "login" ? "signup" : "login";
   updateAuthText();
@@ -1123,7 +1119,7 @@ function updateAuthText() {
       ? "Don’t have an account?"
       : "Already have an account?";
 }
-  
+
 async function submitAuth(e) {
   e.preventDefault();
 
@@ -1133,18 +1129,13 @@ async function submitAuth(e) {
   const btn = form.querySelector("button");
 
   btn.classList.add("loading");
-  btn.setAttribute("aria-busy", "true");
 
-  let result;
-
-  if (authMode === "login") {
-    result = await supabase.auth.signInWithPassword({ email, password });
-  } else {
-    result = await supabase.auth.signUp({ email, password });
-  }
+  const result =
+    authMode === "login"
+      ? await supabase.auth.signInWithPassword({ email, password })
+      : await supabase.auth.signUp({ email, password });
 
   btn.classList.remove("loading");
-  btn.removeAttribute("aria-busy");
 
   if (result.error) {
     alert(result.error.message);
@@ -1154,8 +1145,8 @@ async function submitAuth(e) {
   alert(authMode === "login" ? "Login successful" : "Account created");
   closeAuth();
 }
-
-
+</script>
+   
   // OPTIONAL: redirect
   // window.location.href = "/dashboard.html";
 }

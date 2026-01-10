@@ -1149,6 +1149,97 @@ if (authMode === "signup") {
 closeAuth();
 }
 </script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+/* ================== SUPABASE INIT ================== */
+const SUPABASE_URL = "https://zjidlmykyhmheykpumty.supabase.co";
+const SUPABASE_ANON_KEY = "PASTE_YOUR_ANON_KEY_HERE";
+
+const supabase = window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_ANON_KEY
+);
+
+/* ================== AUTH MODAL ================== */
+let authMode = "login";
+
+function openAuth(mode) {
+  authMode = mode;
+  document.getElementById("authOverlay").classList.add("show");
+  document.body.classList.add("modal-open");
+  updateAuthText();
+}
+
+function closeAuth() {
+  document.getElementById("authOverlay").classList.remove("show");
+  document.body.classList.remove("modal-open");
+}
+
+function switchAuth() {
+  authMode = authMode === "login" ? "signup" : "login";
+  updateAuthText();
+}
+
+function updateAuthText() {
+  document.getElementById("authTitle").innerText =
+    authMode === "login" ? "Login" : "Create Account";
+
+  document.getElementById("authSwitchText").innerText =
+    authMode === "login"
+      ? "Don’t have an account?"
+      : "Already have an account?";
+}
+
+/* ================== SUBMIT AUTH ================== */
+async function submitAuth(e) {
+  e.preventDefault();
+
+  const email = e.target.querySelector('input[type="email"]').value;
+  const password = e.target.querySelector('input[type="password"]').value;
+  const btn = e.target.querySelector("button");
+
+  btn.classList.add("loading");
+
+  try {
+    let res;
+    if (authMode === "signup") {
+      res = await supabase.auth.signUp({ email, password });
+    } else {
+      res = await supabase.auth.signInWithPassword({ email, password });
+    }
+
+    if (res.error) throw res.error;
+
+    alert(authMode === "signup" ? "Account created successfully" : "Login successful");
+    closeAuth();
+  } catch (err) {
+    alert(err.message);
+    console.error(err);
+  } finally {
+    btn.classList.remove("loading");
+  }
+}
+
+/* ================== FAQ FIX ================== */
+document.querySelectorAll(".faq-question").forEach(btn => {
+  btn.addEventListener("click", () => {
+    const item = btn.parentElement;
+    const open = item.classList.contains("open");
+
+    document.querySelectorAll(".faq-item").forEach(i => {
+      i.classList.remove("open");
+      i.querySelector(".faq-question").setAttribute("aria-expanded", "false");
+    });
+
+    if (!open) {
+      item.classList.add("open");
+      btn.setAttribute("aria-expanded", "true");
+    }
+  });
+});
+</script>
+
 </body>
 </html>
  

@@ -593,11 +593,7 @@ footer{
   outline: none;
   border-color: var(--accent);
 }
-  <button onclick="googleLogin()" class="full-btn" style="margin-top:14px">
-  Continue with Google
-</button>
-
-
+  
 .full-btn {
   width: 100%;
   position: relative;
@@ -1037,6 +1033,9 @@ document.querySelectorAll(".stat-card").forEach(el => counterObserver.observe(el
 
 /* ========== AUTH (NO SUPABASE) ========== */
 let authMode = "login";
+<button onclick="googleLogin()" class="full-btn" style="margin-top:14px">
+  Continue with Google
+</button>
 
 function openAuth(mode) {
   authMode = mode;

@@ -1044,17 +1044,8 @@ document.querySelectorAll(".faq-question").forEach(btn => {
   });
 });
 </script>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
 <script>
-const SUPABASE_URL = "https://zjidlmykyhmheykpumty.supabase.co";
-const SUPABASE_ANON_KEY = "YOUR_REAL_ANON_KEY";
-
-const supabase = window.supabase.createClient(
-  SUPABASE_URL,
-  SUPABASE_ANON_KEY
-);
-
+/* =================== AUTH STATE =================== */
 let authMode = "login";
 
 function openAuth(mode) {
@@ -1082,32 +1073,58 @@ function updateAuthText() {
     authMode === "login" ? "Don’t have an account?" : "Already have an account?";
 }
 
+/* =================== FAKE BUT REALISTIC LOGIN =================== */
 async function submitAuth(e) {
   e.preventDefault();
+
   const email = e.target.querySelector('input[type="email"]').value;
   const password = e.target.querySelector('input[type="password"]').value;
   const btn = e.target.querySelector("button");
 
   btn.classList.add("loading");
 
-  try {
-    const result =
-      authMode === "signup"
-        ? await supabase.auth.signUp({ email, password })
-        : await supabase.auth.signInWithPassword({ email, password });
-
-    if (result.error) throw result.error;
-
-    alert(authMode === "signup" ? "Check your email to verify" : "Login successful");
-    closeAuth();
-  } catch (err) {
-    alert(err.message);
-  }
+  await new Promise(r => setTimeout(r, 1400)); // fake server delay
 
   btn.classList.remove("loading");
+
+  if (password.length < 6) {
+    alert("Password must be at least 6 characters");
+    return;
+  }
+
+  if (authMode === "signup") {
+    localStorage.setItem("rageliteUser", email);
+    alert("Account created successfully");
+  } else {
+    const saved = localStorage.getItem("rageliteUser");
+    if (!saved || saved !== email) {
+      alert("Account not found. Please sign up.");
+      return;
+    }
+    alert("Login successful");
+  }
+
+  closeAuth();
 }
 
-/* FAQ */
+/* =================== HAMBURGER =================== */
+const hamburger = document.querySelector(".hamburger");
+const mobileNav = document.getElementById("mobileNav");
+
+function toggleMenu() {
+  const open = mobileNav.classList.toggle("show");
+  hamburger.classList.toggle("active", open);
+  hamburger.setAttribute("aria-expanded", open);
+}
+
+function handleHamburgerKey(e) {
+  if (e.key === "Enter" || e.key === " ") {
+    e.preventDefault();
+    toggleMenu();
+  }
+}
+
+/* =================== FAQ =================== */
 document.querySelectorAll(".faq-question").forEach(btn => {
   btn.addEventListener("click", () => {
     const item = btn.parentElement;
@@ -1115,15 +1132,53 @@ document.querySelectorAll(".faq-question").forEach(btn => {
 
     document.querySelectorAll(".faq-item").forEach(i => {
       i.classList.remove("open");
-      i.querySelector(".faq-question").setAttribute("aria-expanded", "false");
+      i.querySelector(".faq-question").setAttribute("aria-expanded","false");
     });
 
     if (!open) {
       item.classList.add("open");
-      btn.setAttribute("aria-expanded", "true");
+      btn.setAttribute("aria-expanded","true");
     }
   });
 });
+
+/* =================== SCROLL ANIMATIONS =================== */
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) entry.target.classList.add("show");
+  });
+}, { threshold: 0.2 });
+
+document.querySelectorAll(".hidden").forEach(el => observer.observe(el));
+
+/* =================== COUNTERS =================== */
+let countersStarted = false;
+const counters = document.querySelectorAll(".counter");
+
+const counterObserver = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting && !countersStarted) {
+      countersStarted = true;
+      counters.forEach(counter => {
+        const target = +counter.dataset.target;
+        let current = 0;
+        const step = Math.ceil(target / 120);
+        const run = () => {
+          current += step;
+          if (current < target) {
+            counter.textContent = current.toLocaleString();
+            requestAnimationFrame(run);
+          } else {
+            counter.textContent = target.toLocaleString();
+          }
+        };
+        run();
+      });
+    }
+  });
+}, { threshold: 0.4 });
+
+document.querySelectorAll(".stat-card").forEach(el => counterObserver.observe(el));
 </script>
 </html>
  

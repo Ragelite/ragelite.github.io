@@ -1093,8 +1093,24 @@ async function submitAuth(e) {
 
   try {
     if (authMode === "signup") {
-      await window.firebaseCreate(window.firebaseAuth, email, password);
-      alert("Account created successfully");
+  const result = await window.firebaseCreate(window.firebaseAuth, email, password);
+
+const user = result.user;
+
+await window.firestoreSet(
+  window.firestoreDoc(window.firestoreDB, "users", user.uid),
+  {
+    email: user.email,
+    createdAt: new Date(),
+    plan: "free",
+    leads: 0,
+    campaigns: 0,
+    status: "active"
+  }
+);
+
+alert("Welcome to Ragelite");
+
     } else {
       await window.firebaseLogin(window.firebaseAuth, email, password);
       alert("Login successful");
@@ -1110,6 +1126,15 @@ async function submitAuth(e) {
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-app.js";
 import { 
   getAuth,
+  import { getFirestore, doc, setDoc, getDoc } from 
+"https://www.gstatic.com/firebasejs/12.7.0/firebase-firestore.js";
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+window.firestoreDB = db;
+window.firestoreSet = setDoc;
+window.firestoreGet = getDoc;
+window.firestoreDoc = doc;
+
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   GoogleAuthProvider,

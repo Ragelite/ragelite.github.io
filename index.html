@@ -1106,14 +1106,16 @@ async function submitAuth(e) {
   }
 }
   </script>
-<script type="module">
+    <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-app.js";
 import { 
   getAuth,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   GoogleAuthProvider,
-  signInWithPopup
+  signInWithPopup,
+  onAuthStateChanged,
+  signOut
 } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-auth.js";
 
 const firebaseConfig = {
@@ -1129,19 +1131,14 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
 
-/* Expose Firebase to your normal JS */
+/* Expose to normal JS */
 window.firebaseAuth = auth;
 window.firebaseGoogleProvider = provider;
 window.firebaseCreate = createUserWithEmailAndPassword;
 window.firebaseLogin = signInWithEmailAndPassword;
 window.firebaseGoogle = signInWithPopup;
-</script>
-    <script type="module">
-import { getAuth, onAuthStateChanged, signOut } from 
-"https://www.gstatic.com/firebasejs/12.7.0/firebase-auth.js";
 
-const auth = window.firebaseAuth;
-
+/* NAVBAR BINDING */
 const nav = document.getElementById("mobileNav");
 
 onAuthStateChanged(auth, user => {

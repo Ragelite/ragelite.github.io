@@ -1122,19 +1122,10 @@ alert("Welcome to Ragelite");
   }
 }
   </script>
-    <script type="module">
+   <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-app.js";
 import { 
   getAuth,
-  import { getFirestore, doc, setDoc, getDoc } from 
-"https://www.gstatic.com/firebasejs/12.7.0/firebase-firestore.js";
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-window.firestoreDB = db;
-window.firestoreSet = setDoc;
-window.firestoreGet = getDoc;
-window.firestoreDoc = doc;
-
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   GoogleAuthProvider,
@@ -1142,6 +1133,13 @@ window.firestoreDoc = doc;
   onAuthStateChanged,
   signOut
 } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-auth.js";
+
+import { 
+  getFirestore, 
+  doc, 
+  setDoc, 
+  getDoc 
+} from "https://www.gstatic.com/firebasejs/12.7.0/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAxna_19Y8FonzZlpcE-1xSWMcJx15Jrgk",
@@ -1152,18 +1150,25 @@ const firebaseConfig = {
   appId: "1:815023239952:web:2d1186bc3ad5f3d0ceab95"
 };
 
+/* Initialize */
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+const db = getFirestore(app);
 const provider = new GoogleAuthProvider();
 
-/* Expose to normal JS */
+/* Expose to your normal JS */
 window.firebaseAuth = auth;
 window.firebaseGoogleProvider = provider;
 window.firebaseCreate = createUserWithEmailAndPassword;
 window.firebaseLogin = signInWithEmailAndPassword;
 window.firebaseGoogle = signInWithPopup;
 
-/* NAVBAR BINDING */
+window.firestoreDB = db;
+window.firestoreSet = setDoc;
+window.firestoreGet = getDoc;
+window.firestoreDoc = doc;
+
+/* Navbar binding */
 const nav = document.getElementById("mobileNav");
 
 onAuthStateChanged(auth, user => {

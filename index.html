@@ -1024,12 +1024,13 @@ document.querySelectorAll(".faq-question").forEach(btn => {
     const item = btn.parentElement;
     const isOpen = item.classList.contains("open");
 
+    // Close all
     document.querySelectorAll(".faq-item").forEach(i => {
       i.classList.remove("open");
-      i.querySelector(".faq-question")
-        .setAttribute("aria-expanded", "false");
+      i.querySelector(".faq-question").setAttribute("aria-expanded", "false");
     });
 
+    // Open clicked
     if (!isOpen) {
       item.classList.add("open");
       btn.setAttribute("aria-expanded", "true");
@@ -1044,6 +1045,7 @@ document.querySelectorAll(".faq-question").forEach(btn => {
   });
 });
 </script>
+  </body>
 <script>
 /* =================== AUTH STATE =================== */
 let authMode = "login";

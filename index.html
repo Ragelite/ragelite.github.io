@@ -593,6 +593,10 @@ footer{
   outline: none;
   border-color: var(--accent);
 }
+  <button onclick="googleLogin()" class="full-btn" style="margin-top:14px">
+  Continue with Google
+</button>
+
 
 .full-btn {
   width: 100%;
@@ -1018,6 +1022,18 @@ const counterObserver = new IntersectionObserver(entries => {
 }, { threshold: 0.4 });
 
 document.querySelectorAll(".stat-card").forEach(el => counterObserver.observe(el));
+    async function googleLogin() {
+  try {
+    await window.firebaseGoogle(
+      window.firebaseAuth,
+      window.firebaseGoogleProvider
+    );
+    alert("Logged in with Google");
+    closeAuth();
+  } catch (e) {
+    alert(e.message);
+  }
+}
 
 /* ========== AUTH (NO SUPABASE) ========== */
 let authMode = "login";
@@ -1046,35 +1062,59 @@ function updateAuthText() {
   document.getElementById("authSwitchText").innerText =
     authMode === "login" ? "Don’t have an account?" : "Already have an account?";
 }
-
 async function submitAuth(e) {
   e.preventDefault();
+
   const email = e.target.querySelector('input[type="email"]').value;
   const password = e.target.querySelector('input[type="password"]').value;
   const btn = e.target.querySelector("button");
 
   btn.classList.add("loading");
-  await new Promise(r => setTimeout(r, 1200));
-  btn.classList.remove("loading");
 
-  if (password.length < 6) {
-    alert("Password must be at least 6 characters");
-    return;
-  }
-
-  if (authMode === "signup") {
-    localStorage.setItem("rageliteUser", email);
-    alert("Account created");
-  } else {
-    if (localStorage.getItem("rageliteUser") !== email) {
-      alert("Account not found");
-      return;
+  try {
+    if (authMode === "signup") {
+      await window.firebaseCreate(window.firebaseAuth, email, password);
+      alert("Account created successfully");
+    } else {
+      await window.firebaseLogin(window.firebaseAuth, email, password);
+      alert("Login successful");
     }
-    alert("Login successful");
+
+    closeAuth();
+  } catch (error) {
+    alert(error.message);
   }
 
-  closeAuth();
+  btn.classList.remove("loading");
 }
+    <script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-app.js";
+import { 
+  getAuth, 
+  createUserWithEmailAndPassword, 
+  signInWithEmailAndPassword, 
+  GoogleAuthProvider, 
+  signInWithPopup 
+} from "https://www.gstatic.com/firebasejs/12.7.0/firebase-auth.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyAxna_19Y8FonzZlpcE-1xSWMcJx15Jrgk",
+  authDomain: "ragelite.firebaseapp.com",
+  projectId: "ragelite",
+  storageBucket: "ragelite.firebasestorage.app",
+  messagingSenderId: "815023239952",
+  appId: "1:815023239952:web:2d1186bc3ad5f3d0ceab95"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const provider = new GoogleAuthProvider();
+
+window.firebaseAuth = auth;
+window.firebaseGoogleProvider = provider;
+window.firebaseCreate = createUserWithEmailAndPassword;
+window.firebaseLogin = signInWithEmailAndPassword;
+window.firebaseGoogle = signInWithPopup;
 </script>
 </body>
 </html>

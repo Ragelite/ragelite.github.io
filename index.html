@@ -1094,21 +1094,9 @@ async function submitAuth(e) {
   try {
     if (authMode === "signup") {
   const result = await window.firebaseCreate(window.firebaseAuth, email, password);
-
 const user = result.user;
 
-await window.firestoreSet(
-  window.firestoreDoc(window.firestoreDB, "users", user.uid),
-  {
-    email: user.email,
-    createdAt: new Date(),
-    plan: "free",
-    leads: 0,
-    campaigns: 0,
-    status: "active"
-  }
-);
-
+await window.firestoreCreateUser(user.uid, user.email);
 alert("Welcome to Ragelite");
 
     } else {
@@ -1122,7 +1110,7 @@ alert("Welcome to Ragelite");
   }
 }
   </script>
-   <script type="module">
+<script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-app.js";
 import { 
   getAuth,
@@ -1137,10 +1125,10 @@ import {
 import { 
   getFirestore, 
   doc, 
-  setDoc, 
-  getDoc 
+  setDoc 
 } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-firestore.js";
 
+/* ONE AND ONLY Firebase initialization */
 const firebaseConfig = {
   apiKey: "AIzaSyAxna_19Y8FonzZlpcE-1xSWMcJx15Jrgk",
   authDomain: "ragelite.firebaseapp.com",
@@ -1150,25 +1138,31 @@ const firebaseConfig = {
   appId: "1:815023239952:web:2d1186bc3ad5f3d0ceab95"
 };
 
-/* Initialize */
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 const provider = new GoogleAuthProvider();
 
-/* Expose to your normal JS */
+/* expose to your UI */
 window.firebaseAuth = auth;
 window.firebaseGoogleProvider = provider;
 window.firebaseCreate = createUserWithEmailAndPassword;
 window.firebaseLogin = signInWithEmailAndPassword;
 window.firebaseGoogle = signInWithPopup;
 
-window.firestoreDB = db;
-window.firestoreSet = setDoc;
-window.firestoreGet = getDoc;
-window.firestoreDoc = doc;
+/* Firestore helpers */
+window.firestoreCreateUser = async (uid, email) => {
+  await setDoc(doc(db, "users", uid), {
+    email,
+    plan: "free",
+    leads: 0,
+    campaigns: 0,
+    status: "active",
+    createdAt: new Date()
+  });
+};
 
-/* Navbar binding */
+/* Navbar state */
 const nav = document.getElementById("mobileNav");
 
 onAuthStateChanged(auth, user => {

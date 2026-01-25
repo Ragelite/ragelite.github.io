@@ -1,346 +1,1189 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Ragelite — Autonomous AI Growth</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap');
+<meta charset="UTF-8">
+<title>Ragelite — Autonomous AI Growth</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        :root {
-            --bg: #050b14;
-            --card: rgba(255, 255, 255, 0.07);
-            --border: rgba(255, 255, 255, 0.14);
-            --text: #eaf2ff;
-            --muted: #9fb3d1;
-            --accent: #22d3ee;
-            --accent2: #3b82f6;
-        }
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap');
+  
 
-        body.modal-open { overflow: hidden; }
-        * { box-sizing: border-box; font-family: 'Inter', sans-serif; }
+:root{
+  --bg:#050b14;
+  --card:rgba(255,255,255,0.07);
+  --border:rgba(255,255,255,0.14);
+  --text:#eaf2ff;
+  --muted:#9fb3d1;
+  --accent:#22d3ee;
+  --accent2:#3b82f6;
+}
+  body.modal-open {
+  overflow: hidden;
+}
 
-        body {
-            margin: 0;
-            background: radial-gradient(circle at top left, #0b1b33, #050b14);
-            color: var(--text);
-            overflow-x: hidden;
-        }
+*{
+  box-sizing:border-box;
+  font-family:'Inter',sans-serif;
+}
 
-        /* ===== BACKGROUND GLOW ===== */
-        .glow, .glow2 {
-            position: fixed;
-            width: 700px;
-            height: 700px;
-            border-radius: 50%;
-            filter: blur(160px);
-            opacity: .45;
-            z-index: -1;
-            animation: float 10s ease-in-out infinite;
-        }
-        .glow { background: #22d3ee; top: -300px; right: -300px; }
-        .glow2 { background: #3b82f6; bottom: -300px; left: -300px; animation-delay: 4s; }
+body{
+  margin:0;
+  background:radial-gradient(circle at top left,#0b1b33,#050b14);
+  color:var(--text);
+  overflow-x:hidden;
+}
 
-        @keyframes float {
-            0%, 100% { transform: translateY(0) }
-            50% { transform: translateY(-40px) }
-        }
+/* ===== BACKGROUND GLOW ===== */
+.glow,.glow2{
+  position:fixed;
+  width:700px;
+  height:700px;
+  border-radius:50%;
+  filter:blur(160px);
+  opacity:.45;
+  z-index:-1;
+  animation: float 10s ease-in-out infinite;
+}
+.glow{
+  background:#22d3ee;
+  top:-300px;
+  right:-300px;
+}
+.glow2{
+  background:#3b82f6;
+  bottom:-300px;
+  left:-300px;
+  animation-delay:4s;
+}
 
-        /* ===== NAVBAR ===== */
-        header {
-            position: fixed;
-            top: 0; left: 0; right: 0;
-            padding: 18px 32px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: rgba(5, 11, 20, .75);
-            backdrop-filter: blur(16px);
-            border-bottom: 1px solid var(--border);
-            z-index: 100;
-        }
+@keyframes float{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-40px)}
+}
 
-        .logo { font-size: 20px; font-weight: 800; letter-spacing: .5px; }
-        nav a, .nav-btn { color: var(--text); text-decoration: none; font-weight: 600; cursor: pointer; }
-        .nav-btn { background: none; border: none; font-size: 16px; margin-left: 18px; }
+/* ===== NAVBAR ===== */
+header{
+  position:fixed;
+  top:0;left:0;right:0;
+  padding:18px 32px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  background:rgba(5,11,20,.75);
+  backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--border);
+  z-index:100;
+}
 
-        .primary {
-            padding: 10px 22px;
-            border-radius: 999px;
-            background: linear-gradient(90deg, var(--accent), var(--accent2));
-            color: #020617 !important;
-            box-shadow: 0 0 30px rgba(34, 211, 238, .45);
-            transition: .3s;
-        }
+.logo{
+  font-size:20px;
+  font-weight:800;
+  letter-spacing:.5px;
+}
 
-        /* ===== HERO ===== */
-        .hero { padding: 170px 20px 120px; text-align: center; max-width: 1100px; margin: auto; }
-        .hero h1 {
-            font-size: 68px; line-height: 1.05; margin-bottom: 20px;
-            background: linear-gradient(90deg, var(--accent), var(--accent2));
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            animation: slideUp .9s ease forwards;
-        }
-        .hero p { max-width: 760px; margin: auto; font-size: 20px; color: var(--muted); opacity: 0; animation: slideUp .9s ease forwards; animation-delay: .2s; }
+nav a{
+  color:var(--text);
+  text-decoration:none;
+  margin-left:18px;
+  font-weight:600;
+}
 
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(30px) }
-            to { opacity: 1; transform: translateY(0) }
-        }
+.primary{
+  padding:10px 22px;
+  border-radius:999px;
+  background:linear-gradient(90deg,var(--accent),var(--accent2));
+  color:#020617;
+  box-shadow:0 0 30px rgba(34,211,238,.45);
+  transition:.3s;
+}
+.primary:hover{
+  box-shadow:0 0 60px rgba(59,130,246,.7);
+}
 
-        .cta { margin-top: 40px; opacity: 0; animation: slideUp .9s ease forwards; animation-delay: .4s; }
-        .cta a {
-            display: inline-block; padding: 18px 36px; border-radius: 999px;
-            font-weight: 700; text-decoration: none;
-            background: linear-gradient(90deg, var(--accent), var(--accent2));
-            color: #020617; box-shadow: 0 0 40px rgba(34, 211, 238, .5); transition: .3s;
-        }
+/* ===== HERO ===== */
+.hero{
+  padding:170px 20px 120px;
+  text-align:center;
+  max-width:1100px;
+  margin:auto;
+}
 
-        /* ===== SECTIONS & CARDS ===== */
-        section { max-width: 1100px; margin: auto; padding: 80px 20px; }
-        .grid, .how-grid, .test-grid, .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
-        
-        .card, .how-card, .test-card, .stat-card {
-            background: var(--card); border: 1px solid var(--border); border-radius: 22px;
-            padding: 32px; backdrop-filter: blur(16px); transition: transform .35s ease, box-shadow .35s ease;
-        }
-        .card:hover, .how-card:hover, .test-card:hover, .stat-card:hover { transform: translateY(-6px); border-color: var(--accent); box-shadow: 0 0 40px rgba(34, 211, 238, .25); }
+.hero h1{
+  font-size:68px;
+  line-height:1.05;
+  margin-bottom:20px;
+  background:linear-gradient(90deg,var(--accent),var(--accent2));
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  animation: slideUp .9s ease forwards;
+}
 
-        .hidden { opacity: 0; transform: translateY(24px); transition: opacity .7s ease, transform .7s ease; }
-        .hidden.show { opacity: 1; transform: translateY(0); }
+.hero p{
+  max-width:760px;
+  margin:auto;
+  font-size:20px;
+  color:var(--muted);
+  opacity:0;
+  animation: slideUp .9s ease forwards;
+  animation-delay:.2s;
+}
 
-        /* ===== FAQ ===== */
-        .faq-item { background: var(--card); border: 1px solid var(--border); border-radius: 18px; margin-bottom: 18px; overflow: hidden; }
-        .faq-question { width: 100%; background: none; border: none; color: var(--text); padding: 22px 24px; font-size: 17px; font-weight: 600; display: flex; justify-content: space-between; cursor: pointer; }
-        .faq-answer { max-height: 0; overflow: hidden; padding: 0 24px; color: var(--muted); transition: all .35s ease; }
-        .faq-item.open .faq-answer { max-height: 200px; padding: 0 24px 22px; }
+@keyframes slideUp{
+  from{opacity:0;transform:translateY(30px)}
+  to{opacity:1;transform:translateY(0)}
+}
 
-        /* ===== MODAL ===== */
-        .auth-overlay { position: fixed; inset: 0; background: rgba(5,11,20,.85); backdrop-filter: blur(10px); display: none; align-items: center; justify-content: center; z-index: 999; }
-        .auth-overlay.show { display: flex; }
-        .auth-modal { background: #0b1b33; border: 1px solid var(--border); border-radius: 22px; padding: 40px 32px; width: 100%; max-width: 420px; position: relative; }
-        .auth-modal input { width: 100%; padding: 14px; margin-bottom: 12px; border-radius: 12px; border: 1px solid var(--border); background: rgba(255,255,255,0.05); color: white; }
-        .full-btn { width: 100%; padding: 14px; border-radius: 12px; border: none; background: var(--accent); color: #020617; font-weight: 700; cursor: pointer; margin-top: 10px; }
+.cta{
+  margin-top:40px;
+  opacity:0;
+  animation: slideUp .9s ease forwards;
+  animation-delay:.4s;
+}
 
-        /* Mobile Adjustments */
-        @media (max-width: 640px) {
-            .hero h1 { font-size: 38px; }
-            header { padding: 14px 16px; }
-            #mobileNav { display: none; flex-direction: column; position: absolute; top: 100%; left: 0; right: 0; background: #050b14; padding: 20px; border-bottom: 1px solid var(--border); }
-            #mobileNav.show { display: flex; }
-            .nav-btn { margin: 10px 0; }
-        }
+.cta a{
+  display:inline-block;
+  padding:18px 36px;
+  border-radius:999px;
+  font-weight:700;
+  text-decoration:none;
+  background:linear-gradient(90deg,var(--accent),var(--accent2));
+  color:#020617;
+  box-shadow:0 0 40px rgba(34,211,238,.5);
+  transition:.3s;
+}
+.cta a:hover{
+  transform:scale(1.05);
+  box-shadow:0 0 70px rgba(59,130,246,.8);
+}
 
-        .hamburger { display: none; cursor: pointer; flex-direction: column; gap: 5px; }
-        @media (max-width: 640px) { .hamburger { display: flex; } }
-        .hamburger span { width: 25px; height: 3px; background: white; }
-        
-        footer { text-align: center; padding: 60px; color: var(--muted); border-top: 1px solid var(--border); }
-    </style>
+/* ===== FEATURES ===== */
+section{
+  max-width:1100px;
+  margin:auto;
+  padding:80px 20px;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:30px;
+}
+
+.card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:22px;
+  padding:32px;
+  backdrop-filter:blur(16px);
+  transform:translateY(30px);
+  opacity:0;
+  transition:.6s;
+}
+
+.card.show{
+  transform:translateY(0);
+  opacity:1;
+}
+
+.card:hover{
+  border-color:var(--accent);
+  box-shadow:0 0 40px rgba(34,211,238,.25);
+}
+
+.card p{
+  color:var(--muted);
+}
+
+/* ===== FOOTER ===== */
+footer{
+  padding:70px 20px;
+  text-align:center;
+  color:var(--muted);
+  border-top:1px solid var(--border);
+  font-size:14px;
+}
+
+/* ===== SCROLL ANIMATION ===== */
+.hidden{opacity:0}
+  /* ===== HOW IT WORKS ===== */
+.how{
+  text-align:center;
+}
+
+.how h2{
+  font-size:42px;
+  margin-bottom:10px;
+}
+
+.how-sub{
+  max-width:720px;
+  margin:0 auto 50px;
+  color:var(--muted);
+  font-size:18px;
+}
+
+.how-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:32px;
+}
+
+.how-card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:22px;
+  padding:34px;
+  backdrop-filter:blur(16px);
+  transition:.6s;
+}
+
+.how-card:hover{
+  border-color:var(--accent);
+  box-shadow:0 0 45px rgba(34,211,238,.3);
+}
+
+.step{
+  display:inline-block;
+  font-size:14px;
+  font-weight:700;
+  letter-spacing:1px;
+  color:var(--accent);
+  margin-bottom:10px;
+}
+  /* ===== TESTIMONIALS ===== */
+.testimonials{
+  text-align:center;
+}
+
+.testimonials h2{
+  font-size:42px;
+  margin-bottom:10px;
+}
+
+.test-sub{
+  max-width:720px;
+  margin:0 auto 50px;
+  color:var(--muted);
+  font-size:18px;
+}
+
+.test-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:32px;
+}
+
+.test-card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:22px;
+  padding:36px;
+  backdrop-filter:blur(16px);
+  transition:.6s;
+  text-align:left;
+}
+
+.test-card:hover{
+  border-color:var(--accent);
+  box-shadow:0 0 50px rgba(34,211,238,.25);
+}
+
+.quote{
+  font-size:16px;
+  line-height:1.6;
+  color:#eaf2ff;
+}
+
+.author{
+  margin-top:22px;
+}
+
+.author span{
+  display:block;
+  font-size:14px;
+  color:var(--muted);
+}
+  /* ===== STATS ===== */
+.stats{
+  text-align:center;
+}
+
+.stats h2{
+  font-size:42px;
+  margin-bottom:10px;
+}
+
+.stats-sub{
+  max-width:720px;
+  margin:0 auto 50px;
+  color:var(--muted);
+  font-size:18px;
+}
+
+.stats-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:32px;
+}
+
+.stat-card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:22px;
+  padding:40px 20px;
+  backdrop-filter:blur(16px);
+  transition:.6s;
+}
+
+.stat-card:hover{
+  border-color:var(--accent);
+  box-shadow:0 0 45px rgba(34,211,238,.3);
+}
+
+.stat-card h3{
+  font-size:46px;
+  margin:0;
+  background:linear-gradient(90deg,var(--accent),var(--accent2));
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+
+.stat-card p{
+  margin-top:10px;
+  color:var(--muted);
+  font-size:15px;
+}
+/* ===== MOBILE NAV FIX ===== */
+@media (max-width: 640px) {
+  header {
+    padding: 14px 16px;
+  }
+
+  .logo {
+    font-size: 18px;
+  }
+
+  nav {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  nav a {
+    margin-left: 0;
+    font-size: 14px;
+    padding: 8px 14px;
+  }
+
+  .primary {
+    padding: 8px 16px;
+    font-size: 14px;
+  }
+}
+/* ===== MOBILE HERO TEXT SCALING ===== */
+@media (max-width: 640px) {
+  .hero {
+    padding-top: 120px;
+    padding-bottom: 80px;
+  }
+
+  .hero h1 {
+    font-size: 38px;
+    line-height: 1.1;
+  }
+
+  .hero p {
+    font-size: 16px;
+    margin-top: 14px;
+  }
+
+  .cta a {
+    padding: 14px 24px;
+    font-size: 15px;
+  }
+}
+/* ===== HAMBURGER ICON ===== */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+}
+
+.hamburger span {
+  width: 26px;
+  height: 3px;
+  background: var(--text);
+  border-radius: 2px;
+  transition: .3s ease;
+}
+
+/* Animate to X */
+.hamburger.active span:nth-child(1) {
+  transform: translateY(8px) rotate(45deg);
+}
+
+.hamburger.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+  transform: translateY(-8px) rotate(-45deg);
+}
+
+/* ===== MOBILE NAV ANIMATION ===== */
+#mobileNav {
+  transition: max-height .4s ease, opacity .3s ease;
+}
+
+@media (min-width: 641px) {
+  .hamburger {
+    display: none;
+  }
+
+  #mobileNav {
+    position: static;
+    max-height: none;
+    opacity: 1;
+    display: flex;
+    flex-direction: row;
+    gap: 18px;
+    background: none;
+    border: none;
+  }
+}
+
+
+  #mobileNav.show {
+    padding: 24px 0;
+    max-height: 300px;
+    opacity: 1;
+  }
+
+  #mobileNav a {
+    margin: 0;
+    font-size: 16px;
+  }
+}
+/* ===== FAQ ===== */
+.faq {
+  max-width: 900px;
+  margin: auto;
+  padding: 80px 20px;
+  text-align: center;
+}
+
+.faq h2 {
+  font-size: 42px;
+  margin-bottom: 10px;
+}
+
+.faq-sub {
+  color: var(--muted);
+  margin-bottom: 50px;
+  font-size: 18px;
+}
+
+.faq-list {
+  text-align: left;
+}
+
+.faq-item {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  margin-bottom: 18px;
+  overflow: hidden;
+  transition: border .3s;
+}
+
+.faq-item:hover {
+  border-color: var(--accent);
+}
+
+.faq-question {
+  width: 100%;
+  background: none;
+  border: none;
+  color: var(--text);
+  padding: 22px 24px;
+  font-size: 17px;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+}
+
+.faq-question:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+}
+
+.arrow {
+  font-size: 22px;
+  transition: transform .3s ease;
+}
+
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  padding: 0 24px;
+  color: var(--muted);
+  line-height: 1.6;
+  transition: max-height .35s ease, padding .35s ease;
+}
+
+/* Open state */
+.faq-item.open .faq-answer {
+  max-height: 1000px;
+  padding: 0 24px 22px;
+}
+
+
+.faq-item.open .arrow {
+  transform: rotate(45deg);
+}
+  /* ===== AUTH MODAL ===== */
+.auth-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(5,11,20,.85);
+  backdrop-filter: blur(10px);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+.auth-overlay.show {
+  display: flex;
+}
+
+.auth-modal {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  padding: 40px 32px;
+  width: 100%;
+  max-width: 420px;
+  position: relative;
+  animation: slideUp .4s ease;
+}
+
+.auth-modal h2 {
+  margin-top: 0;
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.auth-modal input {
+  width: 100%;
+  padding: 14px 16px;
+  margin-bottom: 14px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: rgba(255,255,255,.04);
+  color: var(--text);
+  font-size: 15px;
+}
+
+.auth-modal input:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+  
+.full-btn {
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.loader {
+  width: 18px;
+  height: 18px;
+  border: 2px solid rgba(0,0,0,.3);
+  border-top-color: #020617;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  display: none;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.loading .btn-text {
+  visibility: hidden;
+}
+
+.loading .loader {
+  display: inline-block;
+}
+
+.auth-close {
+  position: absolute;
+  top: 14px;
+  right: 18px;
+  background: none;
+  border: none;
+  color: var(--text);
+  font-size: 26px;
+  cursor: pointer;
+}
+
+.auth-switch {
+  margin-top: 18px;
+  text-align: center;
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.auth-switch a {
+  color: var(--accent);
+  font-weight: 600;
+  margin-left: 4px;
+  text-decoration: none;
+}
+/* ===== PREMIUM MICRO ANIMATIONS ===== */
+
+/* Button hover lift */
+a, button {
+  transition: transform .18s ease, box-shadow .18s ease;
+}
+
+a:hover, button:hover {
+  transform: translateY(-1px);
+}
+
+/* Button active press */
+a:active, button:active {
+  transform: translateY(0);
+}
+
+/* Card subtle hover */
+.card, .how-card, .test-card, .stat-card {
+  transition: transform .35s ease, box-shadow .35s ease, border-color .35s ease;
+}
+
+.card:hover,
+.how-card:hover,
+.test-card:hover,
+.stat-card:hover {
+  transform: translateY(-6px);
+}
+
+/* Fade-in on scroll (already wired, now smoother) */
+.hidden {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity .7s ease, transform .7s ease;
+}
+
+.hidden.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+  /* ===== ACCESSIBLE FOCUS STYLES ===== */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 8px;
+}
+
+button:focus:not(:focus-visible),
+a:focus:not(:focus-visible) {
+  outline: none;
+}
+  .nav-btn {
+  background: none;
+  border: none;
+  color: var(--text);
+  font: inherit;
+  cursor: pointer;
+}
+
+</style>
 </head>
 
 <body>
+
 <div class="glow"></div>
 <div class="glow2"></div>
 
 <header>
-    <div class="logo">Ragelite</div>
-    <div class="hamburger" onclick="toggleMenu()">
-        <span></span><span></span><span></span>
-    </div>
-    <nav id="mobileNav">
-        <button onclick="openAuth('login')" class="nav-btn">Login</button>
-        <button onclick="openAuth('signup')" class="nav-btn primary">Create Account</button>
-    </nav>
+  <div class="logo">Ragelite</div>
+
+  <!-- Hamburger -->
+  <div class="hamburger"
+       role="button"
+       tabindex="0"
+       aria-label="Toggle navigation menu"
+       aria-expanded="false"
+       onclick="toggleMenu()"
+       onkeydown="handleHamburgerKey(event)">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+
+  <!-- Navigation -->
+<nav id="mobileNav">
+  <button onclick="openAuth('login')" class="nav-btn">Login</button>
+  <button onclick="openAuth('signup')" class="primary nav-btn">Create Account</button>
+</nav>
 </header>
 
 <div class="hero">
-    <h1>Autonomous AI<br>for Business Growth</h1>
-    <p>Ragelite designs, launches, and optimizes Meta & Google Ads automatically — replacing agencies with intelligent automation.</p>
-    <div class="cta"><a href="#" onclick="openAuth('signup')">Get Started with AI</a></div>
+  <h1>Autonomous AI<br>for Business Growth</h1>
+  <p>
+    Ragelite designs, launches, and optimizes Meta & Google Ads automatically —
+    replacing agencies with intelligent automation.
+  </p>
+  <div class="cta">
+    <a href="signup.html">Get Started with AI</a>
+  </div>
 </div>
 
 <section>
-    <div class="grid">
-        <div class="card hidden">
-            <h3>AI Campaign Creation</h3>
-            <p>Create complete ad campaigns from a single business description.</p>
-        </div>
-        <div class="card hidden">
-            <h3>Self-Optimizing Engine</h3>
-            <p>Budgets, creatives, and targeting improve continuously.</p>
-        </div>
-        <div class="card hidden">
-            <h3>Built for Scale</h3>
-            <p>From startups to global businesses, Ragelite grows with you.</p>
-        </div>
+  <div class="grid">
+    <div class="card hidden">
+      <h3>AI Campaign Creation</h3>
+      <p>Create complete ad campaigns from a single business description.</p>
     </div>
+    <div class="card hidden">
+      <h3>Self-Optimizing Engine</h3>
+      <p>Budgets, creatives, and targeting improve continuously.</p>
+    </div>
+    <div class="card hidden">
+      <h3>Built for Scale</h3>
+      <p>From startups to global businesses, Ragelite grows with you.</p>
+    </div>
+  </div>
 </section>
+  <section>
+  <div class="how">
+    <h2>How Ragelite Works</h2>
+
+    <p class="how-sub">
+      Launch high-performing ads in minutes. Ragelite’s AI handles strategy,
+      execution, and optimization — automatically.
+    </p>
 
 <section>
-    <div style="text-align:center; margin-bottom: 50px;">
-        <h2>How Ragelite Works</h2>
-        <p class="muted">Launch high-performing ads in minutes without the manual grind.</p>
-    </div>
-    <div class="how-grid">
-        <div class="how-card hidden">
-            <span style="color:var(--accent); font-weight:800">01</span>
-            <h3>Describe Business</h3>
-            <p>Share what you do, your goal, and budget.</p>
-        </div>
-        <div class="how-card hidden">
-            <span style="color:var(--accent); font-weight:800">02</span>
-            <h3>AI Builds Ads</h3>
-            <p>Ragelite creates targeting and creatives automatically.</p>
-        </div>
-        <div class="how-card hidden">
-            <span style="color:var(--accent); font-weight:800">03</span>
-            <h3>Continuous Growth</h3>
-            <p>The AI optimizes 24/7 to lower your lead costs.</p>
-        </div>
-    </div>
-</section>
+  <div class="testimonials">
+    <h2>Trusted by Early Teams</h2>
 
-<section class="faq">
-    <h2 style="text-align:center">Frequently Asked Questions</h2>
-    <div class="faq-list">
-        <div class="faq-item">
-            <button class="faq-question">How does Ragelite work? <span>+</span></button>
-            <div class="faq-answer">Ragelite uses LLMs and marketing data to generate campaign structures, copy, and audience segments tailored to your niche.</div>
-        </div>
-        <div class="faq-item">
-            <button class="faq-question">Do I need ad experience? <span>+</span></button>
-            <div class="faq-answer">Not at all. The platform is designed for founders who want results without learning complex ad managers.</div>
-        </div>
-    </div>
-</section>
+    <p class="test-sub">
+      Founders and growth teams are already using Ragelite
+      to simplify and scale their advertising.
+    </p>
 
-<div id="authOverlay" class="auth-overlay">
-    <div class="auth-modal">
-        <button onclick="closeAuth()" style="position:absolute; top:15px; right:20px; background:none; border:none; color:white; font-size:24px; cursor:pointer;">&times;</button>
-        <h2 id="authTitle">Login</h2>
-        <form id="authForm">
-            <input type="email" id="authEmail" placeholder="Email" required>
-            <input type="password" id="authPassword" placeholder="Password" required>
-            <button type="submit" class="full-btn">Continue</button>
-        </form>
-        <button onclick="handleGoogleLogin()" class="full-btn" style="background:white; color:#333; margin-top:10px;">Continue with Google</button>
-        <p style="text-align:center; margin-top:20px; font-size:14px;">
-            <span id="authSwitchText">Don't have an account?</span> 
-            <a href="#" onclick="switchAuth()" style="color:var(--accent)">Switch</a>
+    <div class="test-grid">
+
+      <div class="test-card hidden">
+        <p class="quote">
+          “Ragelite feels like having an in-house growth team.
+          We launched campaigns in minutes without any ad expertise.”
         </p>
+        <div class="author">
+          <strong>Ankit Sharma</strong>
+          <span>Startup Founder</span>
+        </div>
+      </div>
+
+      <div class="test-card hidden">
+        <p class="quote">
+          “The AI-driven approach is impressive.
+          It removed complexity and helped us focus on our product.”
+        </p>
+        <div class="author">
+          <strong>Riya Verma</strong>
+          <span>Marketing Lead</span>
+        </div>
+      </div>
+
+      <div class="test-card hidden">
+        <p class="quote">
+          “We replaced freelancers and tools with Ragelite.
+          The automation and insights are on another level.”
+        </p>
+        <div class="author">
+          <strong>Mohit Jain</strong>
+          <span>Early User</span>
+        </div>
+      </div>
+
     </div>
+  </div>
+</section>
+
+    <section>
+  <div class="stats">
+    <h2>Ragelite in Action</h2>
+    <p class="stats-sub">
+      Our AI is already helping teams launch, optimize,
+      and scale advertising performance.
+    </p>
+
+    <div class="stats-grid">
+      <div class="stat-card hidden">
+        <h3><span class="counter" data-target="125000">0</span>+</h3>
+        <p>Ad Spend Optimized ($)</p>
+      </div>
+
+      <div class="stat-card hidden">
+        <h3><span class="counter" data-target="3200">0</span>+</h3>
+        <p>Leads Generated</p>
+      </div>
+
+      <div class="stat-card hidden">
+        <h3><span class="counter" data-target="18400">0</span>+</h3>
+        <p>AI Decisions Made</p>
+      </div>
+
+      <div class="stat-card hidden">
+        <h3><span class="counter" data-target="48">0</span></h3>
+        <p>Active Campaigns</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+  <section class="faq">
+  <h2>Frequently Asked Questions</h2>
+  <p class="faq-sub">
+    Everything you need to know before getting started with Ragelite.
+  </p>
+
+  <div class="faq-list">
+
+    <div class="faq-item">
+      <button class="faq-question" aria-expanded="false">
+        How does Ragelite create ads automatically?
+        <span class="arrow">+</span>
+      </button>
+      <div class="faq-answer">
+        Ragelite uses AI to understand your business, audience, and goals, then
+        generates complete ad campaigns including creatives, targeting, and budgets.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" aria-expanded="false">
+        Do I need any ads experience?
+        <span class="arrow">+</span>
+      </button>
+      <div class="faq-answer">
+        No. Ragelite is built for founders and teams with zero advertising experience.
+        The AI handles everything end-to-end.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" aria-expanded="false">
+        Which platforms are supported?
+        <span class="arrow">+</span>
+      </button>
+      <div class="faq-answer">
+        We currently support Meta (Facebook & Instagram) and Google Ads, with more
+        platforms coming soon.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" aria-expanded="false">
+        Is my ad budget safe?
+        <span class="arrow">+</span>
+      </button>
+      <div class="faq-answer">
+        Yes. You stay in full control of your budget. Ragelite only optimizes
+        performance within limits you set.
+      </div>
+    </div>
+
+  </div>
+</section>
+
+     <div class="how-grid">
+
+  <!-- STEP 01 -->
+  <div class="how-card hidden">
+    <span class="step">01</span>
+    <h3>Describe Your Business</h3>
+    <p>
+      Share what you do, your goal, and budget.
+      No ad experience required.
+    </p>
+  </div>
+
+  <!-- STEP 02 -->
+  <div class="how-card hidden">
+    <span class="step">02</span>
+    <h3>AI Builds Campaigns</h3>
+    <p>
+      Ragelite creates ads, targeting, and creatives
+      across Meta & Google.
+    </p>
+  </div>
+
+  <!-- STEP 03 -->
+  <div class="how-card hidden">
+    <span class="step">03</span>
+    <h3>Continuous Optimization</h3>
+    <p>
+      Our AI monitors performance and improves results
+      24/7 — automatically.
+    </p>
+  </div>
+
 </div>
+<!-- AUTH MODAL -->
+<div id="authOverlay" class="auth-overlay" aria-hidden="true">
+  <div class="auth-modal" role="dialog" aria-modal="true">
+    <button class="auth-close" onclick="closeAuth()" aria-label="Close">×</button>
 
+    <h2 id="authTitle">Login</h2>
+
+    <form onsubmit="submitAuth(event)">
+      <input type="email" placeholder="Email" required>
+      <input type="password" placeholder="Password" required>
+
+      <button type="submit" class="full-btn">
+        <span class="btn-text">Continue</span>
+        <span class="loader"></span>
+      </button>
+    </form>
+
+    <button onclick="googleLogin()" class="full-btn" style="margin-top:14px">
+      Continue with Google
+    </button>
+
+    <div class="auth-switch">
+      <span id="authSwitchText">Don’t have an account?</span>
+      <a href="#" onclick="switchAuth()">Sign up</a>
+    </div>
+  </div>
+</div>
 <footer>
-    Founded by <strong>Raj Bundela</strong>, <strong>Ashwani Singh</strong> & <strong>Karan Pal</strong><br>
-    © 2026 Ragelite Corporation · ragelitecorporation@gmail.com
+  Founded by <strong>Raj Bundela</strong>, <strong>Ashwani Singh</strong> & <strong>Karan Pal</strong><br>
+  © 2026 Ragelite Corporation · ragelitecorporation@gmail.com
 </footer>
+  <script>
+/* ========== HAMBURGER ========== */
+const hamburger = document.querySelector(".hamburger");
+const mobileNav = document.getElementById("mobileNav");
 
-<script>
-    // UI Logic
-    function toggleMenu() { document.getElementById("mobileNav").classList.toggle("show"); }
-    
-    function openAuth(mode) {
-        window.authMode = mode;
-        document.getElementById("authTitle").innerText = mode === 'login' ? 'Login' : 'Create Account';
-        document.getElementById("authOverlay").classList.add("show");
-        document.body.classList.add("modal-open");
-    }
+function toggleMenu() {
+  const open = mobileNav.classList.toggle("show");
+  hamburger.classList.toggle("active", open);
+  hamburger.setAttribute("aria-expanded", open);
+}
 
-    function closeAuth() {
-        document.getElementById("authOverlay").classList.remove("show");
-        document.body.classList.remove("modal-open");
-    }
+function handleHamburgerKey(e) {
+  if (e.key === "Enter" || e.key === " ") {
+    e.preventDefault();
+    toggleMenu();
+  }
+}
 
-    function switchAuth() {
-        openAuth(window.authMode === 'login' ? 'signup' : 'login');
-    }
+/* ========== FAQ ========== */
+document.querySelectorAll(".faq-question").forEach(btn => {
+  btn.addEventListener("click", () => {
+    const item = btn.parentElement;
+    const open = item.classList.contains("open");
 
-    // FAQ Toggle
-    document.querySelectorAll('.faq-question').forEach(q => {
-        q.addEventListener('click', () => {
-            q.parentElement.classList.toggle('open');
-        });
+    document.querySelectorAll(".faq-item").forEach(i => {
+      i.classList.remove("open");
+      i.querySelector(".faq-question").setAttribute("aria-expanded","false");
     });
 
-    // Observer for animations
-    const observer = new IntersectionObserver(entries => {
-        entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add("show"); });
-    }, { threshold: 0.1 });
-    document.querySelectorAll(".hidden").forEach(el => observer.observe(el));
-</script>
+    if (!open) {
+      item.classList.add("open");
+      btn.setAttribute("aria-expanded","true");
+    }
+  });
+});
 
+/* ========== SCROLL ANIMATIONS ========== */
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) entry.target.classList.add("show");
+  });
+}, { threshold: 0.2 });
+
+document.querySelectorAll(".hidden").forEach(el => observer.observe(el));
+
+/* ========== COUNTERS ========== */
+let started = false;
+const counters = document.querySelectorAll(".counter");
+
+const counterObserver = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting && !started) {
+      started = true;
+      counters.forEach(counter => {
+        const target = +counter.dataset.target;
+        let current = 0;
+        const step = Math.ceil(target / 120);
+        const run = () => {
+          current += step;
+          if (current < target) {
+            counter.textContent = current.toLocaleString();
+            requestAnimationFrame(run);
+          } else {
+            counter.textContent = target.toLocaleString();
+          }
+        };
+        run();
+      });
+    }
+  });
+}, { threshold: 0.4 });
+
+document.querySelectorAll(".stat-card").forEach(el => counterObserver.observe(el));
+    async function googleLogin() {
+  try {
+    await window.firebaseGoogle(
+      window.firebaseAuth,
+      window.firebaseGoogleProvider
+    );
+    alert("Logged in with Google");
+    closeAuth();
+  } catch (e) {
+    alert(e.message);
+  }
+}
+
+/* ========== AUTH (NO SUPABASE) ========== */
+let authMode = "login";
+function openAuth(mode) {
+  authMode = mode;
+  document.getElementById("authOverlay").classList.add("show");
+  document.body.classList.add("modal-open");
+  updateAuthText();
+}
+
+function closeAuth() {
+  document.getElementById("authOverlay").classList.remove("show");
+  document.body.classList.remove("modal-open");
+}
+
+function switchAuth() {
+  authMode = authMode === "login" ? "signup" : "login";
+  updateAuthText();
+}
+
+function updateAuthText() {
+  document.getElementById("authTitle").innerText =
+    authMode === "login" ? "Login" : "Create Account";
+
+  document.getElementById("authSwitchText").innerText =
+    authMode === "login" ? "Don’t have an account?" : "Already have an account?";
+}
+async function submitAuth(e) {
+  e.preventDefault();
+
+  const email = e.target.querySelector('input[type="email"]').value;
+  const password = e.target.querySelector('input[type="password"]').value;
+  const btn = e.target.querySelector("button");
+
+  btn.classList.add("loading");
+
+  try {
+    if (authMode === "signup") {
+  const result = await window.firebaseCreate(window.firebaseAuth, email, password);
+const user = result.user;
+
+await window.firestoreCreateUser(user.uid, user.email);
+alert("Welcome to Ragelite");
+
+    } else {
+      await window.firebaseLogin(window.firebaseAuth, email, password);
+      alert("Login successful");
+    }
+
+    closeAuth();
+  } catch (error) {
+    alert(error.message);
+  }
+}
+  </script>
 <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-app.js";
-    import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-auth.js";
-    import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-firestore.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-app.js";
+import { 
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  GoogleAuthProvider,
+  signInWithPopup,
+  onAuthStateChanged,
+  signOut
+} from "https://www.gstatic.com/firebasejs/12.7.0/firebase-auth.js";
 
-    const firebaseConfig = {
-        apiKey: "AIzaSyAxna_19Y8FonzZlpcE-1xSWMcJx15Jrgk",
-        authDomain: "ragelite.firebaseapp.com",
-        projectId: "ragelite",
-        storageBucket: "ragelite.firebasestorage.app",
-        messagingSenderId: "815023239952",
-        appId: "1:815023239952:web:2d1186bc3ad5f3d0ceab95"
-    };
+import { 
+  getFirestore, 
+  doc, 
+  setDoc 
+} from "https://www.gstatic.com/firebasejs/12.7.0/firebase-firestore.js";
 
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-    const db = getFirestore(app);
-    const provider = new GoogleAuthProvider();
+/* ONE AND ONLY Firebase initialization */
+const firebaseConfig = {
+  apiKey: "AIzaSyAxna_19Y8FonzZlpcE-1xSWMcJx15Jrgk",
+  authDomain: "ragelite.firebaseapp.com",
+  projectId: "ragelite",
+  storageBucket: "ragelite.firebasestorage.app",
+  messagingSenderId: "815023239952",
+  appId: "1:815023239952:web:2d1186bc3ad5f3d0ceab95"
+};
 
-    // Helper: Create User in DB
-    const syncUser = async (user) => {
-        await setDoc(doc(db, "users", user.uid), {
-            email: user.email,
-            createdAt: new Date(),
-            plan: "free"
-        }, { merge: true });
-    };
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+const provider = new GoogleAuthProvider();
 
-    // Expose Auth functions to Global Scope
-    window.handleGoogleLogin = async () => {
-        try {
-            const result = await signInWithPopup(auth, provider);
-            await syncUser(result.user);
-            closeAuth();
-        } catch (e) { alert(e.message); }
-    };
+/* expose to your UI */
+window.firebaseAuth = auth;
+window.firebaseGoogleProvider = provider;
+window.firebaseCreate = createUserWithEmailAndPassword;
+window.firebaseLogin = signInWithEmailAndPassword;
+window.firebaseGoogle = signInWithPopup;
 
-    document.getElementById('authForm').onsubmit = async (e) => {
-        e.preventDefault();
-        const email = document.getElementById('authEmail').value;
-        const password = document.getElementById('authPassword').value;
-        try {
-            if (window.authMode === 'signup') {
-                const res = await createUserWithEmailAndPassword(auth, email, password);
-                await syncUser(res.user);
-            } else {
-                await signInWithEmailAndPassword(auth, email, password);
-            }
-            closeAuth();
-        } catch (e) { alert(e.message); }
-    };
+/* Firestore helpers */
+window.firestoreCreateUser = async (uid, email) => {
+  await setDoc(doc(db, "users", uid), {
+    email,
+    plan: "free",
+    leads: 0,
+    campaigns: 0,
+    status: "active",
+    createdAt: new Date()
+  });
+};
 
-    window.logout = () => signOut(auth);
+/* Navbar state */
+const nav = document.getElementById("mobileNav");
 
-    // Watch Auth State
-    onAuthStateChanged(auth, user => {
-        const nav = document.getElementById("mobileNav");
-        if (user) {
-            nav.innerHTML = `
-                <span style="color:var(--accent)">${user.email.split('@')[0]}</span>
-                <button onclick="logout()" class="nav-btn">Logout</button>
-                <a href="/dashboard" class="nav-btn primary">Dashboard</a>
-            `;
-        } else {
-            nav.innerHTML = `
-                <button onclick="openAuth('login')" class="nav-btn">Login</button>
-                <button onclick="openAuth('signup')" class="nav-btn primary">Create Account</button>
-            `;
-        }
-    });
+onAuthStateChanged(auth, user => {
+  if (user) {
+    nav.innerHTML = `
+      <span style="color:#22d3ee;font-weight:600">${user.email}</span>
+      <button onclick="logout()" class="nav-btn">Logout</button>
+      <a href="/app" class="primary">Dashboard</a>
+    `;
+  } else {
+    nav.innerHTML = `
+      <button onclick="openAuth('login')" class="nav-btn">Login</button>
+      <button onclick="openAuth('signup')" class="primary nav-btn">Create Account</button>
+    `;
+  }
+});
+
+window.logout = async () => {
+  await signOut(auth);
+  location.reload();
+};
 </script>
 </body>
 </html>

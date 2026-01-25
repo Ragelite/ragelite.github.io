@@ -1,197 +1,347 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<title>Ragelite — Autonomous AI Growth</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
+    <title>Ragelite — Autonomous AI Growth</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap');
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+        :root {
+            --bg: #050b14;
+            --card: rgba(255, 255, 255, 0.07);
+            --border: rgba(255, 255, 255, 0.14);
+            --text: #eaf2ff;
+            --muted: #9fb3d1;
+            --accent: #22d3ee;
+            --accent2: #3b82f6;
+        }
 
-<style>
-body {
-  margin: 0;
-  font-family: Inter, sans-serif;
-  background: radial-gradient(circle at top left, #0b1b33, #050b14);
-  color: #eaf2ff;
-}
+        body.modal-open { overflow: hidden; }
+        * { box-sizing: border-box; font-family: 'Inter', sans-serif; }
 
-header {
-  position: fixed;
-  inset: 0 0 auto 0;
-  padding: 18px 32px;
-  display: flex;
-  justify-content: space-between;
-  background: rgba(5,11,20,.75);
-  backdrop-filter: blur(16px);
-  z-index: 100;
-}
+        body {
+            margin: 0;
+            background: radial-gradient(circle at top left, #0b1b33, #050b14);
+            color: var(--text);
+            overflow-x: hidden;
+        }
 
-.logo { font-weight: 800; }
+        /* ===== BACKGROUND GLOW ===== */
+        .glow, .glow2 {
+            position: fixed;
+            width: 700px;
+            height: 700px;
+            border-radius: 50%;
+            filter: blur(160px);
+            opacity: .45;
+            z-index: -1;
+            animation: float 10s ease-in-out infinite;
+        }
+        .glow { background: #22d3ee; top: -300px; right: -300px; }
+        .glow2 { background: #3b82f6; bottom: -300px; left: -300px; animation-delay: 4s; }
 
-nav button {
-  background: none;
-  border: none;
-  color: white;
-  margin-left: 16px;
-  cursor: pointer;
-}
+        @keyframes float {
+            0%, 100% { transform: translateY(0) }
+            50% { transform: translateY(-40px) }
+        }
 
-.primary {
-  padding: 8px 18px;
-  border-radius: 999px;
-  background: linear-gradient(90deg,#22d3ee,#3b82f6);
-  color: #020617;
-  font-weight: 600;
-}
+        /* ===== NAVBAR ===== */
+        header {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            padding: 18px 32px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(5, 11, 20, .75);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border);
+            z-index: 100;
+        }
 
-.hero {
-  padding: 160px 20px 120px;
-  text-align: center;
-}
+        .logo { font-size: 20px; font-weight: 800; letter-spacing: .5px; }
+        nav a, .nav-btn { color: var(--text); text-decoration: none; font-weight: 600; cursor: pointer; }
+        .nav-btn { background: none; border: none; font-size: 16px; margin-left: 18px; }
 
-.hero h1 {
-  font-size: 64px;
-  background: linear-gradient(90deg,#22d3ee,#3b82f6);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
+        .primary {
+            padding: 10px 22px;
+            border-radius: 999px;
+            background: linear-gradient(90deg, var(--accent), var(--accent2));
+            color: #020617 !important;
+            box-shadow: 0 0 30px rgba(34, 211, 238, .45);
+            transition: .3s;
+        }
 
-section { padding: 80px 20px; max-width: 1100px; margin: auto; }
+        /* ===== HERO ===== */
+        .hero { padding: 170px 20px 120px; text-align: center; max-width: 1100px; margin: auto; }
+        .hero h1 {
+            font-size: 68px; line-height: 1.05; margin-bottom: 20px;
+            background: linear-gradient(90deg, var(--accent), var(--accent2));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            animation: slideUp .9s ease forwards;
+        }
+        .hero p { max-width: 760px; margin: auto; font-size: 20px; color: var(--muted); opacity: 0; animation: slideUp .9s ease forwards; animation-delay: .2s; }
 
-.card {
-  background: rgba(255,255,255,.07);
-  border-radius: 20px;
-  padding: 32px;
-  margin: 16px 0;
-}
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px) }
+            to { opacity: 1; transform: translateY(0) }
+        }
 
-.hidden { opacity: 0; transform: translateY(24px); transition: .6s; }
-.hidden.show { opacity: 1; transform: translateY(0); }
+        .cta { margin-top: 40px; opacity: 0; animation: slideUp .9s ease forwards; animation-delay: .4s; }
+        .cta a {
+            display: inline-block; padding: 18px 36px; border-radius: 999px;
+            font-weight: 700; text-decoration: none;
+            background: linear-gradient(90deg, var(--accent), var(--accent2));
+            color: #020617; box-shadow: 0 0 40px rgba(34, 211, 238, .5); transition: .3s;
+        }
 
-.faq-item {
-  background: rgba(255,255,255,.07);
-  margin-bottom: 12px;
-  border-radius: 14px;
-}
+        /* ===== SECTIONS & CARDS ===== */
+        section { max-width: 1100px; margin: auto; padding: 80px 20px; }
+        .grid, .how-grid, .test-grid, .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
+        
+        .card, .how-card, .test-card, .stat-card {
+            background: var(--card); border: 1px solid var(--border); border-radius: 22px;
+            padding: 32px; backdrop-filter: blur(16px); transition: transform .35s ease, box-shadow .35s ease;
+        }
+        .card:hover, .how-card:hover, .test-card:hover, .stat-card:hover { transform: translateY(-6px); border-color: var(--accent); box-shadow: 0 0 40px rgba(34, 211, 238, .25); }
 
-.faq-question {
-  padding: 18px;
-  width: 100%;
-  background: none;
-  border: none;
-  color: white;
-  text-align: left;
-  cursor: pointer;
-}
+        .hidden { opacity: 0; transform: translateY(24px); transition: opacity .7s ease, transform .7s ease; }
+        .hidden.show { opacity: 1; transform: translateY(0); }
 
-.faq-answer {
-  max-height: 0;
-  overflow: hidden;
-  padding: 0 18px;
-  transition: .4s;
-}
+        /* ===== FAQ ===== */
+        .faq-item { background: var(--card); border: 1px solid var(--border); border-radius: 18px; margin-bottom: 18px; overflow: hidden; }
+        .faq-question { width: 100%; background: none; border: none; color: var(--text); padding: 22px 24px; font-size: 17px; font-weight: 600; display: flex; justify-content: space-between; cursor: pointer; }
+        .faq-answer { max-height: 0; overflow: hidden; padding: 0 24px; color: var(--muted); transition: all .35s ease; }
+        .faq-item.open .faq-answer { max-height: 200px; padding: 0 24px 22px; }
 
-.faq-item.open .faq-answer {
-  max-height: 300px;
-  padding-bottom: 18px;
-}
+        /* ===== MODAL ===== */
+        .auth-overlay { position: fixed; inset: 0; background: rgba(5,11,20,.85); backdrop-filter: blur(10px); display: none; align-items: center; justify-content: center; z-index: 999; }
+        .auth-overlay.show { display: flex; }
+        .auth-modal { background: #0b1b33; border: 1px solid var(--border); border-radius: 22px; padding: 40px 32px; width: 100%; max-width: 420px; position: relative; }
+        .auth-modal input { width: 100%; padding: 14px; margin-bottom: 12px; border-radius: 12px; border: 1px solid var(--border); background: rgba(255,255,255,0.05); color: white; }
+        .full-btn { width: 100%; padding: 14px; border-radius: 12px; border: none; background: var(--accent); color: #020617; font-weight: 700; cursor: pointer; margin-top: 10px; }
 
-footer {
-  text-align: center;
-  padding: 40px;
-  color: #9fb3d1;
-}
-</style>
+        /* Mobile Adjustments */
+        @media (max-width: 640px) {
+            .hero h1 { font-size: 38px; }
+            header { padding: 14px 16px; }
+            #mobileNav { display: none; flex-direction: column; position: absolute; top: 100%; left: 0; right: 0; background: #050b14; padding: 20px; border-bottom: 1px solid var(--border); }
+            #mobileNav.show { display: flex; }
+            .nav-btn { margin: 10px 0; }
+        }
+
+        .hamburger { display: none; cursor: pointer; flex-direction: column; gap: 5px; }
+        @media (max-width: 640px) { .hamburger { display: flex; } }
+        .hamburger span { width: 25px; height: 3px; background: white; }
+        
+        footer { text-align: center; padding: 60px; color: var(--muted); border-top: 1px solid var(--border); }
+    </style>
 </head>
 
 <body>
+<div class="glow"></div>
+<div class="glow2"></div>
 
 <header>
-  <div class="logo">Ragelite</div>
-  <nav id="nav">
-    <button onclick="login()">Login</button>
-    <button class="primary" onclick="login()">Create Account</button>
-  </nav>
+    <div class="logo">Ragelite</div>
+    <div class="hamburger" onclick="toggleMenu()">
+        <span></span><span></span><span></span>
+    </div>
+    <nav id="mobileNav">
+        <button onclick="openAuth('login')" class="nav-btn">Login</button>
+        <button onclick="openAuth('signup')" class="nav-btn primary">Create Account</button>
+    </nav>
 </header>
 
 <div class="hero">
-  <h1>Autonomous AI<br>for Business Growth</h1>
-  <p>Launch, optimize, and scale ads automatically with AI.</p>
+    <h1>Autonomous AI<br>for Business Growth</h1>
+    <p>Ragelite designs, launches, and optimizes Meta & Google Ads automatically — replacing agencies with intelligent automation.</p>
+    <div class="cta"><a href="#" onclick="openAuth('signup')">Get Started with AI</a></div>
 </div>
 
 <section>
-  <div class="card hidden">AI Campaign Creation</div>
-  <div class="card hidden">Auto Optimization</div>
-  <div class="card hidden">Built for Founders</div>
+    <div class="grid">
+        <div class="card hidden">
+            <h3>AI Campaign Creation</h3>
+            <p>Create complete ad campaigns from a single business description.</p>
+        </div>
+        <div class="card hidden">
+            <h3>Self-Optimizing Engine</h3>
+            <p>Budgets, creatives, and targeting improve continuously.</p>
+        </div>
+        <div class="card hidden">
+            <h3>Built for Scale</h3>
+            <p>From startups to global businesses, Ragelite grows with you.</p>
+        </div>
+    </div>
 </section>
 
 <section>
-  <h2>Frequently Asked Questions</h2>
-
-  <div class="faq-item">
-    <button class="faq-question">How does Ragelite work?</button>
-    <div class="faq-answer">AI builds and optimizes ads automatically.</div>
-  </div>
-
-  <div class="faq-item">
-    <button class="faq-question">Do I need experience?</button>
-    <div class="faq-answer">No. Ragelite handles everything.</div>
-  </div>
+    <div style="text-align:center; margin-bottom: 50px;">
+        <h2>How Ragelite Works</h2>
+        <p class="muted">Launch high-performing ads in minutes without the manual grind.</p>
+    </div>
+    <div class="how-grid">
+        <div class="how-card hidden">
+            <span style="color:var(--accent); font-weight:800">01</span>
+            <h3>Describe Business</h3>
+            <p>Share what you do, your goal, and budget.</p>
+        </div>
+        <div class="how-card hidden">
+            <span style="color:var(--accent); font-weight:800">02</span>
+            <h3>AI Builds Ads</h3>
+            <p>Ragelite creates targeting and creatives automatically.</p>
+        </div>
+        <div class="how-card hidden">
+            <span style="color:var(--accent); font-weight:800">03</span>
+            <h3>Continuous Growth</h3>
+            <p>The AI optimizes 24/7 to lower your lead costs.</p>
+        </div>
+    </div>
 </section>
 
+<section class="faq">
+    <h2 style="text-align:center">Frequently Asked Questions</h2>
+    <div class="faq-list">
+        <div class="faq-item">
+            <button class="faq-question">How does Ragelite work? <span>+</span></button>
+            <div class="faq-answer">Ragelite uses LLMs and marketing data to generate campaign structures, copy, and audience segments tailored to your niche.</div>
+        </div>
+        <div class="faq-item">
+            <button class="faq-question">Do I need ad experience? <span>+</span></button>
+            <div class="faq-answer">Not at all. The platform is designed for founders who want results without learning complex ad managers.</div>
+        </div>
+    </div>
+</section>
+
+<div id="authOverlay" class="auth-overlay">
+    <div class="auth-modal">
+        <button onclick="closeAuth()" style="position:absolute; top:15px; right:20px; background:none; border:none; color:white; font-size:24px; cursor:pointer;">&times;</button>
+        <h2 id="authTitle">Login</h2>
+        <form id="authForm">
+            <input type="email" id="authEmail" placeholder="Email" required>
+            <input type="password" id="authPassword" placeholder="Password" required>
+            <button type="submit" class="full-btn">Continue</button>
+        </form>
+        <button onclick="handleGoogleLogin()" class="full-btn" style="background:white; color:#333; margin-top:10px;">Continue with Google</button>
+        <p style="text-align:center; margin-top:20px; font-size:14px;">
+            <span id="authSwitchText">Don't have an account?</span> 
+            <a href="#" onclick="switchAuth()" style="color:var(--accent)">Switch</a>
+        </p>
+    </div>
+</div>
+
 <footer>
-  Founded by Raj Bundela, Ashwani Singh & Karan Pal<br>
-  © 2026 Ragelite Corporation
+    Founded by <strong>Raj Bundela</strong>, <strong>Ashwani Singh</strong> & <strong>Karan Pal</strong><br>
+    © 2026 Ragelite Corporation · ragelitecorporation@gmail.com
 </footer>
 
-<!-- Auth0 SDK -->
-<script src="https://cdn.auth0.com/js/auth0-spa-js/2.0/auth0-spa-js.production.js"></script>
-
 <script>
-/* Animations */
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(e => e.isIntersecting && e.target.classList.add("show"));
-});
-document.querySelectorAll(".hidden").forEach(el => observer.observe(el));
+    // UI Logic
+    function toggleMenu() { document.getElementById("mobileNav").classList.toggle("show"); }
+    
+    function openAuth(mode) {
+        window.authMode = mode;
+        document.getElementById("authTitle").innerText = mode === 'login' ? 'Login' : 'Create Account';
+        document.getElementById("authOverlay").classList.add("show");
+        document.body.classList.add("modal-open");
+    }
 
-/* FAQ */
-document.querySelectorAll(".faq-question").forEach(btn => {
-  btn.onclick = () => btn.parentElement.classList.toggle("open");
-});
+    function closeAuth() {
+        document.getElementById("authOverlay").classList.remove("show");
+        document.body.classList.remove("modal-open");
+    }
 
-/* Auth0 */
-let auth0;
+    function switchAuth() {
+        openAuth(window.authMode === 'login' ? 'signup' : 'login');
+    }
 
-async function initAuth() {
-  auth0 = await createAuth0Client({
-    domain: "dev-pu8qxpphrkl03bwu.us.auth0.com",
-    clientId: "beD0b60Jr42TjH6uq0XIrRkoxsC3kdg0",
-    authorizationParams: { redirect_uri: window.location.origin }
-  });
+    // FAQ Toggle
+    document.querySelectorAll('.faq-question').forEach(q => {
+        q.addEventListener('click', () => {
+            q.parentElement.classList.toggle('open');
+        });
+    });
 
-  if (location.search.includes("code=")) {
-    await auth0.handleRedirectCallback();
-    history.replaceState({}, "", "/");
-  }
-
-  if (await auth0.isAuthenticated()) {
-    const user = await auth0.getUser();
-    document.getElementById("nav").innerHTML =
-      `<span>${user.email}</span> <button onclick="logout()">Logout</button>`;
-  }
-}
-
-function login() {
-  auth0.loginWithRedirect({ authorizationParams: { connection: "google-oauth2" }});
-}
-
-function logout() {
-  auth0.logout({ logoutParams: { returnTo: location.origin }});
-}
-
-initAuth();
+    // Observer for animations
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add("show"); });
+    }, { threshold: 0.1 });
+    document.querySelectorAll(".hidden").forEach(el => observer.observe(el));
 </script>
 
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-app.js";
+    import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-auth.js";
+    import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyAxna_19Y8FonzZlpcE-1xSWMcJx15Jrgk",
+        authDomain: "ragelite.firebaseapp.com",
+        projectId: "ragelite",
+        storageBucket: "ragelite.firebasestorage.app",
+        messagingSenderId: "815023239952",
+        appId: "1:815023239952:web:2d1186bc3ad5f3d0ceab95"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+    const provider = new GoogleAuthProvider();
+
+    // Helper: Create User in DB
+    const syncUser = async (user) => {
+        await setDoc(doc(db, "users", user.uid), {
+            email: user.email,
+            createdAt: new Date(),
+            plan: "free"
+        }, { merge: true });
+    };
+
+    // Expose Auth functions to Global Scope
+    window.handleGoogleLogin = async () => {
+        try {
+            const result = await signInWithPopup(auth, provider);
+            await syncUser(result.user);
+            closeAuth();
+        } catch (e) { alert(e.message); }
+    };
+
+    document.getElementById('authForm').onsubmit = async (e) => {
+        e.preventDefault();
+        const email = document.getElementById('authEmail').value;
+        const password = document.getElementById('authPassword').value;
+        try {
+            if (window.authMode === 'signup') {
+                const res = await createUserWithEmailAndPassword(auth, email, password);
+                await syncUser(res.user);
+            } else {
+                await signInWithEmailAndPassword(auth, email, password);
+            }
+            closeAuth();
+        } catch (e) { alert(e.message); }
+    };
+
+    window.logout = () => signOut(auth);
+
+    // Watch Auth State
+    onAuthStateChanged(auth, user => {
+        const nav = document.getElementById("mobileNav");
+        if (user) {
+            nav.innerHTML = `
+                <span style="color:var(--accent)">${user.email.split('@')[0]}</span>
+                <button onclick="logout()" class="nav-btn">Logout</button>
+                <a href="/dashboard" class="nav-btn primary">Dashboard</a>
+            `;
+        } else {
+            nav.innerHTML = `
+                <button onclick="openAuth('login')" class="nav-btn">Login</button>
+                <button onclick="openAuth('signup')" class="nav-btn primary">Create Account</button>
+            `;
+        }
+    });
+</script>
 </body>
 </html>
 

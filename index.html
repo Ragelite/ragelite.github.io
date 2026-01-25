@@ -1043,124 +1043,71 @@ const counterObserver = new IntersectionObserver(entries => {
 }, { threshold: 0.4 });
 
 document.querySelectorAll(".stat-card").forEach(el => counterObserver.observe(el));
-    async function googleLogin() {
-  try {
-    await window.firebaseGoogle(
-      window.firebaseAuth,
-      window.firebaseGoogleProvider
-    );
-    alert("Logged in with Google");
-    closeAuth();
-  } catch (e) {
-    alert(e.message);
+    <script>
+/* ================= AUTH0 SETUP ================= */
+
+const auth0Client = await createAuth0Client({
+  domain: "dev-pu8qxpphrkl03bwu.us.auth0.com",
+  clientId: "beD0b60Jr42TjH6uq0XIrRkoxsC3kdg0",
+  authorizationParams: {
+    redirect_uri: window.location.origin
   }
-}
+});
 
-/* ========== AUTH (NO SUPABASE) ========== */
-let authMode = "login";
-function openAuth(mode) {
-  authMode = mode;
-  document.getElementById("authOverlay").classList.add("show");
-  document.body.classList.add("modal-open");
-  updateAuthText();
-}
+/* ===== LOGIN / SIGNUP ===== */
 
-function closeAuth() {
-  document.getElementById("authOverlay").classList.remove("show");
-  document.body.classList.remove("modal-open");
-}
-
-function switchAuth() {
-  authMode = authMode === "login" ? "signup" : "login";
-  updateAuthText();
-}
-
-function updateAuthText() {
-  document.getElementById("authTitle").innerText =
-    authMode === "login" ? "Login" : "Create Account";
-
-  document.getElementById("authSwitchText").innerText =
-    authMode === "login" ? "Don’t have an account?" : "Already have an account?";
-}
 async function submitAuth(e) {
   e.preventDefault();
 
-  const email = e.target.querySelector('input[type="email"]').value;
-  const password = e.target.querySelector('input[type="password"]').value;
-  const btn = e.target.querySelector("button");
+  const mode = authMode === "signup" ? "signup" : "login";
 
-  btn.classList.add("loading");
-
-  try {
-    if (authMode === "signup") {
-  const result = await window.firebaseCreate(window.firebaseAuth, email, password);
-const user = result.user;
-
-await window.firestoreCreateUser(user.uid, user.email);
-alert("Welcome to Ragelite");
-
-    } else {
-      await window.firebaseLogin(window.firebaseAuth, email, password);
-      alert("Login successful");
+  await auth0Client.loginWithRedirect({
+    authorizationParams: {
+      screen_hint: mode === "signup" ? "signup" : undefined
     }
-
-    closeAuth();
-  } catch (error) {
-    alert(error.message);
-  }
-}
-  </script>
-<script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-app.js";
-import { 
-  getAuth,
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  GoogleAuthProvider,
-  signInWithPopup,
-  onAuthStateChanged,
-  signOut
-} from "https://www.gstatic.com/firebasejs/12.7.0/firebase-auth.js";
-
-import { 
-  getFirestore, 
-  doc, 
-  setDoc 
-} from "https://www.gstatic.com/firebasejs/12.7.0/firebase-firestore.js";
-
-/* ONE AND ONLY Firebase initialization */
-const firebaseConfig = {
-  apiKey: "AIzaSyAxna_19Y8FonzZlpcE-1xSWMcJx15Jrgk",
-  authDomain: "ragelite.firebaseapp.com",
-  projectId: "ragelite",
-  storageBucket: "ragelite.firebasestorage.app",
-  messagingSenderId: "815023239952",
-  appId: "1:815023239952:web:2d1186bc3ad5f3d0ceab95"
-};
-
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db = getFirestore(app);
-const provider = new GoogleAuthProvider();
-
-/* expose to your UI */
-window.firebaseAuth = auth;
-window.firebaseGoogleProvider = provider;
-window.firebaseCreate = createUserWithEmailAndPassword;
-window.firebaseLogin = signInWithEmailAndPassword;
-window.firebaseGoogle = signInWithPopup;
-
-/* Firestore helpers */
-window.firestoreCreateUser = async (uid, email) => {
-  await setDoc(doc(db, "users", uid), {
-    email,
-    plan: "free",
-    leads: 0,
-    campaigns: 0,
-    status: "active",
-    createdAt: new Date()
   });
-};
+}
+
+async function googleLogin() {
+  await auth0Client.loginWithRedirect({
+    authorizationParams: {
+      connection: "google-oauth2"
+    }
+  });
+}
+
+/* ===== HANDLE REDIRECT ===== */
+
+(async () => {
+  if (window.location.search.includes("code=")) {
+    await auth0Client.handleRedirectCallback();
+    window.history.replaceState({}, document.title, "/");
+  }
+
+  const isAuthenticated = await auth0Client.isAuthenticated();
+
+  const nav = document.getElementById("mobileNav");
+
+  if (isAuthenticated) {
+    const user = await auth0Client.getUser();
+
+    nav.innerHTML = `
+      <span style="color:#22d3ee;font-weight:600">${user.email}</span>
+      <button onclick="logout()" class="nav-btn">Logout</button>
+      <a href="/app" class="primary">Dashboard</a>
+    `;
+  }
+})();
+
+async function logout() {
+  await auth0Client.logout({
+    logoutParams: {
+      returnTo: window.location.origin
+    }
+  });
+}
+</script>
+
 
 /* Navbar state */
 const nav = document.getElementById("mobileNav");
@@ -1184,6 +1131,6 @@ window.logout = async () => {
   await signOut(auth);
   location.reload();
 };
-</script>
+    <script src="https://cdn.auth0.com/js/auth0-spa-js/2.0/auth0-spa-js.production.js"></script>
 </body>
 </html>

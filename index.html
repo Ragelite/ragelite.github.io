@@ -1153,8 +1153,17 @@ onAuthStateChanged(auth, user => {
     nav.innerHTML = `
       <span style="color:#22d3ee;font-weight:600">${user.email}</span>
       <button onclick="logout()" class="nav-btn">Logout</button>
-      <button class="primary">Dashboard</button>
+      <a href="dashboard.html" class="primary">Dashboard</a>
     `;
+
+    // 🔥 Redirect if on home page
+    if (window.location.pathname === "/" || window.location.pathname.includes("index")) {
+      // optional delay for animation
+      setTimeout(() => {
+        window.location.href = "dashboard.html";
+      }, 600);
+    }
+
   } else {
     nav.innerHTML = `
       <button onclick="openAuth('login')" class="nav-btn">Login</button>

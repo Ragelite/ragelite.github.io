@@ -1106,6 +1106,7 @@ import {
   onAuthStateChanged,
   signOut
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
 import {
   getFirestore,
   doc,
@@ -1114,7 +1115,7 @@ import {
   serverTimestamp
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-/* ---------- FIREBASE CONFIG ---------- */
+/* ---------- FIREBASE ---------- */
 const firebaseConfig = {
   apiKey: "AIzaSyDDEuW9B7CdfVXslSMvxFBRVPIlcFjHqXs",
   authDomain: "rageauth-174a5.firebaseapp.com",
@@ -1128,7 +1129,7 @@ const db = getFirestore(app);
 const provider = new GoogleAuthProvider();
 const nav = document.getElementById("mobileNav");
 
-/* ---------- AUTH ACTIONS ---------- */
+/* ---------- AUTH FUNCTIONS ---------- */
 window.googleLogin = async () => {
   await signInWithPopup(auth, provider);
   closeAuth();
@@ -1145,14 +1146,22 @@ window.logout = async () => {
   window.location.href = "index.html";
 };
 
+/* ---------- PAGE DETECTION ---------- */
+const isHomePage =
+  window.location.pathname.endsWith("index.html") ||
+  window.location.pathname === "/";
+
 /* ---------- AUTH STATE ---------- */
 onAuthStateChanged(auth, async (user) => {
-  const isHomePage =
-    window.location.pathname.endsWith("index.html") ||
-    window.location.pathname === "/";
 
+  /* 🔒 PROTECT DASHBOARD */
+  if (!user && !isHomePage) {
+    window.location.href = "index.html";
+    return;
+  }
+
+  /* NOT LOGGED IN */
   if (!user) {
-    // NOT LOGGED IN
     nav.innerHTML = `
       <button onclick="openAuth('login')" class="nav-btn">Login</button>
       <button onclick="openAuth('signup')" class="primary nav-btn">
@@ -1162,30 +1171,26 @@ onAuthStateChanged(auth, async (user) => {
     return;
   }
 
-  // CREATE USER DOC (FIRST LOGIN)
-  const userRef = doc(db, "users", user.uid);
-  const snap = await getDoc(userRef);
+  /* FIRST LOGIN → CREATE USER */
+  const ref = doc(db, "users", user.uid);
+  const snap = await getDoc(ref);
 
   if (!snap.exists()) {
-    await setDoc(userRef, {
+    await setDoc(ref, {
       email: user.email,
       createdAt: serverTimestamp(),
-      plan: "free",
-      campaigns: 0,
-      leads: 0
+      plan: "free"
     });
   }
 
-  // LOGGED IN NAVBAR
+  /* LOGGED IN NAVBAR */
   if (isHomePage) {
-    // HOME PAGE → no Home button
     nav.innerHTML = `
       <span style="color:#22d3ee;font-weight:600">${user.email}</span>
       <button onclick="logout()" class="nav-btn">Logout</button>
       <a href="dashboard.html" class="primary">Dashboard</a>
     `;
   } else {
-    // DASHBOARD PAGE → show Home
     nav.innerHTML = `
       <a href="index.html" class="nav-btn">Home</a>
       <button onclick="logout()" class="nav-btn">Logout</button>

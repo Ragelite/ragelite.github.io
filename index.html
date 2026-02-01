@@ -1129,18 +1129,64 @@ const db = getFirestore(app);
 const provider = new GoogleAuthProvider();
 const nav = document.getElementById("mobileNav");
 
-/* ---------- AUTH FUNCTIONS ---------- */
+/* ---------- AUTH MODAL STATE ---------- */
+let authMode = "login";
+
+window.openAuth = (mode) => {
+  authMode = mode;
+  document.getElementById("authOverlay").classList.add("show");
+  document.body.classList.add("modal-open");
+  updateAuthText();
+};
+
+window.closeAuth = () => {
+  document.getElementById("authOverlay").classList.remove("show");
+  document.body.classList.remove("modal-open");
+};
+
+window.switchAuth = () => {
+  authMode = authMode === "login" ? "signup" : "login";
+  updateAuthText();
+};
+
+function updateAuthText() {
+  document.getElementById("authTitle").innerText =
+    authMode === "login" ? "Login" : "Create Account";
+
+  document.getElementById("authSwitchText").innerText =
+    authMode === "login"
+      ? "Don’t have an account?"
+      : "Already have an account?";
+}
+
+/* ---------- FORM SUBMIT (🔥 FIXED) ---------- */
+window.submitAuth = async (e) => {
+  e.preventDefault();
+
+  const email = e.target.querySelector('input[type="email"]').value;
+  const password = e.target.querySelector('input[type="password"]').value;
+
+  try {
+    if (authMode === "signup") {
+      await createUserWithEmailAndPassword(auth, email, password);
+      alert("Account created");
+    } else {
+      await signInWithEmailAndPassword(auth, email, password);
+      alert("Login successful");
+    }
+    closeAuth();
+  } catch (err) {
+    alert(err.message);
+  }
+};
+
+/* ---------- GOOGLE LOGIN ---------- */
 window.googleLogin = async () => {
   await signInWithPopup(auth, provider);
   closeAuth();
 };
 
-window.emailSignup = (email, password) =>
-  createUserWithEmailAndPassword(auth, email, password);
-
-window.emailLogin = (email, password) =>
-  signInWithEmailAndPassword(auth, email, password);
-
+/* ---------- LOGOUT ---------- */
 window.logout = async () => {
   await signOut(auth);
   window.location.href = "index.html";
@@ -1154,24 +1200,19 @@ const isHomePage =
 /* ---------- AUTH STATE ---------- */
 onAuthStateChanged(auth, async (user) => {
 
-  /* 🔒 PROTECT DASHBOARD */
   if (!user && !isHomePage) {
     window.location.href = "index.html";
     return;
   }
 
-  /* NOT LOGGED IN */
   if (!user) {
     nav.innerHTML = `
       <button onclick="openAuth('login')" class="nav-btn">Login</button>
-      <button onclick="openAuth('signup')" class="primary nav-btn">
-        Create Account
-      </button>
+      <button onclick="openAuth('signup')" class="primary nav-btn">Create Account</button>
     `;
     return;
   }
 
-  /* FIRST LOGIN → CREATE USER */
   const ref = doc(db, "users", user.uid);
   const snap = await getDoc(ref);
 
@@ -1183,7 +1224,6 @@ onAuthStateChanged(auth, async (user) => {
     });
   }
 
-  /* LOGGED IN NAVBAR */
   if (isHomePage) {
     nav.innerHTML = `
       <span style="color:#22d3ee;font-weight:600">${user.email}</span>

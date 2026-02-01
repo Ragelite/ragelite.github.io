@@ -1177,21 +1177,21 @@ onAuthStateChanged(auth, async (user) => {
   }
 
   // Navbar (logged in)
-  nav.innerHTML = `
-    <span style="color:#22d3ee;font-weight:600">${user.email}</span>
-    <button onclick="logout()" class="nav-btn">Logout</button>
-    <a href="dashboard.html" class="primary">Dashboard</a>
-  `;
-
+ nav.innerHTML = `
+  <a href="index.html" class="nav-btn">Home</a>
+  <span style="color:#22d3ee;font-weight:600">${user.email}</span>
+  <button onclick="logout()" class="nav-btn">Logout</button>
+  <a href="dashboard.html" class="primary">Dashboard</a>
+`;
   // Redirect only from home page
-  if (
-    window.location.pathname.endsWith("index.html") ||
-    window.location.pathname === "/"
-  ) {
-    setTimeout(() => {
-      window.location.href = "dashboard.html";
-    }, 500);
-  }
+//  if (
+ //   window.location.pathname.endsWith("index.html") ||
+ //   window.location.pathname === "/"
+ // ) {
+//    setTimeout(() => {
+//      window.location.href = "dashboard.html";
+  //  }, 500);
+//  }
 });
 </script>
 

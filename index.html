@@ -1043,21 +1043,11 @@ const counterObserver = new IntersectionObserver(entries => {
 }, { threshold: 0.4 });
 
 document.querySelectorAll(".stat-card").forEach(el => counterObserver.observe(el));
-    async function googleLogin() {
-  try {
-    await window.firebaseGoogle(
-      window.firebaseAuth,
-      window.firebaseGoogleProvider
-    );
-    alert("Logged in with Google");
-    closeAuth();
-  } catch (e) {
-    alert(e.message);
-  }
-}
 
 /* ========== AUTH (NO SUPABASE) ========== */
+<script>
 let authMode = "login";
+
 function openAuth(mode) {
   authMode = mode;
   document.getElementById("authOverlay").classList.add("show");
@@ -1080,48 +1070,32 @@ function updateAuthText() {
     authMode === "login" ? "Login" : "Create Account";
 
   document.getElementById("authSwitchText").innerText =
-    authMode === "login" ? "Don’t have an account?" : "Already have an account?";
+    authMode === "login"
+      ? "Don’t have an account?"
+      : "Already have an account?";
 }
+
 async function submitAuth(e) {
   e.preventDefault();
 
   const email = e.target.querySelector('input[type="email"]').value;
   const password = e.target.querySelector('input[type="password"]').value;
-  const btn = e.target.querySelector("button");
-
-  btn.classList.add("loading");
 
   try {
     if (authMode === "signup") {
-  const result = await window.firebaseCreate(window.firebaseAuth, email, password);
-
-const user = result.user;
-
-await window.firestoreSet(
-  window.firestoreDoc(window.firestoreDB, "users", user.uid),
-  {
-    email: user.email,
-    createdAt: new Date(),
-    plan: "free",
-    leads: 0,
-    campaigns: 0,
-    status: "active"
-  }
-);
-
-alert("Welcome to Ragelite");
-
+      await window.emailSignup(email, password);
+      alert("Account created");
     } else {
-      await window.firebaseLogin(window.firebaseAuth, email, password);
+      await window.emailLogin(email, password);
       alert("Login successful");
     }
-
     closeAuth();
-  } catch (error) {
-    alert(error.message);
+  } catch (err) {
+    alert(err.message);
   }
 }
-  </script>
+</script>
+
    <script type="module">
   // Firebase SDKs
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";

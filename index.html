@@ -1126,38 +1126,24 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 const provider = new GoogleAuthProvider();
-const nav = document.getElementById("mobileNav");
+const isHomePage =
+  window.location.pathname.endsWith("index.html") ||
+  window.location.pathname === "/";
 
-/* ---------- AUTH ACTIONS ---------- */
-window.googleLogin = async () => {
-  try {
-    await signInWithPopup(auth, provider);
-    closeAuth();
-  } catch (e) {
-    alert(e.message);
-  }
-};
-
-window.emailSignup = (email, password) =>
-  createUserWithEmailAndPassword(auth, email, password);
-
-window.emailLogin = (email, password) =>
-  signInWithEmailAndPassword(auth, email, password);
-
-window.logout = async () => {
-  await signOut(auth);
-  window.location.href = "index.html";
-};
-
-/* ---------- AUTH STATE ---------- */
-onAuthStateChanged(auth, async (user) => {
-  if (!user) {
-    nav.innerHTML = `
-      <button onclick="openAuth('login')" class="nav-btn">Login</button>
-      <button onclick="openAuth('signup')" class="primary nav-btn">
-        Create Account
-      </button>
-    `;
+if (isHomePage) {
+  // 🏠 HOME PAGE NAVBAR
+  nav.innerHTML = `
+    <span style="color:#22d3ee;font-weight:600">${user.email}</span>
+    <button onclick="logout()" class="nav-btn">Logout</button>
+    <a href="dashboard.html" class="primary">Dashboard</a>
+  `;
+} else {
+  // 📊 DASHBOARD NAVBAR
+  nav.innerHTML = `
+    <a href="index.html" class="nav-btn">Home</a>
+    <button onclick="logout()" class="nav-btn">Logout</button>
+  `;
+}
     return;
   }
 

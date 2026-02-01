@@ -1147,6 +1147,10 @@ async function submitAuth(e) {
 
   // Navbar state
 onAuthStateChanged(auth, user => {
+  if (user) {
+    window.location.href = "dashboard.html";
+  }
+});
   const nav = document.getElementById("mobileNav");
 
   if (user) {

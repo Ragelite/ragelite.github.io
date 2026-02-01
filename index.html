@@ -1066,46 +1066,25 @@ function closeAuth() {
 }
 
 function switchAuth() {
-  authMode = authMode === "login" ? "signup" : "login";
+  window.authMode = window.authMode === "login" ? "signup" : "login";
   updateAuthText();
 }
 
 function updateAuthText() {
   document.getElementById("authTitle").innerText =
-    authMode === "login" ? "Login" : "Create Account";
+    window.authMode === "login" ? "Login" : "Create Account";
 
   document.getElementById("authSwitchText").innerText =
-    authMode === "login"
+    window.authMode === "login"
       ? "Don’t have an account?"
       : "Already have an account?";
-}
 
-    // ===== AUTH MODE (GLOBAL) =====
-window.authMode = "login";
-
-// ===== FORM SUBMIT =====
-window.submitAuth = async (e) => {
-  e.preventDefault();
-
-  const email = e.target.querySelector('input[type="email"]').value;
-  const password = e.target.querySelector('input[type="password"]').value;
   const usernameInput = document.getElementById("usernameInput");
-  const username = usernameInput ? usernameInput.value.trim() : "";
-
-  try {
-    let userCredential;
-
-    if (window.authMode === "signup") {
-      if (!username) {
-        alert("Please enter a username");
-        return;
-      }
-
-      userCredential = await createUserWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
+  if (usernameInput) {
+    usernameInput.style.display =
+      window.authMode === "signup" ? "block" : "none";
+  }
+}
 
       const avatar = `https://api.dicebear.com/7.x/identicon/svg?seed=${encodeURIComponent(username)}`;
 
@@ -1129,7 +1108,7 @@ window.submitAuth = async (e) => {
   }
 };
 
-<script type="module">
+    <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
 import {
   getAuth,
@@ -1140,7 +1119,6 @@ import {
   onAuthStateChanged,
   signOut
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-
 import {
   getFirestore,
   doc,
@@ -1149,7 +1127,7 @@ import {
   serverTimestamp
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-/* ---------- FIREBASE ---------- */
+/* ---------- FIREBASE CONFIG ---------- */
 const firebaseConfig = {
   apiKey: "AIzaSyDDEuW9B7CdfVXslSMvxFBRVPIlcFjHqXs",
   authDomain: "rageauth-174a5.firebaseapp.com",
@@ -1163,57 +1141,45 @@ const db = getFirestore(app);
 const provider = new GoogleAuthProvider();
 const nav = document.getElementById("mobileNav");
 
-/* ---------- AUTH MODAL STATE ---------- */
-let authMode = "login";
-
-window.openAuth = (mode) => {
-  authMode = mode;
-  document.getElementById("authOverlay").classList.add("show");
-  document.body.classList.add("modal-open");
-  updateAuthText();
-};
-
-window.closeAuth = () => {
-  document.getElementById("authOverlay").classList.remove("show");
-  document.body.classList.remove("modal-open");
-};
-
-window.switchAuth = () => {
-  authMode = authMode === "login" ? "signup" : "login";
-  updateAuthText();
-};
-
-function updateAuthText() {
-  document.getElementById("authTitle").innerText =
-    authMode === "login" ? "Login" : "Create Account";
-
-  document.getElementById("authSwitchText").innerText =
-    authMode === "login"
-      ? "Don’t have an account?"
-      : "Already have an account?";
-
-  const usernameInput = document.getElementById("usernameInput");
-  if (usernameInput) {
-    usernameInput.style.display =
-      authMode === "signup" ? "block" : "none";
-  }
-}
-
-/* ---------- FORM SUBMIT (🔥 FIXED) ---------- */
+/* ---------- EMAIL LOGIN / SIGNUP ---------- */
 window.submitAuth = async (e) => {
   e.preventDefault();
 
   const email = e.target.querySelector('input[type="email"]').value;
   const password = e.target.querySelector('input[type="password"]').value;
+  const usernameInput = document.getElementById("usernameInput");
+  const username = usernameInput?.value.trim();
 
   try {
-    if (authMode === "signup") {
-      await createUserWithEmailAndPassword(auth, email, password);
+    let user;
+
+    if (window.authMode === "signup") {
+      if (!username) {
+        alert("Username required");
+        return;
+      }
+
+      const cred = await createUserWithEmailAndPassword(auth, email, password);
+      user = cred.user;
+
+      const avatar =
+        `https://api.dicebear.com/7.x/identicon/svg?seed=${encodeURIComponent(username)}`;
+
+      await setDoc(doc(db, "users", user.uid), {
+        email,
+        username,
+        avatar,
+        plan: "free",
+        createdAt: serverTimestamp()
+      });
+
       alert("Account created");
     } else {
-      await signInWithEmailAndPassword(auth, email, password);
+      const cred = await signInWithEmailAndPassword(auth, email, password);
+      user = cred.user;
       alert("Login successful");
     }
+
     closeAuth();
   } catch (err) {
     alert(err.message);
@@ -1232,18 +1198,11 @@ window.logout = async () => {
   window.location.href = "index.html";
 };
 
-/* ---------- PAGE DETECTION ---------- */
-const isHomePage =
-  window.location.pathname.endsWith("index.html") ||
-  window.location.pathname === "/";
-
 /* ---------- AUTH STATE ---------- */
 onAuthStateChanged(auth, async (user) => {
-
-  if (!user && !isHomePage) {
-    window.location.href = "index.html";
-    return;
-  }
+  const isHome =
+    window.location.pathname.endsWith("index.html") ||
+    window.location.pathname === "/";
 
   if (!user) {
     nav.innerHTML = `
@@ -1253,30 +1212,18 @@ onAuthStateChanged(auth, async (user) => {
     return;
   }
 
-  const ref = doc(db, "users", user.uid);
-  const snap = await getDoc(ref);
+  const snap = await getDoc(doc(db, "users", user.uid));
+  const data = snap.data();
 
-  if (!snap.exists()) {
-    await setDoc(ref, {
-      email: user.email,
-      createdAt: serverTimestamp(),
-      plan: "free"
-    });
-  }
-
-  if (isHomePage) {
+  if (isHome) {
     nav.innerHTML = `
-     const userDoc = await getDoc(doc(db, "users", user.uid));
-const data = userDoc.data();
-
-nav.innerHTML = `
-  <div style="display:flex;align-items:center;gap:10px">
-    <img src="${data.avatar}" style="width:32px;height:32px;border-radius:50%">
-    <span style="font-weight:600">${data.username}</span>
-  </div>
-  <button onclick="logout()" class="nav-btn">Logout</button>
-  <a href="dashboard.html" class="primary">Dashboard</a>
-`;
+      <div style="display:flex;align-items:center;gap:10px">
+        <img src="${data.avatar}" style="width:32px;height:32px;border-radius:50%">
+        <span>${data.username}</span>
+      </div>
+      <button onclick="logout()" class="nav-btn">Logout</button>
+      <a href="dashboard.html" class="primary">Dashboard</a>
+    `;
   } else {
     nav.innerHTML = `
       <a href="index.html" class="nav-btn">Home</a>
@@ -1285,7 +1232,7 @@ nav.innerHTML = `
   }
 });
 </script>
-    
+  
 </body>
 </html> 
 

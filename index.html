@@ -1054,109 +1054,6 @@ window.submitAuth = async (e) => {
   const username = document.getElementById("usernameInput").value.trim();
 
   try {
-    if (window.authMode === "signup") {
-      if (!username) return alert("Username required");
-
-      const cred = await createUserWithEmailAndPassword(auth, email, password);
-
-      await setDoc(doc(db, "users", cred.user.uid), {
-        email,
-        username,
-        avatar: `https://api.dicebear.com/7.x/identicon/svg?seed=${username}`,
-        plan: "free",
-        createdAt: serverTimestamp()
-      });
-
-      alert("Account created");
-    } else {
-      await signInWithEmailAndPassword(auth, email, password);
-      alert("Login successful");
-    }
-
-    closeAuth();
-  } catch (err) {
-    alert(err.message);
-  }
-};
-
-/* GOOGLE */
-window.googleLogin = async () => {
-  await signInWithPopup(auth, provider);
-  closeAuth();
-};
-
-/* LOGOUT */
-window.logout = async () => {
-  await signOut(auth);
-  location.href = "index.html";
-};
-
-/* NAV STATE */
-onAuthStateChanged(auth, async (user) => {
-  if (!user) {
-    nav.innerHTML = `
-      <button onclick="openAuth('login')" class="nav-btn">Login</button>
-      <button onclick="openAuth('signup')" class="primary nav-btn">Create Account</button>
-    `;
-    return;
-  }
-
-  const snap = await getDoc(doc(db, "users", user.uid));
-  const data = snap.data();
-
-  nav.innerHTML = `
-    <div style="display:flex;align-items:center;gap:10px">
-      <img src="${data.avatar}" width="32" height="32" style="border-radius:50%">
-      <span>${data.username}</span>
-    </div>
-    <button onclick="logout()" class="nav-btn">Logout</button>
-    <a href="dashboard.html" class="primary">Dashboard</a>
-  `;
-});
-</script>
-
-<script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import {
-  getAuth,
-  GoogleAuthProvider,
-  signInWithPopup,
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  onAuthStateChanged,
-  signOut
-} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-import {
-  getFirestore,
-  doc,
-  getDoc,
-  setDoc,
-  serverTimestamp
-} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-
-/* FIREBASE */
-const firebaseConfig = {
-  apiKey: "AIzaSyDDEuW9B7CdfVXslSMvxFBRVPIlcFjHqXs",
-  authDomain: "rageauth-174a5.firebaseapp.com",
-  projectId: "rageauth-174a5",
-  appId: "1:485170234605:web:2cd934b30ab0de678f38e4"
-};
-
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db = getFirestore(app);
-const provider = new GoogleAuthProvider();
-const nav = document.getElementById("mobileNav");
-
-/* EMAIL AUTH */
-window.submitAuth = async (e) => {
-  e.preventDefault();
-
-  const email = e.target.querySelector('input[type="email"]').value;
-  const password = e.target.querySelector('input[type="password"]').value;
-  const username = document.getElementById("usernameInput").value.trim();
-
-  try {
     let user;
 
     if (window.authMode === "signup") {
@@ -1210,18 +1107,26 @@ onAuthStateChanged(auth, async (user) => {
     return;
   }
 
+  let username = user.displayName || "User";
+  let avatar = user.photoURL || "https://api.dicebear.com/7.x/identicon/svg?seed=user";
+
   const snap = await getDoc(doc(db, "users", user.uid));
-  const data = snap.data();
+  if (snap.exists()) {
+    const data = snap.data();
+    username = data.username || username;
+    avatar = data.avatar || avatar;
+  }
 
   nav.innerHTML = `
     <div style="display:flex;align-items:center;gap:10px">
-      <img src="${data.avatar}" width="32" height="32" style="border-radius:50%">
-      <span>${data.username}</span>
+      <img src="${avatar}" width="32" height="32" style="border-radius:50%">
+      <span>${username}</span>
     </div>
     <button onclick="logout()" class="nav-btn">Logout</button>
     <a href="dashboard.html" class="primary">Dashboard</a>
   `;
 });
+
 </script>
   
 </body>

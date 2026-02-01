@@ -5,12 +5,6 @@
 <title>Dashboard — Ragelite</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<script>
-if(localStorage.getItem("ragelite_logged_in")!=="true"){
-  window.location="login.html";
-}
-</script>
-
 <style>
 body{margin:0;font-family:Arial;background:#050b14;color:#eaf2ff}
 header{padding:20px;border-bottom:1px solid #1f2937}
@@ -22,6 +16,7 @@ header a{color:#eaf2ff;text-decoration:none;margin-right:15px;font-weight:bold}
 </head>
 
 <body>
+
 <header>
   <a href="dashboard.html">Dashboard</a>
   <a href="create-campaign.html">Create Campaign</a>
@@ -38,13 +33,41 @@ header a{color:#eaf2ff;text-decoration:none;margin-right:15px;font-weight:bold}
   </div>
 </div>
 
-<script>
-function logout(){
-  localStorage.removeItem("ragelite_logged_in");
-  window.location="login.html";
-}
+<!-- ✅ FIREBASE AUTH (ONLY SCRIPT, AT BOTTOM) -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+  import {
+    getAuth,
+    onAuthStateChanged,
+    signOut
+  } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyDDEuW9B7CdfVXslSMvxFBRVPIlcFjHqXs",
+    authDomain: "rageauth-174a5.firebaseapp.com",
+    projectId: "rageauth-174a5",
+    appId: "1:485170234605:web:2cd934b30ab0de678f38e4"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  // 🔐 Protect dashboard
+  onAuthStateChanged(auth, (user) => {
+    if (!user) {
+      window.location.href = "login.html";
+    }
+  });
+
+  // 🚪 Logout
+  window.logout = async () => {
+    await signOut(auth);
+    window.location.href = "index.html";
+  };
 </script>
+
 </body>
 </html>
+
 
 

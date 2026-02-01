@@ -1123,73 +1123,66 @@ alert("Welcome to Ragelite");
 }
   </script>
    <script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-app.js";
-import { 
-  getAuth,
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  GoogleAuthProvider,
-  signInWithPopup,
-  onAuthStateChanged,
-  signOut
-} from "https://www.gstatic.com/firebasejs/12.7.0/firebase-auth.js";
+  // Firebase SDKs
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+  import { 
+    getAuth,
+    GoogleAuthProvider,
+    signInWithPopup,
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword,
+    onAuthStateChanged,
+    signOut
+  } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
-import { 
-  getFirestore, 
-  doc, 
-  setDoc, 
-  getDoc 
-} from "https://www.gstatic.com/firebasejs/12.7.0/firebase-firestore.js";
+  // 🔑 Your Firebase config (already correct)
+  const firebaseConfig = {
+    apiKey: "AIzaSyDDEuW9B7CdfVXslSMvxFBRVPIlcFjHqXs",
+    authDomain: "rageauth-174a5.firebaseapp.com",
+    projectId: "rageauth-174a5",
+    appId: "1:485170234605:web:2cd934b30ab0de678f38e4"
+  };
 
-const firebaseConfig = {
-  apiKey: "AIzaSyAxna_19Y8FonzZlpcE-1xSWMcJx15Jrgk",
-  authDomain: "ragelite.firebaseapp.com",
-  projectId: "ragelite",
-  storageBucket: "ragelite.firebasestorage.app",
-  messagingSenderId: "815023239952",
-  appId: "1:815023239952:web:2d1186bc3ad5f3d0ceab95"
-};
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const provider = new GoogleAuthProvider();
 
-/* Initialize */
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db = getFirestore(app);
-const provider = new GoogleAuthProvider();
+  // Google login
+  window.googleLogin = async () => {
+    try {
+      await signInWithPopup(auth, provider);
+    } catch (e) {
+      alert(e.message);
+    }
+  };
 
-/* Expose to your normal JS */
-window.firebaseAuth = auth;
-window.firebaseGoogleProvider = provider;
-window.firebaseCreate = createUserWithEmailAndPassword;
-window.firebaseLogin = signInWithEmailAndPassword;
-window.firebaseGoogle = signInWithPopup;
+  // Email signup
+  window.emailSignup = async (email, password) => {
+    await createUserWithEmailAndPassword(auth, email, password);
+  };
 
-window.firestoreDB = db;
-window.firestoreSet = setDoc;
-window.firestoreGet = getDoc;
-window.firestoreDoc = doc;
+  // Email login
+  window.emailLogin = async (email, password) => {
+    await signInWithEmailAndPassword(auth, email, password);
+  };
 
-/* Navbar binding */
-const nav = document.getElementById("mobileNav");
+  // Logout
+  window.logout = async () => {
+    await signOut(auth);
+  };
 
-onAuthStateChanged(auth, user => {
-  if (user) {
-    nav.innerHTML = `
-      <span style="color:#22d3ee;font-weight:600">${user.email}</span>
-      <button onclick="logout()" class="nav-btn">Logout</button>
-      <a href="/app" class="primary">Dashboard</a>
-    `;
-  } else {
-    nav.innerHTML = `
-      <button onclick="openAuth('login')" class="nav-btn">Login</button>
-      <button onclick="openAuth('signup')" class="primary nav-btn">Create Account</button>
-    `;
-  }
-});
+  // Navbar state
+  onAuthStateChanged(auth, user => {
+    const nav = document.getElementById("mobileNav");
 
-window.logout = async () => {
-  await signOut(auth);
-  location.reload();
-};
+    if (user) {
+      nav.innerHTML = `
+        <span style="color:#22d3ee;font-weight:600">${user.email}</span>
+        <button onclick="logout()" class="nav-btn">Logout</button>
+        <button class="primary">Dashboard</button>
+      `;
+    }
+  });
 </script>
 </body>
 </html> 

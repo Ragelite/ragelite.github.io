@@ -1128,6 +1128,76 @@ onAuthStateChanged(auth, async (user) => {
 });
 
 </script>
+    <script>
+/* ===== HAMBURGER ===== */
+const hamburger = document.querySelector(".hamburger");
+const mobileNav = document.getElementById("mobileNav");
+
+function toggleMenu() {
+  const open = mobileNav.classList.toggle("show");
+  hamburger.classList.toggle("active", open);
+  hamburger.setAttribute("aria-expanded", open);
+}
+
+function handleHamburgerKey(e) {
+  if (e.key === "Enter" || e.key === " ") {
+    e.preventDefault();
+    toggleMenu();
+  }
+}
+
+/* ===== FAQ ===== */
+document.querySelectorAll(".faq-question").forEach(btn => {
+  btn.addEventListener("click", () => {
+    const item = btn.closest(".faq-item");
+    item.classList.toggle("open");
+  });
+});
+
+/* ===== SCROLL ANIMATIONS ===== */
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add("show");
+    }
+  });
+}, { threshold: 0.2 });
+
+document.querySelectorAll(".hidden").forEach(el => observer.observe(el));
+
+/* ===== COUNTERS ===== */
+let countersStarted = false;
+const counters = document.querySelectorAll(".counter");
+
+const counterObserver = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting && !countersStarted) {
+      countersStarted = true;
+
+      counters.forEach(counter => {
+        const target = +counter.dataset.target;
+        let current = 0;
+        const step = Math.ceil(target / 120);
+
+        const update = () => {
+          current += step;
+          if (current < target) {
+            counter.textContent = current.toLocaleString();
+            requestAnimationFrame(update);
+          } else {
+            counter.textContent = target.toLocaleString();
+          }
+        };
+        update();
+      });
+    }
+  });
+}, { threshold: 0.4 });
+
+document.querySelectorAll(".stat-card").forEach(el =>
+  counterObserver.observe(el)
+);
+</script>
   
 </body>
 </html> 

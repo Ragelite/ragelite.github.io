@@ -729,10 +729,7 @@ a:focus:not(:focus-visible) {
   </div>
 
   <!-- Navigation -->
-<nav id="mobileNav">
-  <button onclick="openAuth('login')" class="nav-btn">Login</button>
-  <button onclick="openAuth('signup')" class="primary nav-btn">Create Account</button>
-</nav>
+<nav id="navAuth"></nav>
 </header>
 
 <div class="hero">
@@ -1081,12 +1078,11 @@ document.querySelectorAll(".stat-card").forEach(el =>
 );
 </script>
 <script type="module">
-import { protectPage, logout } from "./auth.js";
 import { auth } from "./firebase/firebase.js";
+import { logout } from "./auth.js";
 import { onAuthStateChanged } from
 "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
-/* 🔁 NAVBAR STATE */
 onAuthStateChanged(auth, (user) => {
   const nav = document.getElementById("navAuth");
 
@@ -1094,22 +1090,21 @@ onAuthStateChanged(auth, (user) => {
 
   if (!user) {
     nav.innerHTML = `
-      <button onclick="openAuth('login')">Login</button>
-      <button onclick="openAuth('signup')" class="primary">
+      <button class="nav-btn" onclick="openAuth('login')">Login</button>
+      <button class="primary nav-btn" onclick="openAuth('signup')">
         Create Account
       </button>
     `;
   } else {
     nav.innerHTML = `
       <a href="dashboard.html" class="primary">Dashboard</a>
-      <button onclick="logout()">Logout</button>
+      <button class="nav-btn" onclick="logout()">Logout</button>
     `;
   }
 });
 
 window.logout = logout;
 </script>
-  
 </body>
 </html> 
 

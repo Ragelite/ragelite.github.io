@@ -972,7 +972,13 @@ a:focus:not(:focus-visible) {
     <script>
 function submitAuth(e) {
   e.preventDefault();
-  alert("Auth handler connected. Firebase logic runs from auth.js");
+  import { signInWithEmailAndPassword } from
+"https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+signInWithEmailAndPassword(auth, email, password)
+  .then(() => {
+    window.location.replace("dashboard.html");
+  });
 }
 </script>
     <button onclick="googleLogin()" class="full-btn" style="margin-top:14px">
@@ -1097,46 +1103,16 @@ document.querySelectorAll(".stat-card").forEach(el =>
 function googleLogin() {
   alert("Google login will be handled by Firebase auth.js");
 }
-      <script type="module">
+<script type="module">
 import { auth } from "./firebase.js";
-import {
-  onAuthStateChanged
-} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+import { onAuthStateChanged } from
+"https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
 onAuthStateChanged(auth, (user) => {
   if (user) {
     window.location.replace("dashboard.html");
   }
 });
-</script>
-</script>
-<script type="module">
-import { auth } from "./firebase/firebase.js";
-import { logout } from "./auth.js";
-import { onAuthStateChanged } from
-"https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-
-onAuthStateChanged(auth, (user) => {
-  const nav = document.getElementById("navAuth");
-
-  if (!nav) return;
-
-  if (!user) {
-    nav.innerHTML = `
-      <button class="nav-btn" onclick="openAuth('login')">Login</button>
-      <button class="primary nav-btn" onclick="openAuth('signup')">
-        Create Account
-      </button>
-    `;
-  } else {
-    nav.innerHTML = `
-      <a href="dashboard.html" class="primary">Dashboard</a>
-      <button class="nav-btn" onclick="logout()">Logout</button>
-    `;
-  }
-});
-
-window.logout = logout;
 </script>
 </body>
 </html> 

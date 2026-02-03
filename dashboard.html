@@ -191,7 +191,10 @@ onAuthStateChanged(auth, async (user) => {
     });
   }
 
-  document.getElementById("userEmail").innerText = user.email;
+ document.getElementById("userEmail").innerText =
+  snap.exists() && snap.data().username
+    ? snap.data().username
+    : user.email;
 
 if (user.photoURL) {
   document.getElementById("userAvatar").src = user.photoURL;
@@ -200,7 +203,7 @@ if (user.photoURL) {
   // Optional: personalize dashboard
   const title = document.querySelector("h1");
   if (title) {
-    title.innerText = `Welcome, ${user.email}`;
+    title.innerText = "Your Performance Overview";
   }
 });
 </script>

@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <script type="module">
-import { protectPage } from "./auth.js";
-protectPage("index.html");
 <meta charset="UTF-8">
 <title>Dashboard — Ragelite</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<script type="module">
+import { protectPage } from "./auth.js";
+protectPage("index.html");
+</script>
 <style>
 :root{
   --bg:#050b14;
@@ -285,8 +286,6 @@ h1{
 <!-- ✅ FIREBASE AUTH (ONLY SCRIPT, AT BOTTOM) -->
 <script type="module">
 import { protectPage, logout } from "./auth.js";
-
-protectPage();
 
 document.addEventListener("user-ready", (e) => {
   const { user, data } = e.detail;

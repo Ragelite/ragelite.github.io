@@ -1082,6 +1082,11 @@ document.querySelectorAll(".stat-card").forEach(el =>
   counterObserver.observe(el)
 );
 </script>
+    <script>
+function googleLogin() {
+  alert("Google login will be handled by Firebase auth.js");
+}
+</script>
 <script type="module">
 import { auth } from "./firebase/firebase.js";
 import { logout } from "./auth.js";

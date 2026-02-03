@@ -95,21 +95,6 @@ onAuthStateChanged(auth, async (user) => {
     title.innerText = `Welcome, ${user.email}`;
   }
 });
-
-  /* LOGGED IN NAVBAR */
-  if (isHomePage) {
-    nav.innerHTML = `
-      <span style="color:#22d3ee;font-weight:600">${user.email}</span>
-      <button onclick="logout()" class="nav-btn">Logout</button>
-      <a href="dashboard.html" class="primary">Dashboard</a>
-    `;
-  } else {
-    nav.innerHTML = `
-      <a href="index.html" class="nav-btn">Home</a>
-      <button onclick="logout()" class="nav-btn">Logout</button>
-    `;
-  }
-});
 </script>
 
 </body>

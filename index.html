@@ -1080,122 +1080,34 @@ document.querySelectorAll(".stat-card").forEach(el =>
   counterObserver.observe(el)
 );
 </script>
-
 <script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import {
-  getAuth,
-  GoogleAuthProvider,
-  signInWithPopup,
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  onAuthStateChanged,
-  signOut
-} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-import {
-  getFirestore,
-  doc,
-  getDoc,
-  setDoc,
-  serverTimestamp
-} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+import { protectPage, logout } from "./auth.js";
+import { auth } from "./firebase/firebase.js";
+import { onAuthStateChanged } from
+"https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
-/* FIREBASE */
-const firebaseConfig = {
-  apiKey: "AIzaSyDDEuW9B7CdfVXslSMvxFBRVPIlcFjHqXs",
-  authDomain: "rageauth-174a5.firebaseapp.com",
-  projectId: "rageauth-174a5",
-  appId: "1:485170234605:web:2cd934b30ab0de678f38e4"
-};
+/* 🔁 NAVBAR STATE */
+onAuthStateChanged(auth, (user) => {
+  const nav = document.getElementById("navAuth");
 
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db = getFirestore(app);
-const provider = new GoogleAuthProvider();
-const nav = document.getElementById("mobileNav");
+  if (!nav) return;
 
-/* EMAIL AUTH */
-window.submitAuth = async (e) => {
-  e.preventDefault();
-
-  const email = e.target.querySelector('input[type="email"]').value;
-  const password = e.target.querySelector('input[type="password"]').value;
-  const username = document.getElementById("usernameInput").value.trim();
-
-  try {
-    let user;
-
-    if (window.authMode === "signup") {
-      if (!username) return alert("Username required");
-
-      const cred = await createUserWithEmailAndPassword(auth, email, password);
-      user = cred.user;
-
-      const avatar =
-        `https://api.dicebear.com/7.x/identicon/svg?seed=${username}`;
-
-      await setDoc(doc(db, "users", user.uid), {
-        email,
-        username,
-        avatar,
-        plan: "free",
-        createdAt: serverTimestamp()
-      });
-
-      alert("Account created");
-    } else {
-      await signInWithEmailAndPassword(auth, email, password);
-      alert("Login successful");
-    }
-
-    closeAuth();
-  } catch (err) {
-    alert(err.message);
-  }
-};
-
-/* GOOGLE LOGIN */
-window.googleLogin = async () => {
-  await signInWithPopup(auth, provider);
-  closeAuth();
-};
-
-/* LOGOUT */
-window.logout = async () => {
-  await signOut(auth);
-  location.href = "index.html";
-};
-
-/* NAV STATE */
-onAuthStateChanged(auth, async (user) => {
   if (!user) {
     nav.innerHTML = `
-      <button onclick="openAuth('login')" class="nav-btn">Login</button>
-      <button onclick="openAuth('signup')" class="primary nav-btn">Create Account</button>
+      <button onclick="openAuth('login')">Login</button>
+      <button onclick="openAuth('signup')" class="primary">
+        Create Account
+      </button>
     `;
-    return;
+  } else {
+    nav.innerHTML = `
+      <a href="dashboard.html" class="primary">Dashboard</a>
+      <button onclick="logout()">Logout</button>
+    `;
   }
-
-  let username = user.displayName || "User";
-  let avatar = user.photoURL || "https://api.dicebear.com/7.x/identicon/svg?seed=user";
-
-  const snap = await getDoc(doc(db, "users", user.uid));
-  if (snap.exists()) {
-    const data = snap.data();
-    username = data.username || username;
-    avatar = data.avatar || avatar;
-  }
-
-nav.innerHTML = `
-  <a href="dashboard.html" class="primary">Dashboard</a>
-  <div style="display:flex;align-items:center;gap:10px">
-    <img src="${avatar}" width="32" height="32" style="border-radius:50%">
-    <span>${username}</span>
-  </div>
-  <button onclick="logout()" class="nav-btn">Logout</button>
-`;
 });
 
+window.logout = logout;
 </script>
   
 </body>

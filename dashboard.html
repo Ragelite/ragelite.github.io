@@ -165,48 +165,6 @@ h1{
 .dropdown.show {
   display: flex;
 }
-
-  .layout {
-  display: flex;
-}
-
-.sidebar {
-  width: 240px;
-  min-height: 100vh;
-  background: #050b14;
-  border-right: 1px solid var(--border);
-  padding: 24px;
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-}
-
-.sidebar h2 {
-  margin-bottom: 20px;
-}
-
-.sidebar a,
-.sidebar button {
-  color: var(--text);
-  text-decoration: none;
-  background: none;
-  border: none;
-  padding: 10px 12px;
-  border-radius: 8px;
-  text-align: left;
-  cursor: pointer;
-}
-
-.sidebar a:hover,
-.sidebar button:hover,
-.sidebar a.active {
-  background: rgba(34,211,238,0.12);
-}
-
-.main {
-  flex: 1;
-  padding: 40px;
-}
 </style>
 </head>
 
@@ -218,7 +176,6 @@ h1{
   <div class="profile">
     <button class="profile-btn" id="profileBtn">
       <img id="userAvatar"
-           help
            src="https://api.dicebear.com/7.x/identicon/svg?seed=user">
       <span id="userEmail">Loading...</span>
     </button>
@@ -332,11 +289,6 @@ if (user.photoURL) {
   if (title) {
     title.innerText = "Your Performance Overview";
   }
-  document.getElementById("logoutBtn").addEventListener("click", async () => {
-  await signOut(auth);
-  window.location.href = "index.html";
-});
-
 </script>
 
 </body>

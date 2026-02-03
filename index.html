@@ -1097,6 +1097,18 @@ document.querySelectorAll(".stat-card").forEach(el =>
 function googleLogin() {
   alert("Google login will be handled by Firebase auth.js");
 }
+      <script type="module">
+import { auth } from "./firebase.js";
+import {
+  onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    window.location.replace("dashboard.html");
+  }
+});
+</script>
 </script>
 <script type="module">
 import { auth } from "./firebase/firebase.js";

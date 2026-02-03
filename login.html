@@ -50,18 +50,6 @@ document.getElementById("loginBtn").onclick=function(){
   },1500);
 }
 </script>
-  <script type="module">
-import { auth } from "./firebase/firebase.js";
-import {
-  onAuthStateChanged
-} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-
-onAuthStateChanged(auth, (user) => {
-  if (user) {
-    window.location.replace("home.html");
-  }
-});
-</script>
 </body>
 </html>
 

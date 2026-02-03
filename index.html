@@ -1090,9 +1090,13 @@ import {
   const password = document.querySelector("input[type='password']").value;
 
   signInWithEmailAndPassword(auth, email, password)
-    .then(() => window.location.replace("dashboard.html"))
+    .then(() => {
+      closeAuth(); // ✅ close modal cleanly
+      window.location.replace("dashboard.html");
+    })
     .catch(err => alert(err.message));
 };
+
 const nav = document.getElementById("navAuth");
 
 onAuthStateChanged(auth, (user) => {

@@ -433,7 +433,7 @@ footer{
 }
 
 /* ===== MOBILE NAV ANIMATION ===== */
-#mobileNav {
+#navAuth {
   transition: max-height .4s ease, opacity .3s ease;
 }
 
@@ -442,7 +442,7 @@ footer{
     display: none;
   }
 
-  #mobileNav {
+  #navAuth {
     position: static;
     max-height: none;
     opacity: 1;
@@ -455,13 +455,13 @@ footer{
 }
 
 
-  #mobileNav.show {
+  #navAuth.show {
     padding: 24px 0;
     max-height: 300px;
     opacity: 1;
   }
 
-  #mobileNav a {
+  #navAuth a {
     margin: 0;
     font-size: 16px;
   }
@@ -944,12 +944,6 @@ a:focus:not(:focus-visible) {
     <h2 id="authTitle">Login</h2>
     
 <form onsubmit="submitAuth(event)">
-  <script>
-function submitAuth(e) {
-  e.preventDefault();
-  alert("Auth handler connected. Firebase logic runs from auth.js");
-}
-</script>
   <input
     type="text"
     id="usernameInput"
@@ -964,7 +958,12 @@ function submitAuth(e) {
         <span class="loader"></span>
       </button>
     </form>
-
+    <script>
+function submitAuth(e) {
+  e.preventDefault();
+  alert("Auth handler connected. Firebase logic runs from auth.js");
+}
+</script>
     <button onclick="googleLogin()" class="full-btn" style="margin-top:14px">
       Continue with Google
     </button>

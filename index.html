@@ -958,18 +958,6 @@ a:focus:not(:focus-visible) {
         <span class="loader"></span>
       </button>
     </form>
-    <script>
-function submitAuth(e) {
-  e.preventDefault();
-  import { signInWithEmailAndPassword } from
-"https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-
-signInWithEmailAndPassword(auth, email, password)
-  .then(() => {
-    window.location.replace("dashboard.html");
-  });
-}
-</script>
     <button onclick="googleLogin()" class="full-btn" style="margin-top:14px">
       Continue with Google
     </button>
@@ -1087,16 +1075,14 @@ const counterObserver = new IntersectionObserver(entries => {
 document.querySelectorAll(".stat-card").forEach(el =>
   counterObserver.observe(el)
 );
-</script>
-    <script>
-function googleLogin() {
-  alert("Google login will be handled by Firebase auth.js");
-}
 <script type="module">
 import { auth } from "./firebase.js";
-import { signInWithEmailAndPassword } from
-"https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+import {
+  signInWithEmailAndPassword,
+  onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
+/* ✅ LOGIN HANDLER */
 window.submitAuth = function (e) {
   e.preventDefault();
 
@@ -1107,6 +1093,18 @@ window.submitAuth = function (e) {
     .then(() => window.location.replace("dashboard.html"))
     .catch(err => alert(err.message));
 };
+
+/* ✅ GOOGLE LOGIN PLACEHOLDER */
+window.googleLogin = function () {
+  alert("Google login will be added via auth.js");
+};
+
+/* ✅ REDIRECT IF ALREADY LOGGED IN */
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    window.location.replace("dashboard.html");
+  }
+});
 </script>
 </body>
 </html> 

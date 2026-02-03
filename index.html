@@ -1187,16 +1187,11 @@ onAuthStateChanged(auth, async (user) => {
   }
 
 nav.innerHTML = `
-  <a href="index.html" class="nav-btn">Home</a>
-
   <a href="dashboard.html" class="primary">Dashboard</a>
-
   <div style="display:flex;align-items:center;gap:10px">
-    <img src="${avatar}" width="32" height="32"
-         style="border-radius:50%">
+    <img src="${avatar}" width="32" height="32" style="border-radius:50%">
     <span>${username}</span>
   </div>
-
   <button onclick="logout()" class="nav-btn">Logout</button>
 `;
 });

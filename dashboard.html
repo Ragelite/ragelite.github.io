@@ -183,6 +183,53 @@ h1{
   from{opacity:0;transform:translateY(-8px)}
   to{opacity:1;transform:translateY(0)}
 }
+
+  /* ===== DASHBOARD LAYOUT ===== */
+.layout{
+  display:flex;
+  min-height:calc(100vh - 70px);
+}
+
+/* ===== SIDEBAR ===== */
+.sidebar{
+  width:240px;
+  background:#050b14;
+  border-right:1px solid var(--border);
+  padding:24px 18px;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+
+.sidebar h3{
+  margin-bottom:16px;
+  font-size:14px;
+  color:var(--muted);
+  text-transform:uppercase;
+  letter-spacing:.8px;
+}
+
+.sidebar a{
+  text-decoration:none;
+  color:var(--text);
+  padding:12px 14px;
+  border-radius:10px;
+  font-size:14px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.sidebar a:hover,
+.sidebar a.active{
+  background:rgba(34,211,238,.12);
+}
+
+/* ===== MAIN CONTENT ===== */
+.main{
+  flex:1;
+  padding:40px;
+}
 </style>
 </head>
 
@@ -207,16 +254,31 @@ h1{
 
 </header>
 
-<div class="container">
-  <h1>Your Performance</h1>
+  <div class="layout">
 
-  <div class="cards">
-    <div class="card"><h3>Campaigns</h3><p>3</p></div>
-    <div class="card"><h3>Spend</h3><p>$1,250</p></div>
-    <div class="card"><h3>Leads</h3><p>198</p></div>
-  </div>
+  <!-- ===== SIDEBAR ===== -->
+  <aside class="sidebar">
+    <h3>Navigation</h3>
+
+    <a href="dashboard.html" class="active">📊 Dashboard</a>
+    <a href="#">🚀 Campaigns</a>
+    <a href="#">📈 Analytics</a>
+    <a href="#">⚙️ Settings</a>
+    <a href="index.html">🏠 Home</a>
+  </aside>
+
+  <!-- ===== MAIN CONTENT ===== -->
+  <main class="main">
+    <h1>Your Performance</h1>
+
+    <div class="cards">
+      <div class="card"><h3>Campaigns</h3><p>3</p></div>
+      <div class="card"><h3>Spend</h3><p>$1,250</p></div>
+      <div class="card"><h3>Leads</h3><p>198</p></div>
+    </div>
+  </main>
+
 </div>
-
 <!-- ✅ FIREBASE AUTH (ONLY SCRIPT, AT BOTTOM) -->
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";

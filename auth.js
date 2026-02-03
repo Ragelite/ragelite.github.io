@@ -11,10 +11,10 @@ import {
   serverTimestamp
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-export function protectPage(redirect = "index.html") {
+export function protectPage(redirect = "login.html") {
   onAuthStateChanged(auth, async (user) => {
     if (!user) {
-      window.location.href = redirect;
+      window.location.replace(redirect);
       return;
     }
 
@@ -39,6 +39,5 @@ export function protectPage(redirect = "index.html") {
 
 export async function logout() {
   await signOut(auth);
-  window.location.href = "index.html";
+  window.location.replace("login.html");
 }
-

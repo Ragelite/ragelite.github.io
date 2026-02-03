@@ -205,6 +205,10 @@ if (user.photoURL) {
   if (title) {
     title.innerText = "Your Performance Overview";
   }
+  window.logout = async () => {
+  await signOut(auth);
+  window.location.href = "index.html";
+  };
 });
 </script>
 

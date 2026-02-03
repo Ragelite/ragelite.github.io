@@ -739,7 +739,7 @@ a:focus:not(:focus-visible) {
     replacing agencies with intelligent automation.
   </p>
   <div class="cta">
-    <a href="signup.html">Get Started with AI</a>
+    <a href="#" onclick="openAuth('signup')">Get Started with AI</a>
   </div>
 </div>
 
@@ -944,6 +944,12 @@ a:focus:not(:focus-visible) {
     <h2 id="authTitle">Login</h2>
     
 <form onsubmit="submitAuth(event)">
+  <script>
+function submitAuth(e) {
+  e.preventDefault();
+  alert("Auth handler connected. Firebase logic runs from auth.js");
+}
+</script>
   <input
     type="text"
     id="usernameInput"
@@ -1011,7 +1017,7 @@ function updateAuthText() {
       <script>
 /* ===== HAMBURGER ===== */
 const hamburger = document.querySelector(".hamburger");
-const mobileNav = document.getElementById("mobileNav");
+const mobileNav = document.getElementById("navAuth");
 function toggleMenu() {
   const open = mobileNav.classList.toggle("show");
   hamburger.classList.toggle("active", open);

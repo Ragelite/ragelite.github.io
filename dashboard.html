@@ -120,9 +120,16 @@ h1{
   <div class="brand">Ragelite Dashboard</div>
 
   <div class="user">
-    <img id="userAvatar" src="https://api.dicebear.com/7.x/identicon/svg?seed=user">
+    <a href="index.html" style="color:#22d3ee;font-weight:600;text-decoration:none">
+      Home
+    </a>
+
+    <img id="userAvatar"
+         src="https://api.dicebear.com/7.x/identicon/svg?seed=user">
+
     <span id="userEmail">Loading...</span>
-    <button class="logout" onclick="logout()">Logout</button>
+
+    <button class="logout" id="logoutBtn">Logout</button>
   </div>
 </header>
 
@@ -205,11 +212,11 @@ if (user.photoURL) {
   if (title) {
     title.innerText = "Your Performance Overview";
   }
-  window.logout = async () => {
+  document.getElementById("logoutBtn").addEventListener("click", async () => {
   await signOut(auth);
   window.location.href = "index.html";
-  };
 });
+
 </script>
 
 </body>

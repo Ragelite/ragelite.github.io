@@ -4,11 +4,6 @@
 <meta charset="UTF-8">
 <title>Dashboard — Ragelite</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<script type="module">
-import { protectPage } from "./auth.js";
-protectPage("index.html");
-</script>
 <style>
 :root{
   --bg:#050b14;
@@ -249,7 +244,6 @@ h1{
   </button>
 
   <div class="dropdown" id="profileDropdown">
-    <a href="index.html">🏠 Home</a>
     <a href="dashboard.html">📊 Dashboard</a>
     <a href="#">⚙️ Settings</a>
     <button id="logoutBtn">🚪 Logout</button>
@@ -268,7 +262,6 @@ h1{
     <a href="#">🚀 Campaigns</a>
     <a href="#">📈 Analytics</a>
     <a href="#">⚙️ Settings</a>
-    <a href="index.html">🏠 Home</a>
   </aside>
 
   <!-- ===== MAIN CONTENT ===== -->
@@ -283,9 +276,10 @@ h1{
   </main>
 
 </div>
-<!-- ✅ FIREBASE AUTH (ONLY SCRIPT, AT BOTTOM) -->
 <script type="module">
 import { protectPage, logout } from "./auth.js";
+
+protectPage("index.html");
 
 document.addEventListener("user-ready", (e) => {
   const { user, data } = e.detail;
@@ -298,7 +292,9 @@ document.addEventListener("user-ready", (e) => {
     `https://api.dicebear.com/7.x/identicon/svg?seed=${user.email}`;
 });
 
-window.logout = logout;
+document.getElementById("logoutBtn").addEventListener("click", async () => {
+  await logout();
+});
 </script>
 </body>
 </html>

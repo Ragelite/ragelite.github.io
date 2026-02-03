@@ -66,52 +66,18 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
-const provider = new GoogleAuthProvider();
-const nav = document.getElementById("mobileNav");
 
-/* ---------- AUTH FUNCTIONS ---------- */
-window.googleLogin = async () => {
-  await signInWithPopup(auth, provider);
-  closeAuth();
-};
-
-window.emailSignup = (email, password) =>
-  createUserWithEmailAndPassword(auth, email, password);
-
-window.emailLogin = (email, password) =>
-  signInWithEmailAndPassword(auth, email, password);
-
-window.logout = async () => {
-  await signOut(auth);
-  window.location.href = "index.html";
-};
-
-/* ---------- PAGE DETECTION ---------- */
-const isHomePage =
-  window.location.pathname.endsWith("index.html") ||
-  window.location.pathname === "/";
 
 /* ---------- AUTH STATE ---------- */
 onAuthStateChanged(auth, async (user) => {
 
-  /* 🔒 PROTECT DASHBOARD */
-  if (!user && !isHomePage) {
+  // 🔒 Protect dashboard
+  if (!user) {
     window.location.href = "index.html";
     return;
   }
 
-  /* NOT LOGGED IN */
-  if (!user) {
-    nav.innerHTML = `
-      <button onclick="openAuth('login')" class="nav-btn">Login</button>
-      <button onclick="openAuth('signup')" class="primary nav-btn">
-        Create Account
-      </button>
-    `;
-    return;
-  }
-
-  /* FIRST LOGIN → CREATE USER */
+  // ✅ User is logged in
   const ref = doc(db, "users", user.uid);
   const snap = await getDoc(ref);
 
@@ -122,6 +88,13 @@ onAuthStateChanged(auth, async (user) => {
       plan: "free"
     });
   }
+
+  // Optional: personalize dashboard
+  const title = document.querySelector("h1");
+  if (title) {
+    title.innerText = `Welcome, ${user.email}`;
+  }
+});
 
   /* LOGGED IN NAVBAR */
   if (isHomePage) {

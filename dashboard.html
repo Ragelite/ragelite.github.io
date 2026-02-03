@@ -192,20 +192,19 @@ h1{
   <div class="brand">Ragelite Dashboard</div>
 
   <div class="profile">
-    <button class="profile-btn" id="profileBtn">
-      <img id="userAvatar"
-           src="https://api.dicebear.com/7.x/identicon/svg?seed=user">
-      <span id="userEmail">Loading...</span>
-    </button>
+  <button class="profile-btn" id="profileBtn">
+    <img id="userAvatar" src="https://api.dicebear.com/7.x/identicon/svg?seed=user">
+    <span id="userName">Loading...</span>
+  </button>
 
-    <!-- DROPDOWN -->
-    <div class="dropdown" id="profileDropdown">
-      <a href="index.html">🏠 Home</a>
-      <a href="dashboard.html">📊 Dashboard</a>
-      <a href="settings.html">⚙️ Settings</a>
-      <button id="logoutBtn">🚪 Logout</button>
-    </div>
+  <div class="dropdown" id="profileDropdown">
+    <a href="index.html">🏠 Home</a>
+    <a href="dashboard.html">📊 Dashboard</a>
+    <a href="#">⚙️ Settings</a>
+    <button id="logoutBtn">🚪 Logout</button>
   </div>
+</div>
+
 </header>
 
 <div class="container">
@@ -273,26 +272,29 @@ document.getElementById("logoutBtn").addEventListener("click", async () => {
 });
 
 
-/* ---------- AUTH STATE ---------- */
 onAuthStateChanged(auth, async (user) => {
-
-  // 🔒 Protect dashboard
   if (!user) {
     window.location.href = "index.html";
     return;
   }
 
-  // ✅ User is logged in
-  const ref = doc(db, "users", user.uid);
-  const snap = await getDoc(ref);
+  const userRef = doc(db, "users", user.uid);
+  const snap = await getDoc(userRef);
 
-  if (!snap.exists()) {
-    await setDoc(ref, {
-      email: user.email,
-      createdAt: serverTimestamp(),
-      plan: "free"
-    });
+  let displayName = user.email;
+  let avatar = user.photoURL;
+
+  if (snap.exists()) {
+    const data = snap.data();
+    if (data.username) displayName = data.username;
+    if (data.avatar) avatar = data.avatar;
   }
+
+  document.getElementById("userName").innerText = displayName;
+  document.getElementById("userAvatar").src =
+    avatar || `https://api.dicebear.com/7.x/identicon/svg?seed=${displayName}`;
+});
+
 
  document.getElementById("userEmail").innerText =
   snap.exists() && snap.data().username

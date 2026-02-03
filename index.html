@@ -1075,6 +1075,7 @@ const counterObserver = new IntersectionObserver(entries => {
 document.querySelectorAll(".stat-card").forEach(el =>
   counterObserver.observe(el)
 );
+ </script>
 <script type="module">
 import { auth } from "./firebase.js";
 import {
@@ -1085,6 +1086,21 @@ import {
 /* ✅ LOGIN HANDLER */
 window.submitAuth = function (e) {
   e.preventDefault();
+
+  const nav = document.getElementById("navAuth");
+
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    nav.innerHTML = `<a href="dashboard.html" class="primary">Dashboard</a>`;
+  } else {
+    nav.innerHTML = `
+      <button class="nav-btn" onclick="openAuth('login')">Login</button>
+      <button class="primary nav-btn" onclick="openAuth('signup')">
+        Create Account
+      </button>
+    `;
+  }
+});
 
   const email = document.querySelector("input[type='email']").value;
   const password = document.querySelector("input[type='password']").value;

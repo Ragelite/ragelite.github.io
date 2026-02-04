@@ -1113,6 +1113,29 @@ onAuthStateChanged(auth, (user) => {
 });
 </script>
     <script type="module" src="./home.js"></script>
+    <div class="copilot-panel" id="copilotPanel">
+
+  <div class="copilot-header">
+    Ragelite AI
+    <span id="closeCopilot">✕</span>
+  </div>
+
+  <div class="copilot-body" id="copilotBody">
+    <div class="ai-msg">
+      👋 Hi Raj — I’m analyzing your campaigns.
+
+      Ask me things like:
+
+      • "Where should I increase budget?"  
+      • "Which campaign is underperforming?"  
+      • "Give me growth ideas"
+    </div>
+  </div>
+
+  <div class="copilot-input">
+    <input id="copilotInput" placeholder="Ask Ragelite AI..." />
+    <button id="sendCopilot">Send</button>
+  </div>
 </body>
 </html> 
 

@@ -306,6 +306,114 @@ h1{
   background:linear-gradient(180deg,#071225,#0b1b33);
   border:1px solid rgba(34,211,238,.15);
 }
+
+  /* ===============================
+   ELITE AI COPILOT
+=============================== */
+
+.copilot-btn{
+  position:fixed;
+  right:30px;
+  bottom:30px;
+  width:64px;
+  height:64px;
+  border-radius:50%;
+  border:none;
+  cursor:pointer;
+  font-size:26px;
+
+  background:linear-gradient(135deg,#22d3ee,#3b82f6);
+  color:#021018;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  box-shadow:0 0 25px rgba(34,211,238,.6);
+  animation:pulseGlow 2s infinite;
+  z-index:999;
+}
+
+@keyframes pulseGlow{
+  0%{box-shadow:0 0 15px rgba(34,211,238,.5);}
+  50%{box-shadow:0 0 35px rgba(34,211,238,.9);}
+  100%{box-shadow:0 0 15px rgba(34,211,238,.5);}
+}
+
+.copilot-panel{
+  position:fixed;
+  right:30px;
+  bottom:110px;
+  width:340px;
+  height:460px;
+  border-radius:18px;
+
+  background:linear-gradient(180deg,#071225,#0b1b33);
+  border:1px solid rgba(34,211,238,.2);
+
+  display:none;
+  flex-direction:column;
+  overflow:hidden;
+
+  box-shadow:0 0 40px rgba(0,0,0,.6);
+}
+
+.copilot-panel.show{
+  display:flex;
+}
+
+.copilot-header{
+  padding:16px;
+  font-weight:700;
+  border-bottom:1px solid rgba(255,255,255,.06);
+  display:flex;
+  justify-content:space-between;
+}
+
+.copilot-body{
+  flex:1;
+  padding:16px;
+  overflow-y:auto;
+  font-size:14px;
+}
+
+.ai-msg{
+  background:rgba(34,211,238,.1);
+  padding:12px;
+  border-radius:10px;
+}
+
+.user-msg{
+  margin-top:12px;
+  text-align:right;
+}
+
+.user-msg span{
+  background:#3b82f6;
+  padding:10px;
+  border-radius:10px;
+  display:inline-block;
+}
+
+.copilot-input{
+  display:flex;
+  border-top:1px solid rgba(255,255,255,.05);
+}
+
+.copilot-input input{
+  flex:1;
+  padding:12px;
+  border:none;
+  background:none;
+  color:white;
+}
+
+.copilot-input button{
+  border:none;
+  padding:12px 16px;
+  background:#22d3ee;
+  cursor:pointer;
+}
 </style>
 </head>
 
@@ -425,6 +533,37 @@ h1{
 
 </div>
  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- ===== ELITE AI COPILOT ===== -->
+
+<div class="copilot-btn" id="copilotBtn">
+  ✨
+</div>
+
+<div class="copilot-panel" id="copilotPanel">
+
+  <div class="copilot-header">
+    Ragelite AI
+    <span id="closeCopilot">✕</span>
+  </div>
+
+  <div class="copilot-body" id="copilotBody">
+    <div class="ai-msg">
+      👋 Hi Raj — I’m analyzing your campaigns.
+
+      Ask me things like:
+
+      • "Where should I increase budget?"  
+      • "Which campaign is underperforming?"  
+      • "Give me growth ideas"
+    </div>
+  </div>
+
+  <div class="copilot-input">
+    <input id="copilotInput" placeholder="Ask Ragelite AI..." />
+    <button id="sendCopilot">Send</button>
+  </div>
+
+</div>
 <script type="module" src="./dashboard.js"></script>
 </body>
 </html>

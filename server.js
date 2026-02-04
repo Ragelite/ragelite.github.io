@@ -8,7 +8,7 @@ app.use(cors());
 app.use(express.json());
 
 const openai = new OpenAI({
-  apiKey: "PASTE_YOUR_OPENAI_KEY_HERE"
+  apiKey: process.env.OPENAI_KEY
 });
 
 /* =========================

@@ -185,3 +185,23 @@ function sendMessage(){
   },700);
 
 }
+async function askAI(message) {
+
+  const response = await fetch("http://localhost:3000/ask-ai", {
+
+    method: "POST",
+
+    headers: {
+      "Content-Type": "application/json"
+    },
+
+    body: JSON.stringify({
+      message: message
+    })
+
+  });
+
+  const data = await response.json();
+
+  return data.reply;
+}

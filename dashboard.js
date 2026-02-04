@@ -125,3 +125,63 @@ if (ctx) {
     }
   });
 }
+/* ===============================
+   ELITE COPILOT
+=============================== */
+
+const copilotBtn = document.getElementById("copilotBtn");
+const copilotPanel = document.getElementById("copilotPanel");
+const closeCopilot = document.getElementById("closeCopilot");
+const sendBtn = document.getElementById("sendCopilot");
+const input = document.getElementById("copilotInput");
+const body = document.getElementById("copilotBody");
+
+if(copilotBtn){
+
+  copilotBtn.addEventListener("click",()=>{
+    copilotPanel.classList.toggle("show");
+  });
+
+  closeCopilot.addEventListener("click",()=>{
+    copilotPanel.classList.remove("show");
+  });
+
+  sendBtn.addEventListener("click",sendMessage);
+  input.addEventListener("keypress",(e)=>{
+    if(e.key==="Enter") sendMessage();
+  });
+
+}
+
+function sendMessage(){
+
+  const text = input.value.trim();
+  if(!text) return;
+
+  body.innerHTML += `
+    <div class="user-msg">
+      <span>${text}</span>
+    </div>
+  `;
+
+  input.value="";
+
+  setTimeout(()=>{
+
+    body.innerHTML += `
+      <div class="ai-msg">
+        🤖 AI insight:
+
+        Based on early signals,
+        increasing budget on your best campaign could
+        improve conversions by ~20%.
+
+        (Live AI connection comes next.)
+      </div>
+    `;
+
+    body.scrollTop = body.scrollHeight;
+
+  },700);
+
+}

@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <title>Dashboard — Ragelite</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
 <style>
 :root{
   --bg:#050b14;
@@ -312,28 +313,6 @@ h1{
 
 </div>
 <script type="module">
-import { protectPage, logout } from "./auth.js";
-
-/* ✅ Protect dashboard */
-protectPage("index.html");
-
-/* ✅ Load user data */
-document.addEventListener("user-ready", (e) => {
-  const { user, data } = e.detail;
-
-  document.getElementById("userName").innerText =
-    data.username || user.email;
-
-  document.getElementById("userAvatar").src =
-    data.avatar ||
-    `https://api.dicebear.com/7.x/identicon/svg?seed=${user.email}`;
-});
-
-/* ✅ Logout */
-document.getElementById("logoutBtn").addEventListener("click", async () => {
-  await logout();
-});
-
   import { protectPage, logout } from "./auth.js";
 
 protectPage("index.html");

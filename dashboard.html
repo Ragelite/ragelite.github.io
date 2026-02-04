@@ -279,8 +279,10 @@ h1{
 <script type="module">
 import { protectPage, logout } from "./auth.js";
 
-protectPage("/");
+/* ✅ Protect dashboard */
+protectPage("index.html");
 
+/* ✅ Load user data */
 document.addEventListener("user-ready", (e) => {
   const { user, data } = e.detail;
 
@@ -292,8 +294,24 @@ document.addEventListener("user-ready", (e) => {
     `https://api.dicebear.com/7.x/identicon/svg?seed=${user.email}`;
 });
 
+/* ✅ Logout */
 document.getElementById("logoutBtn").addEventListener("click", async () => {
   await logout();
+});
+
+/* ✅ PROFILE DROPDOWN (YOU WERE MISSING THIS) */
+const profileBtn = document.getElementById("profileBtn");
+const dropdown = document.getElementById("profileDropdown");
+
+profileBtn.addEventListener("click", () => {
+  dropdown.classList.toggle("show");
+});
+
+/* close if clicked outside */
+document.addEventListener("click", (e) => {
+  if (!profileBtn.contains(e.target) && !dropdown.contains(e.target)) {
+    dropdown.classList.remove("show");
+  }
 });
 </script>
 </body>

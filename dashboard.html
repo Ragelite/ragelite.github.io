@@ -279,7 +279,7 @@ h1{
 <script type="module">
 import { protectPage, logout } from "./auth.js";
 
-protectPage("index.html");
+protectPage("/");
 
 document.addEventListener("user-ready", (e) => {
   const { user, data } = e.detail;

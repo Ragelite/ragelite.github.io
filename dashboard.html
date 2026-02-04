@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <meta charset="UTF-8">
 <title>Dashboard — Ragelite</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -297,6 +298,14 @@ h1{
 .ai-btn:hover{
   transform:translateY(-2px);
 }
+
+  .chart-card{
+  margin-top:40px;
+  padding:30px;
+  border-radius:18px;
+  background:linear-gradient(180deg,#071225,#0b1b33);
+  border:1px solid rgba(34,211,238,.15);
+}
 </style>
 </head>
 
@@ -356,6 +365,9 @@ h1{
       <div class="card"><h3>Spend</h3><p>$1,250</p></div>
       <div class="card"><h3>Leads</h3><p>198</p></div>
     </div>
+    <div class="chart-card">
+  <canvas id="revenueChart"></canvas>
+</div>
   </main>
 
 </div>
@@ -409,6 +421,38 @@ profileBtn.addEventListener("click", () => {
 document.addEventListener("click", (e) => {
   if (!profileBtn.contains(e.target) && !dropdown.contains(e.target)) {
     dropdown.classList.remove("show");
+  }
+});
+  const ctx = document.getElementById('revenueChart');
+
+new Chart(ctx, {
+  type: 'line',
+  data: {
+    labels: ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'],
+    datasets: [{
+      label: 'Revenue',
+      data: [120,190,300,500,420,610,720],
+      borderColor: '#22d3ee',
+      backgroundColor: 'rgba(34,211,238,.12)',
+      tension: 0.4,
+      fill: true,
+      pointRadius: 0
+    }]
+  },
+  options: {
+    plugins: {
+      legend: { display:false }
+    },
+    scales: {
+      x: {
+        grid: { display:false },
+        ticks:{ color:'#9fb3d1'}
+      },
+      y: {
+        grid: { color:'rgba(255,255,255,.05)' },
+        ticks:{ color:'#9fb3d1'}
+      }
+    }
   }
 });
 </script>

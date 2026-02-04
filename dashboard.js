@@ -22,7 +22,12 @@ document.addEventListener("user-ready", (e) => {
       data.avatar ||
       `https://api.dicebear.com/7.x/identicon/svg?seed=${user.email}`;
 });
+const greeting = document.getElementById("greeting");
 
+if (greeting) {
+  const name = (data.username || user.email).split("@")[0];
+  greeting.innerText = `Good to see you, ${name} 👋`;
+}
 
 /* ================================
    LOGOUT

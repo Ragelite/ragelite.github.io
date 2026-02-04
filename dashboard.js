@@ -7,27 +7,27 @@ protectPage("index.html");
 /* ================================
    USER DATA
 ================================ */
-
 document.addEventListener("user-ready", (e) => {
   const { user, data } = e.detail;
 
   const userName = document.getElementById("userName");
   const userAvatar = document.getElementById("userAvatar");
+  const greeting = document.getElementById("greeting");
+
+  const displayName = data.username || user.email;
+  const firstName = displayName.split("@")[0];
 
   if (userName)
-    userName.innerText = data.username || user.email;
+    userName.innerText = displayName;
 
   if (userAvatar)
     userAvatar.src =
       data.avatar ||
       `https://api.dicebear.com/7.x/identicon/svg?seed=${user.email}`;
-});
-const greeting = document.getElementById("greeting");
 
-if (greeting) {
-  const name = (data.username || user.email).split("@")[0];
-  greeting.innerText = `Good to see you, ${name} 👋`;
-}
+  if (greeting)
+    greeting.innerText = `Good to see you, ${firstName} 👋`;
+});
 
 /* ================================
    LOGOUT

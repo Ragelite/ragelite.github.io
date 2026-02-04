@@ -152,12 +152,12 @@ if(copilotBtn){
   });
 
 }
-
-function sendMessage(){
+async function sendMessage(){
 
   const text = input.value.trim();
   if(!text) return;
 
+  // show user message
   body.innerHTML += `
     <div class="user-msg">
       <span>${text}</span>
@@ -165,25 +165,43 @@ function sendMessage(){
   `;
 
   input.value="";
+  body.scrollTop = body.scrollHeight;
 
-  setTimeout(()=>{
+  // show thinking
+  body.innerHTML += `
+    <div class="ai-msg" id="thinking">
+       Thinking...
+    </div>
+  `;
+
+  body.scrollTop = body.scrollHeight;
+
+  try{
+
+    const reply = await askAI(text);
+
+    document.getElementById("thinking").remove();
 
     body.innerHTML += `
       <div class="ai-msg">
-        🤖 AI insight:
-
-        Based on early signals,
-        increasing budget on your best campaign could
-        improve conversions by ~20%.
-
-        (Live AI connection comes next.)
+         ${reply}
       </div>
     `;
 
     body.scrollTop = body.scrollHeight;
 
-  },700);
+  }catch(err){
 
+    document.getElementById("thinking").remove();
+
+    body.innerHTML += `
+      <div class="ai-msg">
+         AI failed to respond.
+        Check if server is running.
+      </div>
+    `;
+
+  }
 }
 async function askAI(message) {
 

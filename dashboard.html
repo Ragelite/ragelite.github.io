@@ -229,6 +229,36 @@ h1{
   flex:1;
   padding:40px;
 }
+
+  /* ===== AI STATUS STRIP ===== */
+
+.ai-status{
+  margin-top:20px;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  background:linear-gradient(90deg,rgba(34,211,238,.12),rgba(59,130,246,.08));
+  border:1px solid rgba(34,211,238,.25);
+  padding:14px 18px;
+  border-radius:14px;
+  width:fit-content;
+  backdrop-filter:blur(10px);
+}
+
+.pulse{
+  width:10px;
+  height:10px;
+  border-radius:50%;
+  background:#22d3ee;
+  box-shadow:0 0 12px #22d3ee;
+  animation:pulse 1.6s infinite;
+}
+
+@keyframes pulse{
+  0%{transform:scale(.9);opacity:.7}
+  70%{transform:scale(1.4);opacity:0}
+  100%{opacity:0}
+}
 </style>
 </head>
 
@@ -267,6 +297,11 @@ h1{
   <!-- ===== MAIN CONTENT ===== -->
   <main class="main">
     <h1>Your Performance</h1>
+    
+    <div class="ai-status">
+  <div class="pulse"></div>
+  <span id="aiText">AI scanning campaign performance...</span>
+</div>
 
     <div class="cards">
       <div class="card"><h3>Campaigns</h3><p>3</p></div>
@@ -298,6 +333,43 @@ document.addEventListener("user-ready", (e) => {
 document.getElementById("logoutBtn").addEventListener("click", async () => {
   await logout();
 });
+
+  import { protectPage, logout } from "./auth.js";
+
+protectPage("index.html");
+
+document.addEventListener("user-ready", (e) => {
+  const { user, data } = e.detail;
+
+  document.getElementById("userName").innerText =
+    data.username || user.email;
+
+  document.getElementById("userAvatar").src =
+    data.avatar ||
+    `https://api.dicebear.com/7.x/identicon/svg?seed=${user.email}`;
+});
+
+document.getElementById("logoutBtn").addEventListener("click", async () => {
+  await logout();
+});
+
+
+/* ✅ AI STATUS ROTATOR */
+
+const messages = [
+  "AI scanning campaign performance...",
+  "Analyzing live traffic...",
+  "Detecting high-conversion audience...",
+  "Optimizing budget allocation...",
+  "Generating growth insights..."
+];
+
+let i = 0;
+
+setInterval(() => {
+  i = (i + 1) % messages.length;
+  document.getElementById("aiText").innerText = messages[i];
+}, 2500);
 
 /* ✅ PROFILE DROPDOWN (YOU WERE MISSING THIS) */
 const profileBtn = document.getElementById("profileBtn");

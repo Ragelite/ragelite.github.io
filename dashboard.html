@@ -192,7 +192,7 @@ h1{
 
 /* ===== SIDEBAR ===== */
 .sidebar{
-  width:240px;
+  width:210px;
   background:#050b14;
   border-right:1px solid var(--border);
   padding:24px 18px;
@@ -229,6 +229,7 @@ h1{
 .main{
   flex:1;
   padding:40px;
+  background:radial-gradient(circle at 20% 0%,rgba(34,211,238,.06),transparent 40%);
 }
 
   /* ===== AI STATUS STRIP ===== */
@@ -259,6 +260,42 @@ h1{
   0%{transform:scale(.9);opacity:.7}
   70%{transform:scale(1.4);opacity:0}
   100%{opacity:0}
+}
+
+  .command{
+  margin-top:10px;
+  margin-bottom:30px;
+  padding:26px 30px;
+  border-radius:18px;
+  background:linear-gradient(135deg,#071225,#0b1b33);
+  border:1px solid rgba(34,211,238,.18);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.command h2{
+  margin:0;
+  font-size:22px;
+}
+
+.command p{
+  margin:6px 0 0;
+  color:var(--muted);
+}
+
+.ai-btn{
+  background:linear-gradient(90deg,#22d3ee,#3b82f6);
+  border:none;
+  color:#021018;
+  padding:12px 18px;
+  border-radius:10px;
+  font-weight:700;
+  cursor:pointer;
+}
+
+.ai-btn:hover{
+  transform:translateY(-2px);
 }
 </style>
 </head>
@@ -298,7 +335,17 @@ h1{
   <!-- ===== MAIN CONTENT ===== -->
   <main class="main">
     <h1>Your Performance</h1>
-    
+    <div class="command">
+  <div>
+    <h2>Good morning, Raj 👋</h2>
+    <p>AI is actively optimizing your campaigns. 2 opportunities detected.</p>
+  </div>
+
+  <button class="ai-btn">
+    View AI Recommendations
+  </button>
+</div>
+
     <div class="ai-status">
   <div class="pulse"></div>
   <span id="aiText">AI scanning campaign performance...</span>

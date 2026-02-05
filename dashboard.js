@@ -229,3 +229,19 @@ async function askAI(message) {
     return "⚠️ AI server unreachable. Make sure backend is running.";
   }
 }
+// 🔥 SIMPLE TEST FUNCTION
+window.testAI = async function(){
+
+  try{
+
+    const reply = await askAI("Say hello in one line");
+
+    alert(reply);
+
+  }catch(err){
+
+    alert("AI not responding. Check server.");
+
+  }
+
+}

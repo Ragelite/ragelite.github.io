@@ -136,20 +136,19 @@ const sendBtn = document.getElementById("sendCopilot");
 const input = document.getElementById("copilotInput");
 const body = document.getElementById("copilotBody");
 
-if(copilotBtn){
+copilotBtn?.addEventListener("click", () => {
+  copilotPanel.classList.toggle("show");
+});
 
-  copilotBtn.addEventListener("click",()=>{
-    copilotPanel.classList.toggle("show");
-  });
+closeCopilot?.addEventListener("click", () => {
+  copilotPanel.classList.remove("show");
+});
 
-  closeCopilot.addEventListener("click",()=>{
-    copilotPanel.classList.remove("show");
-  });
+sendBtn?.addEventListener("click", sendMessage);
 
-  sendBtn.addEventListener("click",sendMessage);
-  input.addEventListener("keypress",(e)=>{
-    if(e.key==="Enter") sendMessage();
-  });
+input?.addEventListener("keypress", (e) => {
+  if (e.key === "Enter") sendMessage();
+});
 
 }
 async function sendMessage(){
@@ -205,19 +204,28 @@ async function sendMessage(){
 }
 async function askAI(message) {
 
-  const response = await fetch("http://127.0.0.1:3000/ask-ai", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({ message })
-  });
+  try{
 
-  if(!response.ok){
-    throw new Error("Server error");
+    const response = await fetch("http://127.0.0.1:3000/ask-ai", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ message })
+    });
+
+    if(!response.ok){
+      throw new Error("Server error");
+    }
+
+    const data = await response.json();
+
+    return data.reply;
+
+  }catch(err){
+
+    console.error("AI ERROR:", err);
+
+    return "⚠️ AI server unreachable. Make sure backend is running.";
   }
-
-  const data = await response.json();
-
-  return data.reply;
 }

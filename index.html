@@ -6,21 +6,19 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap');
+  
 
 :root{
-  --bg:#ffffff;
-  --bg-subtle:#fafafa;
-  --card:#ffffff;
-  --border:#e5e5e5;
-  --text:#0a0a0a;
-  --muted:#737373;
-  --accent:#a3e635;
-  --accent-hover:#84cc16;
-  --accent-dark:#65a30d;
+  --bg:#050b14;
+  --card:rgba(255,255,255,0.07);
+  --border:rgba(255,255,255,0.14);
+  --text:#eaf2ff;
+  --muted:#9fb3d1;
+  --accent:#22d3ee;
+  --accent2:#3b82f6;
 }
-
-body.modal-open {
+  body.modal-open {
   overflow: hidden;
 }
 
@@ -31,130 +29,107 @@ body.modal-open {
 
 body{
   margin:0;
-  background:var(--bg);
+  background:radial-gradient(circle at top left,#0b1b33,#050b14);
   color:var(--text);
   overflow-x:hidden;
 }
 
-/* ===== ANIMATED GRADIENT BACKGROUND ===== */
-body::before {
-  content: '';
-  position: fixed;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: 
-    radial-gradient(circle at 20% 50%, rgba(163, 230, 53, 0.08) 0%, transparent 50%),
-    radial-gradient(circle at 80% 80%, rgba(132, 204, 22, 0.06) 0%, transparent 50%),
-    radial-gradient(circle at 40% 20%, rgba(101, 163, 13, 0.05) 0%, transparent 50%);
-  animation: gradientShift 20s ease-in-out infinite;
-  z-index: -1;
+/* ===== BACKGROUND GLOW ===== */
+.glow,.glow2{
+  position:fixed;
+  width:700px;
+  height:700px;
+  border-radius:50%;
+  filter:blur(160px);
+  opacity:.45;
+  z-index:-1;
+  animation: float 10s ease-in-out infinite;
+}
+.glow{
+  background:#22d3ee;
+  top:-300px;
+  right:-300px;
+}
+.glow2{
+  background:#3b82f6;
+  bottom:-300px;
+  left:-300px;
+  animation-delay:4s;
 }
 
-@keyframes gradientShift {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  50% { transform: translate(-5%, -5%) scale(1.1); }
+@keyframes float{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-40px)}
 }
 
 /* ===== NAVBAR ===== */
 header{
   position:fixed;
   top:0;left:0;right:0;
-  padding:18px 40px;
+  padding:18px 32px;
   display:flex;
   justify-content:space-between;
   align-items:center;
-  background:rgba(255,255,255,.85);
-  backdrop-filter:blur(20px) saturate(180%);
+  background:rgba(5,11,20,.75);
+  backdrop-filter:blur(16px);
   border-bottom:1px solid var(--border);
   z-index:100;
-  transition: all 0.3s ease;
-}
-
-header.scrolled {
-  padding: 14px 40px;
-  background: rgba(255,255,255,.95);
-  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
 }
 
 .logo{
-  font-size:22px;
-  font-weight:900;
-  letter-spacing:-0.8px;
-  color:var(--text);
+  font-size:20px;
+  font-weight:800;
+  letter-spacing:.5px;
 }
 
-nav a, nav button{
+nav a{
   color:var(--text);
   text-decoration:none;
-  margin-left:24px;
+  margin-left:18px;
   font-weight:600;
-  font-size:14px;
-  transition: all 0.2s ease;
-  padding: 6px 12px;
-  border-radius: 8px;
-}
-
-nav a:hover, nav button:hover{
-  color:var(--accent-dark);
-  background: rgba(163, 230, 53, 0.1);
 }
 
 .primary{
-  padding:11px 24px !important;
-  border-radius:12px;
-  background:var(--accent);
-  color:#0a0a0a;
-  font-weight:700;
-  border:none;
-  cursor:pointer;
-  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 1px 3px rgba(163, 230, 53, 0.3);
+  padding:10px 22px;
+  border-radius:999px;
+  background:linear-gradient(90deg,var(--accent),var(--accent2));
+  color:#020617;
+  box-shadow:0 0 30px rgba(34,211,238,.45);
+  transition:.3s;
 }
-
 .primary:hover{
-  background:var(--accent-hover);
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(163, 230, 53, 0.4);
-}
-
-.primary:active {
-  transform: translateY(0);
+  box-shadow:0 0 60px rgba(59,130,246,.7);
 }
 
 /* ===== HERO ===== */
 .hero{
-  padding:180px 20px 120px;
+  padding:170px 20px 120px;
   text-align:center;
   max-width:1100px;
   margin:auto;
-  position:relative;
 }
 
 .hero h1{
   font-size:68px;
-  line-height:1.1;
-  margin-bottom:24px;
-  font-weight:900;
-  letter-spacing:-2.5px;
-  color:var(--text);
-  opacity:0;
-  animation: slideUpFade 0.8s ease forwards;
+  line-height:1.05;
+  margin-bottom:20px;
+  background:linear-gradient(90deg,var(--accent),var(--accent2));
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  animation: slideUp .9s ease forwards;
 }
 
 .hero p{
-  max-width:680px;
+  max-width:760px;
   margin:auto;
-  font-size:19px;
-  line-height:1.65;
+  font-size:20px;
   color:var(--muted);
   opacity:0;
-  animation: slideUpFade 0.8s ease forwards;
-  animation-delay:.12s;
+  animation: slideUp .9s ease forwards;
+  animation-delay:.2s;
 }
 
-@keyframes slideUpFade{
+@keyframes slideUp{
   from{opacity:0;transform:translateY(30px)}
   to{opacity:1;transform:translateY(0)}
 }
@@ -162,91 +137,48 @@ nav a:hover, nav button:hover{
 .cta{
   margin-top:40px;
   opacity:0;
-  animation: slideUpFade 0.8s ease forwards;
-  animation-delay:.24s;
+  animation: slideUp .9s ease forwards;
+  animation-delay:.4s;
 }
 
-.cta a, .cta button{
+.cta a{
   display:inline-block;
-  padding:16px 36px;
-  border-radius:14px;
+  padding:18px 36px;
+  border-radius:999px;
   font-weight:700;
-  font-size:16px;
   text-decoration:none;
-  background:var(--accent);
-  color:#0a0a0a;
-  border:none;
-  cursor:pointer;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 4px 14px rgba(163, 230, 53, 0.35);
-  position: relative;
-  overflow: hidden;
+  background:linear-gradient(90deg,var(--accent),var(--accent2));
+  color:#020617;
+  box-shadow:0 0 40px rgba(34,211,238,.5);
+  transition:.3s;
 }
-
-.cta a::before, .cta button::before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 0;
-  height: 0;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.4);
-  transform: translate(-50%, -50%);
-  transition: width 0.6s, height 0.6s;
-}
-
-.cta a:hover::before, .cta button:hover::before {
-  width: 300px;
-  height: 300px;
-}
-
-.cta a:hover, .cta button:hover{
-  transform:translateY(-2px);
-  box-shadow: 0 8px 24px rgba(163, 230, 53, 0.45);
-  background:var(--accent-hover);
-}
-
-.cta a:active, .cta button:active{
-  transform:translateY(0);
+.cta a:hover{
+  transform:scale(1.05);
+  box-shadow:0 0 70px rgba(59,130,246,.8);
 }
 
 /* ===== FEATURES ===== */
 section{
   max-width:1100px;
   margin:auto;
-  padding:90px 20px;
+  padding:80px 20px;
 }
 
 .grid{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
-  gap:20px;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:30px;
 }
 
 .card{
   background:var(--card);
   border:1px solid var(--border);
-  border-radius:16px;
-  padding:36px;
+  border-radius:22px;
+  padding:32px;
+  backdrop-filter:blur(16px);
   transform:translateY(30px);
   opacity:0;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  position:relative;
-}
-
-.card::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: 16px;
-  padding: 1px;
-  background: linear-gradient(135deg, transparent, rgba(163, 230, 53, 0.3), transparent);
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  opacity: 0;
-  transition: opacity 0.4s;
+  transition:.6s;
 }
 
 .card.show{
@@ -256,307 +188,11 @@ section{
 
 .card:hover{
   border-color:var(--accent);
-  box-shadow: 0 8px 30px rgba(163, 230, 53, 0.12);
-  transform: translateY(-4px);
-}
-
-.card:hover::after {
-  opacity: 1;
-}
-
-.card h3 {
-  font-size: 20px;
-  font-weight: 700;
-  margin-bottom: 12px;
-  color: var(--text);
+  box-shadow:0 0 40px rgba(34,211,238,.25);
 }
 
 .card p{
   color:var(--muted);
-  line-height: 1.65;
-  font-size: 15px;
-}
-
-/* ===== HOW IT WORKS ===== */
-.how{
-  text-align:center;
-}
-
-.how h2{
-  font-size:46px;
-  font-weight:900;
-  margin-bottom:16px;
-  letter-spacing:-1.5px;
-  color:var(--text);
-}
-
-.how-sub{
-  max-width:680px;
-  margin:0 auto 56px;
-  color:var(--muted);
-  font-size:18px;
-  line-height:1.65;
-}
-
-.how-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-  gap:24px;
-}
-
-.how-card{
-  background:var(--card);
-  border:1px solid var(--border);
-  border-radius:16px;
-  padding:36px;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  text-align: left;
-}
-
-.how-card:hover{
-  border-color:var(--accent);
-  box-shadow: 0 8px 30px rgba(163, 230, 53, 0.12);
-  transform: translateY(-6px);
-}
-
-.step{
-  display:inline-block;
-  font-size:12px;
-  font-weight:800;
-  letter-spacing:1px;
-  color:var(--accent-dark);
-  margin-bottom:16px;
-  padding: 6px 12px;
-  background: rgba(163, 230, 53, 0.15);
-  border-radius: 20px;
-}
-
-.how-card h3 {
-  font-size: 21px;
-  font-weight: 700;
-  margin-bottom: 12px;
-  color: var(--text);
-}
-
-.how-card p {
-  color: var(--muted);
-  line-height: 1.65;
-  font-size: 15px;
-}
-
-/* ===== TESTIMONIALS ===== */
-.testimonials{
-  text-align:center;
-  background: var(--bg-subtle);
-  margin: 0 -20px;
-  padding: 90px 20px;
-}
-
-.testimonials h2{
-  font-size:46px;
-  font-weight:900;
-  margin-bottom:16px;
-  letter-spacing:-1.5px;
-  color:var(--text);
-}
-
-.test-sub{
-  max-width:680px;
-  margin:0 auto 56px;
-  color:var(--muted);
-  font-size:18px;
-  line-height:1.65;
-}
-
-.test-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
-  gap:24px;
-  max-width: 1100px;
-  margin: 0 auto;
-}
-
-.test-card{
-  background:var(--card);
-  border:1px solid var(--border);
-  border-radius:16px;
-  padding:32px;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  text-align:left;
-}
-
-.test-card:hover{
-  border-color:var(--accent);
-  box-shadow: 0 8px 30px rgba(163, 230, 53, 0.12);
-  transform: translateY(-4px);
-}
-
-.quote{
-  font-size:15px;
-  line-height:1.7;
-  color:var(--text);
-}
-
-.author{
-  margin-top:20px;
-  padding-top:20px;
-  border-top:1px solid var(--border);
-}
-
-.author strong {
-  color: var(--text);
-  font-weight: 700;
-  font-size: 14px;
-}
-
-.author span{
-  display:block;
-  font-size:13px;
-  color:var(--muted);
-  margin-top:4px;
-}
-
-/* ===== STATS ===== */
-.stats{
-  text-align:center;
-}
-
-.stats h2{
-  font-size:46px;
-  font-weight:900;
-  margin-bottom:16px;
-  letter-spacing:-1.5px;
-  color:var(--text);
-}
-
-.stats-sub{
-  max-width:680px;
-  margin:0 auto 56px;
-  color:var(--muted);
-  font-size:18px;
-  line-height:1.65;
-}
-
-.stats-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-  gap:24px;
-}
-
-.stat-card{
-  background:var(--card);
-  border:1px solid var(--border);
-  border-radius:16px;
-  padding:40px 20px;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.stat-card:hover{
-  border-color:var(--accent);
-  box-shadow: 0 8px 30px rgba(163, 230, 53, 0.12);
-  transform: translateY(-6px) scale(1.02);
-}
-
-.stat-card h3{
-  font-size:48px;
-  font-weight:900;
-  margin:0;
-  color:var(--accent-dark);
-}
-
-.stat-card p{
-  margin-top:12px;
-  color:var(--muted);
-  font-size:14px;
-  font-weight:500;
-}
-
-/* ===== FAQ ===== */
-.faq {
-  max-width: 800px;
-  margin: auto;
-  padding: 90px 20px;
-  text-align: center;
-}
-
-.faq h2 {
-  font-size:46px;
-  font-weight:900;
-  margin-bottom:16px;
-  letter-spacing:-1.5px;
-  color:var(--text);
-}
-
-.faq-sub {
-  color: var(--muted);
-  margin-bottom: 56px;
-  font-size: 18px;
-  line-height:1.65;
-}
-
-.faq-list {
-  text-align: left;
-}
-
-.faq-item {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  margin-bottom: 14px;
-  overflow: hidden;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.faq-item:hover {
-  border-color: var(--accent);
-  box-shadow: 0 4px 16px rgba(163, 230, 53, 0.08);
-}
-
-.faq-question {
-  width: 100%;
-  background: none;
-  border: none;
-  color: var(--text);
-  padding: 22px 24px;
-  font-size: 16px;
-  font-weight: 700;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  cursor: pointer;
-  text-align:left;
-}
-
-.faq-question:focus {
-  outline: 2px solid var(--accent);
-  outline-offset: -2px;
-}
-
-.arrow {
-  font-size: 22px;
-  font-weight: 300;
-  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  color: var(--accent-dark);
-}
-
-.faq-answer {
-  max-height: 0;
-  overflow: hidden;
-  padding: 0 24px;
-  color: var(--muted);
-  line-height: 1.7;
-  font-size: 15px;
-  transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1), 
-              padding 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.faq-item.open .faq-answer {
-  max-height: 1000px;
-  padding: 0 24px 22px;
-}
-
-.faq-item.open .arrow {
-  transform: rotate(45deg);
 }
 
 /* ===== FOOTER ===== */
@@ -566,31 +202,359 @@ footer{
   color:var(--muted);
   border-top:1px solid var(--border);
   font-size:14px;
-  line-height:1.8;
-  background: var(--bg-subtle);
 }
 
-footer strong {
+/* ===== SCROLL ANIMATION ===== */
+.hidden{opacity:0}
+  /* ===== HOW IT WORKS ===== */
+.how{
+  text-align:center;
+}
+
+.how h2{
+  font-size:42px;
+  margin-bottom:10px;
+}
+
+.how-sub{
+  max-width:720px;
+  margin:0 auto 50px;
+  color:var(--muted);
+  font-size:18px;
+}
+
+.how-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:32px;
+}
+
+.how-card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:22px;
+  padding:34px;
+  backdrop-filter:blur(16px);
+  transition:.6s;
+}
+
+.how-card:hover{
+  border-color:var(--accent);
+  box-shadow:0 0 45px rgba(34,211,238,.3);
+}
+
+.step{
+  display:inline-block;
+  font-size:14px;
+  font-weight:700;
+  letter-spacing:1px;
+  color:var(--accent);
+  margin-bottom:10px;
+}
+  /* ===== TESTIMONIALS ===== */
+.testimonials{
+  text-align:center;
+}
+
+.testimonials h2{
+  font-size:42px;
+  margin-bottom:10px;
+}
+
+.test-sub{
+  max-width:720px;
+  margin:0 auto 50px;
+  color:var(--muted);
+  font-size:18px;
+}
+
+.test-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:32px;
+}
+
+.test-card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:22px;
+  padding:36px;
+  backdrop-filter:blur(16px);
+  transition:.6s;
+  text-align:left;
+}
+
+.test-card:hover{
+  border-color:var(--accent);
+  box-shadow:0 0 50px rgba(34,211,238,.25);
+}
+
+.quote{
+  font-size:16px;
+  line-height:1.6;
+  color:#eaf2ff;
+}
+
+.author{
+  margin-top:22px;
+}
+
+.author span{
+  display:block;
+  font-size:14px;
+  color:var(--muted);
+}
+  /* ===== STATS ===== */
+.stats{
+  text-align:center;
+}
+
+.stats h2{
+  font-size:42px;
+  margin-bottom:10px;
+}
+
+.stats-sub{
+  max-width:720px;
+  margin:0 auto 50px;
+  color:var(--muted);
+  font-size:18px;
+}
+
+.stats-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:32px;
+}
+
+.stat-card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:22px;
+  padding:40px 20px;
+  backdrop-filter:blur(16px);
+  transition:.6s;
+}
+
+.stat-card:hover{
+  border-color:var(--accent);
+  box-shadow:0 0 45px rgba(34,211,238,.3);
+}
+
+.stat-card h3{
+  font-size:46px;
+  margin:0;
+  background:linear-gradient(90deg,var(--accent),var(--accent2));
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+
+.stat-card p{
+  margin-top:10px;
+  color:var(--muted);
+  font-size:15px;
+}
+/* ===== MOBILE NAV FIX ===== */
+@media (max-width: 640px) {
+  header {
+    padding: 14px 16px;
+  }
+
+  .logo {
+    font-size: 18px;
+  }
+
+  nav {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  nav a {
+    margin-left: 0;
+    font-size: 14px;
+    padding: 8px 14px;
+  }
+
+  .primary {
+    padding: 8px 16px;
+    font-size: 14px;
+  }
+}
+/* ===== MOBILE HERO TEXT SCALING ===== */
+@media (max-width: 640px) {
+  .hero {
+    padding-top: 120px;
+    padding-bottom: 80px;
+  }
+
+  .hero h1 {
+    font-size: 38px;
+    line-height: 1.1;
+  }
+
+  .hero p {
+    font-size: 16px;
+    margin-top: 14px;
+  }
+
+  .cta a {
+    padding: 14px 24px;
+    font-size: 15px;
+  }
+}
+/* ===== HAMBURGER ICON ===== */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+}
+
+.hamburger span {
+  width: 26px;
+  height: 3px;
+  background: var(--text);
+  border-radius: 2px;
+  transition: .3s ease;
+}
+
+/* Animate to X */
+.hamburger.active span:nth-child(1) {
+  transform: translateY(8px) rotate(45deg);
+}
+
+.hamburger.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+  transform: translateY(-8px) rotate(-45deg);
+}
+
+/* ===== MOBILE NAV ANIMATION ===== */
+#navAuth {
+  transition: max-height .4s ease, opacity .3s ease;
+}
+
+@media (min-width: 641px) {
+  .hamburger {
+    display: none;
+  }
+
+  #navAuth {
+    position: static;
+    max-height: none;
+    opacity: 1;
+    display: flex;
+    flex-direction: row;
+    gap: 18px;
+    background: none;
+    border: none;
+  }
+}
+
+
+  #navAuth.show {
+    padding: 24px 0;
+    max-height: 300px;
+    opacity: 1;
+  }
+
+  #navAuth a {
+    margin: 0;
+    font-size: 16px;
+  }
+}
+/* ===== FAQ ===== */
+.faq {
+  max-width: 900px;
+  margin: auto;
+  padding: 80px 20px;
+  text-align: center;
+}
+
+.faq h2 {
+  font-size: 42px;
+  margin-bottom: 10px;
+}
+
+.faq-sub {
+  color: var(--muted);
+  margin-bottom: 50px;
+  font-size: 18px;
+}
+
+.faq-list {
+  text-align: left;
+}
+
+.faq-item {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  margin-bottom: 18px;
+  overflow: hidden;
+  transition: border .3s;
+}
+
+.faq-item:hover {
+  border-color: var(--accent);
+}
+
+.faq-question {
+  width: 100%;
+  background: none;
+  border: none;
   color: var(--text);
-  font-weight: 700;
+  padding: 22px 24px;
+  font-size: 17px;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
 }
 
-/* ===== AUTH MODAL ===== */
+.faq-question:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+}
+
+.arrow {
+  font-size: 22px;
+  transition: transform .3s ease;
+}
+
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  padding: 0 24px;
+  color: var(--muted);
+  line-height: 1.6;
+  transition: max-height .35s ease, padding .35s ease;
+}
+
+/* Open state */
+.faq-item.open .faq-answer {
+  max-height: 1000px;
+  padding: 0 24px 22px;
+}
+
+
+.faq-item.open .arrow {
+  transform: rotate(45deg);
+}
+  /* ===== AUTH MODAL ===== */
 .auth-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(20px) saturate(180%);
+  background: radial-gradient(circle at top, #0b1b33, #020617 70%);
+  backdrop-filter: blur(10px);
   display: none;
   align-items: center;
   justify-content: center;
   z-index: 999;
-  animation: fadeIn 0.25s ease;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
 }
 
 .auth-overlay.show {
@@ -600,108 +564,49 @@ footer strong {
 .auth-modal {
   background: var(--card);
   border: 1px solid var(--border);
-  border-radius: 20px;
-  padding: 48px 40px;
+  border-radius: 22px;
+  padding: 40px 32px;
   width: 100%;
-  max-width: 440px;
+  max-width: 520px; padding: 60px 46px;
   position: relative;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
-  animation: modalSlide 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-@keyframes modalSlide {
-  from { opacity: 0; transform: translateY(-20px) scale(0.96); }
-  to { opacity: 1; transform: translateY(0) scale(1); }
+  animation: slideUp .4s ease;
 }
 
 .auth-modal h2 {
   margin-top: 0;
-  margin-bottom: 32px;
+  margin-bottom: 24px;
   text-align: center;
-  font-size: 28px;
-  font-weight: 900;
-  letter-spacing: -0.8px;
-  color: var(--text);
 }
 
 .auth-modal input {
   width: 100%;
-  padding: 14px 18px;
+  padding: 14px 16px;
   margin-bottom: 14px;
   border-radius: 12px;
   border: 1px solid var(--border);
-  background: var(--bg);
+  background: rgba(255,255,255,.04);
   color: var(--text);
   font-size: 15px;
-  font-weight: 500;
-  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .auth-modal input:focus {
   outline: none;
   border-color: var(--accent);
-  box-shadow: 0 0 0 3px rgba(163, 230, 53, 0.15);
-  background: var(--card);
 }
-
-.auth-modal input::placeholder {
-  color: var(--muted);
-}
-
+  
 .full-btn {
   width: 100%;
-  padding: 15px 24px;
-  border-radius: 12px;
-  border: none;
-  background: var(--accent);
-  color: #0a0a0a;
-  font-size: 15px;
-  font-weight: 700;
-  cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 4px 14px rgba(163, 230, 53, 0.35);
-  display: flex;
-  align-items: center;
-  justify-content: center;
   position: relative;
   overflow: hidden;
-}
-
-.full-btn::before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 0;
-  height: 0;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.4);
-  transform: translate(-50%, -50%);
-  transition: width 0.6s, height 0.6s;
-}
-
-.full-btn:hover::before {
-  width: 300px;
-  height: 300px;
-}
-
-.full-btn:hover {
-  background: var(--accent-hover);
-  transform: translateY(-1px);
-  box-shadow: 0 6px 20px rgba(163, 230, 53, 0.4);
-}
-
-.full-btn:active {
-  transform: translateY(0);
 }
 
 .loader {
   width: 18px;
   height: 18px;
-  border: 2px solid rgba(10,10,10,.2);
-  border-top-color: #0a0a0a;
+  border: 2px solid rgba(0,0,0,.3);
+  border-top-color: #020617;
   border-radius: 50%;
-  animation: spin 0.8s linear infinite;
+  animation: spin 1s linear infinite;
   display: none;
 }
 
@@ -719,179 +624,68 @@ footer strong {
 
 .auth-close {
   position: absolute;
-  top: 18px;
+  top: 14px;
   right: 18px;
-  background: var(--bg-subtle);
-  border: 1px solid var(--border);
+  background: none;
+  border: none;
   color: var(--text);
-  width: 36px;
-  height: 36px;
-  border-radius: 10px;
-  font-size: 20px;
+  font-size: 26px;
   cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.auth-close:hover {
-  background: var(--card);
-  border-color: var(--accent);
-  transform: rotate(90deg);
 }
 
 .auth-switch {
-  margin-top: 24px;
+  margin-top: 18px;
   text-align: center;
   font-size: 14px;
   color: var(--muted);
 }
 
 .auth-switch a {
-  color: var(--accent-dark);
-  font-weight: 700;
+  color: var(--accent);
+  font-weight: 600;
   margin-left: 4px;
   text-decoration: none;
-  transition: color 0.2s;
+}
+/* ===== PREMIUM MICRO ANIMATIONS ===== */
+
+/* Button hover lift */
+a, button {
+  transition: transform .18s ease, box-shadow .18s ease;
 }
 
-.auth-switch a:hover {
-  color: var(--accent);
+a:hover, button:hover {
+  transform: translateY(-1px);
 }
 
-/* ===== MOBILE RESPONSIVENESS ===== */
-.hamburger {
-  display: none;
-  flex-direction: column;
-  gap: 5px;
-  cursor: pointer;
-}
-
-.hamburger span {
-  width: 24px;
-  height: 2px;
-  background: var(--text);
-  border-radius: 2px;
-  transition: .3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.hamburger.active span:nth-child(1) {
-  transform: translateY(7px) rotate(45deg);
-}
-
-.hamburger.active span:nth-child(2) {
-  opacity: 0;
-}
-
-.hamburger.active span:nth-child(3) {
-  transform: translateY(-7px) rotate(-45deg);
-}
-
-#navAuth {
-  transition: max-height .4s cubic-bezier(0.4, 0, 0.2, 1), opacity .3s ease;
-}
-
-@media (min-width: 641px) {
-  .hamburger {
-    display: none;
-  }
-
-  #navAuth {
-    position: static;
-    max-height: none;
-    opacity: 1;
-    display: flex;
-    flex-direction: row;
-    gap: 4px;
-    background: none;
-    border: none;
-  }
-}
-
-@media (max-width: 640px) {
-  header {
-    padding: 16px 20px;
-  }
-
-  .logo {
-    font-size: 20px;
-  }
-
-  .hamburger {
-    display: flex;
-  }
-
-  #navAuth {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    background: rgba(255, 255, 255, 0.98);
-    backdrop-filter: blur(20px);
-    border-bottom: 1px solid var(--border);
-    max-height: 0;
-    opacity: 0;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  #navAuth.show {
-    padding: 20px 0;
-    max-height: 300px;
-    opacity: 1;
-  }
-
-  #navAuth a, #navAuth button {
-    margin: 0;
-    font-size: 15px;
-    padding: 10px 0;
-  }
-
-  .hero {
-    padding-top: 140px;
-    padding-bottom: 100px;
-  }
-
-  .hero h1 {
-    font-size: 44px;
-    letter-spacing: -1.5px;
-  }
-
-  .hero p {
-    font-size: 17px;
-  }
-
-  .how h2, .testimonials h2, .stats h2, .faq h2 {
-    font-size: 36px;
-  }
-
-  .how-sub, .test-sub, .stats-sub, .faq-sub {
-    font-size: 16px;
-  }
-
-  .testimonials {
-    margin: 0;
-    padding: 80px 20px;
-  }
-}
-
-/* ===== SCROLL ANIMATIONS ===== */
-.hidden{
-  opacity:0;
-  transform: translateY(24px);
-  transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), 
-              transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.hidden.show{
-  opacity:1;
+/* Button active press */
+a:active, button:active {
   transform: translateY(0);
 }
 
-/* ===== FOCUS STYLES ===== */
+/* Card subtle hover */
+.card, .how-card, .test-card, .stat-card {
+  transition: transform .35s ease, box-shadow .35s ease, border-color .35s ease;
+}
+
+.card:hover,
+.how-card:hover,
+.test-card:hover,
+.stat-card:hover {
+  transform: translateY(-6px);
+}
+
+/* Fade-in on scroll (already wired, now smoother) */
+.hidden {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity .7s ease, transform .7s ease;
+}
+
+.hidden.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+  /* ===== ACCESSIBLE FOCUS STYLES ===== */
 :focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 3px;
@@ -902,8 +696,7 @@ button:focus:not(:focus-visible),
 a:focus:not(:focus-visible) {
   outline: none;
 }
-
-.nav-btn {
+  .nav-btn {
   background: none;
   border: none;
   color: var(--text);
@@ -911,118 +704,15 @@ a:focus:not(:focus-visible) {
   cursor: pointer;
 }
 
-/* ===== COPILOT PANEL ===== */
-.copilot-panel {
-  position: fixed;
-  right: -400px;
-  top: 0;
-  bottom: 0;
-  width: 400px;
-  background: var(--card);
-  border-left: 1px solid var(--border);
-  box-shadow: -4px 0 24px rgba(0,0,0,0.08);
-  transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  z-index: 1000;
-}
-
-.copilot-header {
-  padding: 24px;
-  border-bottom: 1px solid var(--border);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-weight: 700;
-  font-size: 18px;
-}
-
-.copilot-body {
-  padding: 24px;
-  height: calc(100% - 140px);
-  overflow-y: auto;
-}
-
-.ai-msg {
-  background: rgba(163, 230, 53, 0.1);
-  border: 1px solid rgba(163, 230, 53, 0.3);
-  border-radius: 12px;
-  padding: 16px;
-  margin-bottom: 16px;
-  line-height: 1.6;
-  font-size: 14px;
-  color: var(--text);
-}
-
-.copilot-input {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  padding: 20px;
-  border-top: 1px solid var(--border);
-  display: flex;
-  gap: 12px;
-  background: var(--card);
-}
-
-.copilot-input input {
-  flex: 1;
-  padding: 12px 16px;
-  border-radius: 10px;
-  border: 1px solid var(--border);
-  background: var(--bg);
-  color: var(--text);
-  font-size: 14px;
-}
-
-.copilot-input button {
-  padding: 12px 24px;
-  border-radius: 10px;
-  border: none;
-  background: var(--accent);
-  color: #0a0a0a;
-  font-weight: 700;
-  cursor: pointer;
-  transition: all 0.25s;
-}
-
-.copilot-input button:hover {
-  background: var(--accent-hover);
-}
-
-#closeCopilot {
-  cursor: pointer;
-  font-size: 24px;
-  color: var(--muted);
-  transition: color 0.2s;
-}
-
-#closeCopilot:hover {
-  color: var(--text);
-}
-
-/* ===== SMOOTH SCROLLBAR ===== */
-::-webkit-scrollbar {
-  width: 10px;
-}
-
-::-webkit-scrollbar-track {
-  background: var(--bg-subtle);
-}
-
-::-webkit-scrollbar-thumb {
-  background: var(--border);
-  border-radius: 5px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--muted);
-}
 </style>
 </head>
 
 <body>
 
-<header id="header">
+<div class="glow"></div>
+<div class="glow2"></div>
+
+<header>
   <div class="logo">Ragelite</div>
 
   <!-- Hamburger -->
@@ -1039,7 +729,7 @@ a:focus:not(:focus-visible) {
   </div>
 
   <!-- Navigation -->
-  <nav id="navAuth"></nav>
+<nav id="navAuth"></nav>
 </header>
 
 <div class="hero">
@@ -1048,9 +738,9 @@ a:focus:not(:focus-visible) {
     Ragelite designs, launches, and optimizes Meta & Google Ads automatically —
     replacing agencies with intelligent automation.
   </p>
-  <div class="cta">
-    <button id="launchCopilot">Get Started with AI</button>
-  </div>
+  <button id="launchCopilot" class="cta">
+  Get Started with AI
+</button>
 </div>
 
 <section>
@@ -1069,90 +759,64 @@ a:focus:not(:focus-visible) {
     </div>
   </div>
 </section>
-
-<section>
+  <section>
   <div class="how">
     <h2>How Ragelite Works</h2>
+
     <p class="how-sub">
-      Launch high-performing ads in minutes. Ragelite's AI handles strategy,
+      Launch high-performing ads in minutes. Ragelite’s AI handles strategy,
       execution, and optimization — automatically.
     </p>
 
-    <div class="how-grid">
-      <div class="how-card hidden">
-        <span class="step">01</span>
-        <h3>Describe Your Business</h3>
-        <p>
-          Share what you do, your goal, and budget.
-          No ad experience required.
-        </p>
-      </div>
-
-      <div class="how-card hidden">
-        <span class="step">02</span>
-        <h3>AI Builds Campaigns</h3>
-        <p>
-          Ragelite creates ads, targeting, and creatives
-          across Meta & Google.
-        </p>
-      </div>
-
-      <div class="how-card hidden">
-        <span class="step">03</span>
-        <h3>Continuous Optimization</h3>
-        <p>
-          Our AI monitors performance and improves results
-          24/7 — automatically.
-        </p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="testimonials">
-  <h2>Trusted by Early Teams</h2>
-  <p class="test-sub">
-    Founders and growth teams are already using Ragelite
-    to simplify and scale their advertising.
-  </p>
-
-  <div class="test-grid">
-    <div class="test-card hidden">
-      <p class="quote">
-        "Ragelite feels like having an in-house growth team.
-        We launched campaigns in minutes without any ad expertise."
-      </p>
-      <div class="author">
-        <strong>Ankit Sharma</strong>
-        <span>Startup Founder</span>
-      </div>
-    </div>
-
-    <div class="test-card hidden">
-      <p class="quote">
-        "The AI-driven approach is impressive.
-        It removed complexity and helped us focus on our product."
-      </p>
-      <div class="author">
-        <strong>Riya Verma</strong>
-        <span>Marketing Lead</span>
-      </div>
-    </div>
-
-    <div class="test-card hidden">
-      <p class="quote">
-        "We replaced freelancers and tools with Ragelite.
-        The automation and insights are on another level."
-      </p>
-      <div class="author">
-        <strong>Mohit Jain</strong>
-        <span>Early User</span>
-      </div>
-    </div>
-  </div>
-</section>
-
 <section>
+  <div class="testimonials">
+    <h2>Trusted by Early Teams</h2>
+
+    <p class="test-sub">
+      Founders and growth teams are already using Ragelite
+      to simplify and scale their advertising.
+    </p>
+
+    <div class="test-grid">
+
+      <div class="test-card hidden">
+        <p class="quote">
+          “Ragelite feels like having an in-house growth team.
+          We launched campaigns in minutes without any ad expertise.”
+        </p>
+        <div class="author">
+          <strong>Ankit Sharma</strong>
+          <span>Startup Founder</span>
+        </div>
+      </div>
+
+      <div class="test-card hidden">
+        <p class="quote">
+          “The AI-driven approach is impressive.
+          It removed complexity and helped us focus on our product.”
+        </p>
+        <div class="author">
+          <strong>Riya Verma</strong>
+          <span>Marketing Lead</span>
+        </div>
+      </div>
+
+      <div class="test-card hidden">
+        <p class="quote">
+          “We replaced freelancers and tools with Ragelite.
+          The automation and insights are on another level.”
+        </p>
+        <div class="author">
+          <strong>Mohit Jain</strong>
+          <span>Early User</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+    <section>
   <div class="stats">
     <h2>Ragelite in Action</h2>
     <p class="stats-sub">
@@ -1184,13 +848,14 @@ a:focus:not(:focus-visible) {
   </div>
 </section>
 
-<section class="faq">
+  <section class="faq">
   <h2>Frequently Asked Questions</h2>
   <p class="faq-sub">
     Everything you need to know before getting started with Ragelite.
   </p>
 
   <div class="faq-list">
+
     <div class="faq-item">
       <button class="faq-question" aria-expanded="false">
         How does Ragelite create ads automatically?
@@ -1234,9 +899,43 @@ a:focus:not(:focus-visible) {
         performance within limits you set.
       </div>
     </div>
+
   </div>
 </section>
 
+     <div class="how-grid">
+
+  <!-- STEP 01 -->
+  <div class="how-card hidden">
+    <span class="step">01</span>
+    <h3>Describe Your Business</h3>
+    <p>
+      Share what you do, your goal, and budget.
+      No ad experience required.
+    </p>
+  </div>
+
+  <!-- STEP 02 -->
+  <div class="how-card hidden">
+    <span class="step">02</span>
+    <h3>AI Builds Campaigns</h3>
+    <p>
+      Ragelite creates ads, targeting, and creatives
+      across Meta & Google.
+    </p>
+  </div>
+
+  <!-- STEP 03 -->
+  <div class="how-card hidden">
+    <span class="step">03</span>
+    <h3>Continuous Optimization</h3>
+    <p>
+      Our AI monitors performance and improves results
+      24/7 — automatically.
+    </p>
+  </div>
+
+</div>
 <!-- AUTH MODAL -->
 <div id="authOverlay" class="auth-overlay" aria-hidden="true">
   <div class="auth-modal" role="dialog" aria-modal="true">
@@ -1244,63 +943,36 @@ a:focus:not(:focus-visible) {
 
     <h2 id="authTitle">Login</h2>
     
-    <form onsubmit="submitAuth(event)">
-      <input
-        type="text"
-        id="usernameInput"
-        placeholder="Username"
-        style="display:none"
-      >
-      <input type="email" placeholder="Email" required>
-      <input type="password" placeholder="Password" required>
+<form onsubmit="submitAuth(event)">
+  <input
+    type="text"
+    id="usernameInput"
+    placeholder="Username"
+    style="display:none"
+  >
+  <input type="email" placeholder="Email" required>
+  <input type="password" placeholder="Password" required>
 
       <button type="submit" class="full-btn">
         <span class="btn-text">Continue</span>
         <span class="loader"></span>
       </button>
     </form>
-    
     <button onclick="googleLogin()" class="full-btn" style="margin-top:14px">
       Continue with Google
     </button>
 
     <div class="auth-switch">
-      <span id="authSwitchText">Don't have an account?</span>
+      <span id="authSwitchText">Don’t have an account?</span>
       <a href="#" onclick="switchAuth()">Sign up</a>
     </div>
   </div>
 </div>
-
-<div class="copilot-panel" id="copilotPanel">
-  <div class="copilot-header">
-    Ragelite AI
-    <span id="closeCopilot">✕</span>
-  </div>
-
-  <div class="copilot-body" id="copilotBody">
-    <div class="ai-msg">
-      👋 Hi Raj — I'm analyzing your campaigns.
-
-      Ask me things like:
-
-      • "Where should I increase budget?"  
-      • "Which campaign is underperforming?"  
-      • "Give me growth ideas"
-    </div>
-  </div>
-
-  <div class="copilot-input">
-    <input id="copilotInput" placeholder="Ask Ragelite AI..." />
-    <button id="sendCopilot">Send</button>
-  </div>
-</div>
-
 <footer>
   Founded by <strong>Raj Bundela</strong>, <strong>Ashwani Singh</strong> & <strong>Karan Pal</strong><br>
   © 2026 Ragelite Corporation · ragelitecorporation@gmail.com
 </footer>
-
-<script>
+ <script>
 /* ===== UI LOGIC ONLY ===== */
 
 window.authMode = "login";
@@ -1328,17 +1000,17 @@ function updateAuthText() {
 
   document.getElementById("authSwitchText").innerText =
     window.authMode === "login"
-      ? "Don't have an account?"
+      ? "Don’t have an account?"
       : "Already have an account?";
 
   document.getElementById("usernameInput").style.display =
     window.authMode === "signup" ? "block" : "none";
 }
-
+</script>
+      <script>
 /* ===== HAMBURGER ===== */
 const hamburger = document.querySelector(".hamburger");
 const mobileNav = document.getElementById("navAuth");
-
 function toggleMenu() {
   const open = mobileNav.classList.toggle("show");
   hamburger.classList.toggle("active", open);
@@ -1352,42 +1024,22 @@ function handleHamburgerKey(e) {
   }
 }
 
-/* ===== HEADER SCROLL EFFECT ===== */
-const header = document.getElementById('header');
-window.addEventListener('scroll', () => {
-  if (window.scrollY > 50) {
-    header.classList.add('scrolled');
-  } else {
-    header.classList.remove('scrolled');
-  }
-});
-
 /* ===== FAQ ===== */
 document.querySelectorAll(".faq-question").forEach(btn => {
   btn.addEventListener("click", () => {
     const item = btn.closest(".faq-item");
-    const wasOpen = item.classList.contains("open");
-    
-    // Close all items
-    document.querySelectorAll(".faq-item").forEach(i => i.classList.remove("open"));
-    
-    // Open clicked item if it wasn't open
-    if (!wasOpen) {
-      item.classList.add("open");
-    }
+    item.classList.toggle("open");
   });
 });
 
 /* ===== SCROLL ANIMATIONS ===== */
 const observer = new IntersectionObserver(entries => {
-  entries.forEach((entry, index) => {
+  entries.forEach(entry => {
     if (entry.isIntersecting) {
-      setTimeout(() => {
-        entry.target.classList.add("show");
-      }, index * 80); // Stagger animation
+      entry.target.classList.add("show");
     }
   });
-}, { threshold: 0.1 });
+}, { threshold: 0.2 });
 
 document.querySelectorAll(".hidden").forEach(el => observer.observe(el));
 
@@ -1403,15 +1055,13 @@ const counterObserver = new IntersectionObserver(entries => {
       counters.forEach(counter => {
         const target = +counter.dataset.target;
         let current = 0;
-        const increment = target / 80;
-        const duration = 1800;
-        const stepTime = duration / 80;
+        const step = Math.ceil(target / 120);
 
         const update = () => {
-          current += increment;
+          current += step;
           if (current < target) {
-            counter.textContent = Math.floor(current).toLocaleString();
-            setTimeout(update, stepTime);
+            counter.textContent = current.toLocaleString();
+            requestAnimationFrame(update);
           } else {
             counter.textContent = target.toLocaleString();
           }
@@ -1425,19 +1075,7 @@ const counterObserver = new IntersectionObserver(entries => {
 document.querySelectorAll(".stat-card").forEach(el =>
   counterObserver.observe(el)
 );
-
-/* ===== SMOOTH SCROLL ===== */
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-  anchor.addEventListener('click', function (e) {
-    e.preventDefault();
-    const target = document.querySelector(this.getAttribute('href'));
-    if (target) {
-      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-  });
-});
-</script>
-
+ </script>
 <script type="module">
 import { auth } from "./firebase.js";
 import {
@@ -1445,7 +1083,7 @@ import {
   onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
-window.submitAuth = function (e) {
+  window.submitAuth = function (e) {
   e.preventDefault();
 
   const email = document.querySelector("input[type='email']").value;
@@ -1453,7 +1091,7 @@ window.submitAuth = function (e) {
 
   signInWithEmailAndPassword(auth, email, password)
     .then(() => {
-      closeAuth();
+      closeAuth(); // ✅ close modal cleanly
       window.location.replace("dashboard.html");
     })
     .catch(err => alert(err.message));
@@ -1474,8 +1112,30 @@ onAuthStateChanged(auth, (user) => {
   }
 });
 </script>
+    <script type="module" src="./home.js"></script>
+    <div class="copilot-panel" id="copilotPanel">
 
-<script type="module" src="./home.js"></script>
+  <div class="copilot-header">
+    Ragelite AI
+    <span id="closeCopilot">✕</span>
+  </div>
 
+  <div class="copilot-body" id="copilotBody">
+    <div class="ai-msg">
+      👋 Hi Raj — I’m analyzing your campaigns.
+
+      Ask me things like:
+
+      • "Where should I increase budget?"  
+      • "Which campaign is underperforming?"  
+      • "Give me growth ideas"
+    </div>
+  </div>
+
+  <div class="copilot-input">
+    <input id="copilotInput" placeholder="Ask Ragelite AI..." />
+    <button id="sendCopilot">Send</button>
+  </div>
 </body>
-</html>
+</html> 
+

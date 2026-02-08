@@ -59,3 +59,34 @@ Never sound like a chatbot.
 app.listen(3000,()=>{
   console.log("🔥 Ragelite AI running on port 3000");
 });
+const heroInput = document.getElementById("heroAIInput");
+const heroSend = document.getElementById("heroAISend");
+
+if(heroSend){
+
+heroSend.addEventListener("click", async () => {
+
+const text = heroInput.value.trim();
+if(!text) return;
+
+heroSend.innerText = "Thinking...";
+
+const response = await fetch("[http://localhost:3000/ask-ai",{](http://localhost:3000/ask-ai%22,{)
+method:"POST",
+headers:{
+"Content-Type":"application/json"
+},
+body: JSON.stringify({
+message:text
+})
+});
+
+const data = await response.json();
+
+alert(data.reply); // temporary display
+
+heroSend.innerText = "Generate Strategy";
+
+});
+
+}

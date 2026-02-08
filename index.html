@@ -704,6 +704,75 @@ a:focus:not(:focus-visible) {
   cursor: pointer;
 }
 
+  /* ===== AI HERO ===== */
+
+.ai-hero{
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+text-align:center;
+}
+
+.ai-core{
+max-width:900px;
+width:90%;
+}
+
+.ai-core h1{
+font-size:72px;
+letter-spacing:-2px;
+background:linear-gradient(90deg,#22d3ee,#3b82f6);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+}
+
+.ai-sub{
+color:#9fb3d1;
+margin-top:10px;
+font-size:20px;
+}
+
+.ai-input-wrap{
+margin-top:40px;
+display:flex;
+gap:10px;
+background:rgba(255,255,255,.04);
+border:1px solid rgba(255,255,255,.1);
+padding:10px;
+border-radius:16px;
+backdrop-filter:blur(12px);
+}
+
+.ai-input-wrap input{
+flex:1;
+background:none;
+border:none;
+color:white;
+font-size:16px;
+padding:14px;
+outline:none;
+}
+
+.ai-input-wrap button{
+background:linear-gradient(90deg,#22d3ee,#3b82f6);
+border:none;
+padding:14px 22px;
+border-radius:12px;
+font-weight:700;
+cursor:pointer;
+}
+
+.ai-input-wrap button:hover{
+transform:scale(1.05);
+}
+
+.ai-trust{
+margin-top:14px;
+color:#6b7c93;
+font-size:13px;
+}
+
 </style>
 </head>
 
@@ -732,16 +801,34 @@ a:focus:not(:focus-visible) {
 <nav id="navAuth"></nav>
 </header>
 
-<div class="hero">
-  <h1>Autonomous AI<br>for Business Growth</h1>
-  <p>
-    Ragelite designs, launches, and optimizes Meta & Google Ads automatically —
-    replacing agencies with intelligent automation.
-  </p>
-  <button id="launchCopilot" class="cta">
-  Get Started with AI
-</button>
+  <div class="ai-core">
+
+```
+<h1>Ragelite Intelligence</h1>
+
+<p class="ai-sub">
+  Describe your business. Watch strategy generate instantly.
+</p>
+
+<div class="ai-input-wrap">
+
+  <input 
+    id="heroAIInput"
+    placeholder="Premium skincare • India • ₹1L budget • Drive sales"
+  />
+
+  <button id="heroAISend">
+    Generate Strategy
+  </button>
+
 </div>
+
+<div class="ai-trust">
+  Live AI. Real strategy. Not templates.
+</div>
+```
+
+  </div>
 
 <section>
   <div class="grid">

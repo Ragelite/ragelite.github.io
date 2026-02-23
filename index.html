@@ -2,1228 +2,1001 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Ragelite — Autonomous AI Growth</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+<title>Ragelite — Autonomous AI Growth</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap');
-  
-
-:root{
-  --bg:#050b14;
-  --card:rgba(255,255,255,0.07);
-  --border:rgba(255,255,255,0.14);
-  --text:#eaf2ff;
-  --muted:#9fb3d1;
-  --accent:#22d3ee;
+/* ============================================================
+   DESIGN SYSTEM — Original Ragelite Palette + Inter
+============================================================ */
+:root {
+  --bg:     #050b14;
+  --bg-1:   #070e1a;
+  --bg-2:   #0b1525;
+  --card:   rgba(255,255,255,0.06);
+  --border: rgba(255,255,255,0.10);
+  --border-hover: rgba(34,211,238,0.40);
+  --text:   #eaf2ff;
+  --muted:  #9fb3d1;
+  --dim:    #3d5a72;
+  --accent: #22d3ee;
   --accent2:#3b82f6;
+  --accent3:#818cf8;
+  --radius: 22px;
+  --radius-sm: 14px;
+  --pill:   999px;
 }
-  body.modal-open {
-  overflow: hidden;
-}
-
-*{
-  box-sizing:border-box;
-  font-family:'Inter',sans-serif;
-}
-
-body{
-  margin:0;
-  background:radial-gradient(circle at top left,#0b1b33,#050b14);
-  color:var(--text);
-  overflow-x:hidden;
-}
-
-/* ===== BACKGROUND GLOW ===== */
-.glow,.glow2{
-  position:fixed;
-  width:700px;
-  height:700px;
-  border-radius:50%;
-  filter:blur(160px);
-  opacity:.45;
-  z-index:-1;
-  animation: float 10s ease-in-out infinite;
-}
-.glow{
-  background:#22d3ee;
-  top:-300px;
-  right:-300px;
-}
-.glow2{
-  background:#3b82f6;
-  bottom:-300px;
-  left:-300px;
-  animation-delay:4s;
-}
-
-@keyframes float{
-  0%,100%{transform:translateY(0)}
-  50%{transform:translateY(-40px)}
-}
-
-/* ===== NAVBAR ===== */
-header{
-  position:fixed;
-  top:0;left:0;right:0;
-  padding:18px 32px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  background:rgba(5,11,20,.75);
-  backdrop-filter:blur(16px);
-  border-bottom:1px solid var(--border);
-  z-index:100;
-}
-
-.logo{
-  font-size:20px;
-  font-weight:800;
-  letter-spacing:.5px;
-}
-
-nav a{
-  color:var(--text);
-  text-decoration:none;
-  margin-left:18px;
-  font-weight:600;
-}
-
-.primary{
-  padding:10px 22px;
-  border-radius:999px;
-  background:linear-gradient(90deg,var(--accent),var(--accent2));
-  color:#020617;
-  box-shadow:0 0 30px rgba(34,211,238,.45);
-  transition:.3s;
-}
-.primary:hover{
-  box-shadow:0 0 60px rgba(59,130,246,.7);
-}
-
-/* ===== HERO ===== */
-.hero{
-  padding:170px 20px 120px;
-  text-align:center;
-  max-width:1100px;
-  margin:auto;
-}
-
-.hero h1{
-  font-size:68px;
-  line-height:1.05;
-  margin-bottom:20px;
-  background:linear-gradient(90deg,var(--accent),var(--accent2));
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-  animation: slideUp .9s ease forwards;
-}
-
-.hero p{
-  max-width:760px;
-  margin:auto;
-  font-size:20px;
-  color:var(--muted);
-  opacity:0;
-  animation: slideUp .9s ease forwards;
-  animation-delay:.2s;
-}
-
-@keyframes slideUp{
-  from{opacity:0;transform:translateY(30px)}
-  to{opacity:1;transform:translateY(0)}
-}
-
-.cta{
-  margin-top:40px;
-  opacity:0;
-  animation: slideUp .9s ease forwards;
-  animation-delay:.4s;
-}
-
-.cta a{
-  display:inline-block;
-  padding:18px 36px;
-  border-radius:999px;
-  font-weight:700;
-  text-decoration:none;
-  background:linear-gradient(90deg,var(--accent),var(--accent2));
-  color:#020617;
-  box-shadow:0 0 40px rgba(34,211,238,.5);
-  transition:.3s;
-}
-.cta a:hover{
-  transform:scale(1.05);
-  box-shadow:0 0 70px rgba(59,130,246,.8);
-}
-
-/* ===== FEATURES ===== */
-section{
-  max-width:1100px;
-  margin:auto;
-  padding:80px 20px;
-}
-
-.grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-  gap:30px;
-}
-
-.card{
-  background:var(--card);
-  border:1px solid var(--border);
-  border-radius:22px;
-  padding:32px;
-  backdrop-filter:blur(16px);
-  transform:translateY(30px);
-  opacity:0;
-  transition:.6s;
-}
-
-.card.show{
-  transform:translateY(0);
-  opacity:1;
-}
-
-.card:hover{
-  border-color:var(--accent);
-  box-shadow:0 0 40px rgba(34,211,238,.25);
-}
-
-.card p{
-  color:var(--muted);
-}
-
-/* ===== FOOTER ===== */
-footer{
-  padding:70px 20px;
-  text-align:center;
-  color:var(--muted);
-  border-top:1px solid var(--border);
-  font-size:14px;
-}
-
-/* ===== SCROLL ANIMATION ===== */
-.hidden{opacity:0}
-  /* ===== HOW IT WORKS ===== */
-.how{
-  text-align:center;
-}
-
-.how h2{
-  font-size:42px;
-  margin-bottom:10px;
-}
-
-.how-sub{
-  max-width:720px;
-  margin:0 auto 50px;
-  color:var(--muted);
-  font-size:18px;
-}
-
-.how-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-  gap:32px;
-}
-
-.how-card{
-  background:var(--card);
-  border:1px solid var(--border);
-  border-radius:22px;
-  padding:34px;
-  backdrop-filter:blur(16px);
-  transition:.6s;
-}
-
-.how-card:hover{
-  border-color:var(--accent);
-  box-shadow:0 0 45px rgba(34,211,238,.3);
-}
-
-.step{
-  display:inline-block;
-  font-size:14px;
-  font-weight:700;
-  letter-spacing:1px;
-  color:var(--accent);
-  margin-bottom:10px;
-}
-  /* ===== TESTIMONIALS ===== */
-.testimonials{
-  text-align:center;
-}
-
-.testimonials h2{
-  font-size:42px;
-  margin-bottom:10px;
-}
-
-.test-sub{
-  max-width:720px;
-  margin:0 auto 50px;
-  color:var(--muted);
-  font-size:18px;
-}
-
-.test-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-  gap:32px;
-}
-
-.test-card{
-  background:var(--card);
-  border:1px solid var(--border);
-  border-radius:22px;
-  padding:36px;
-  backdrop-filter:blur(16px);
-  transition:.6s;
-  text-align:left;
-}
-
-.test-card:hover{
-  border-color:var(--accent);
-  box-shadow:0 0 50px rgba(34,211,238,.25);
-}
-
-.quote{
-  font-size:16px;
-  line-height:1.6;
-  color:#eaf2ff;
-}
-
-.author{
-  margin-top:22px;
-}
-
-.author span{
-  display:block;
-  font-size:14px;
-  color:var(--muted);
-}
-  /* ===== STATS ===== */
-.stats{
-  text-align:center;
-}
-
-.stats h2{
-  font-size:42px;
-  margin-bottom:10px;
-}
-
-.stats-sub{
-  max-width:720px;
-  margin:0 auto 50px;
-  color:var(--muted);
-  font-size:18px;
-}
-
-.stats-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-  gap:32px;
-}
-
-.stat-card{
-  background:var(--card);
-  border:1px solid var(--border);
-  border-radius:22px;
-  padding:40px 20px;
-  backdrop-filter:blur(16px);
-  transition:.6s;
-}
-
-.stat-card:hover{
-  border-color:var(--accent);
-  box-shadow:0 0 45px rgba(34,211,238,.3);
-}
-
-.stat-card h3{
-  font-size:46px;
-  margin:0;
-  background:linear-gradient(90deg,var(--accent),var(--accent2));
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-}
-
-.stat-card p{
-  margin-top:10px;
-  color:var(--muted);
-  font-size:15px;
-}
-/* ===== MOBILE NAV FIX ===== */
-@media (max-width: 640px) {
-  header {
-    padding: 14px 16px;
-  }
-
-  .logo {
-    font-size: 18px;
-  }
-
-  nav {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-
-  nav a {
-    margin-left: 0;
-    font-size: 14px;
-    padding: 8px 14px;
-  }
-
-  .primary {
-    padding: 8px 16px;
-    font-size: 14px;
-  }
-}
-/* ===== MOBILE HERO TEXT SCALING ===== */
-@media (max-width: 640px) {
-  .hero {
-    padding-top: 120px;
-    padding-bottom: 80px;
-  }
-
-  .hero h1 {
-    font-size: 38px;
-    line-height: 1.1;
-  }
-
-  .hero p {
-    font-size: 16px;
-    margin-top: 14px;
-  }
-
-  .cta a {
-    padding: 14px 24px;
-    font-size: 15px;
-  }
-}
-/* ===== HAMBURGER ICON ===== */
-.hamburger {
-  display: none;
-  flex-direction: column;
-  gap: 5px;
-  cursor: pointer;
-}
-
-.hamburger span {
-  width: 26px;
-  height: 3px;
-  background: var(--text);
-  border-radius: 2px;
-  transition: .3s ease;
-}
-
-/* Animate to X */
-.hamburger.active span:nth-child(1) {
-  transform: translateY(8px) rotate(45deg);
-}
-
-.hamburger.active span:nth-child(2) {
-  opacity: 0;
-}
-
-.hamburger.active span:nth-child(3) {
-  transform: translateY(-8px) rotate(-45deg);
-}
-
-/* ===== MOBILE NAV ANIMATION ===== */
-#navAuth {
-  transition: max-height .4s ease, opacity .3s ease;
-}
 
-@media (min-width: 641px) {
-  .hamburger {
-    display: none;
-  }
-
-  #navAuth {
-    position: static;
-    max-height: none;
-    opacity: 1;
-    display: flex;
-    flex-direction: row;
-    gap: 18px;
-    background: none;
-    border: none;
-  }
-}
-
-
-  #navAuth.show {
-    padding: 24px 0;
-    max-height: 300px;
-    opacity: 1;
-  }
-
-  #navAuth a {
-    margin: 0;
-    font-size: 16px;
-  }
-}
-/* ===== FAQ ===== */
-.faq {
-  max-width: 900px;
-  margin: auto;
-  padding: 80px 20px;
-  text-align: center;
-}
-
-.faq h2 {
-  font-size: 42px;
-  margin-bottom: 10px;
-}
-
-.faq-sub {
-  color: var(--muted);
-  margin-bottom: 50px;
-  font-size: 18px;
-}
-
-.faq-list {
-  text-align: left;
-}
-
-.faq-item {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 18px;
-  margin-bottom: 18px;
-  overflow: hidden;
-  transition: border .3s;
-}
-
-.faq-item:hover {
-  border-color: var(--accent);
-}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
 
-.faq-question {
-  width: 100%;
-  background: none;
-  border: none;
+body {
+  background: radial-gradient(circle at top left, #0b1b33 0%, #050b14 60%);
   color: var(--text);
-  padding: 22px 24px;
-  font-size: 17px;
-  font-weight: 600;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  overflow-x: hidden;
+  line-height: 1.65;
 }
 
-.faq-question:focus {
-  outline: 2px solid var(--accent);
-  outline-offset: -2px;
-}
-
-.arrow {
-  font-size: 22px;
-  transition: transform .3s ease;
-}
-
-.faq-answer {
-  max-height: 0;
-  overflow: hidden;
-  padding: 0 24px;
-  color: var(--muted);
-  line-height: 1.6;
-  transition: max-height .35s ease, padding .35s ease;
-}
-
-/* Open state */
-.faq-item.open .faq-answer {
-  max-height: 1000px;
-  padding: 0 24px 22px;
-}
-
-
-.faq-item.open .arrow {
-  transform: rotate(45deg);
-}
-  /* ===== AUTH MODAL ===== */
-.auth-overlay {
+/* ============================================================
+   NOISE GRAIN
+============================================================ */
+body::before {
+  content: '';
   position: fixed;
   inset: 0;
-  background: radial-gradient(circle at top, #0b1b33, #020617 70%);
-  backdrop-filter: blur(10px);
-  display: none;
-  align-items: center;
-  justify-content: center;
-  z-index: 999;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 200px;
 }
 
-.auth-overlay.show {
-  display: flex;
+/* ============================================================
+   AMBIENT GLOWS — exactly as original script
+============================================================ */
+.glow, .glow2 {
+  position: fixed;
+  width: 700px; height: 700px;
+  border-radius: 50%;
+  filter: blur(160px);
+  opacity: .42;
+  z-index: 0;
+  pointer-events: none;
+  animation: floatOrb 12s ease-in-out infinite;
+}
+.glow  { background: #22d3ee; top: -280px; right: -280px; }
+.glow2 { background: #3b82f6; bottom: -280px; left: -280px; animation-delay: -5s; }
+
+@keyframes floatOrb {
+  0%,100% { transform: translateY(0); }
+  50%      { transform: translateY(-44px); }
 }
 
-.auth-modal {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 22px;
-  padding: 40px 32px;
-  width: 100%;
-  max-width: 520px; padding: 60px 46px;
+/* ============================================================
+   LAYOUT
+============================================================ */
+.wrap {
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 0 28px;
   position: relative;
-  animation: slideUp .4s ease;
+  z-index: 2;
 }
+section { position: relative; z-index: 2; }
 
-.auth-modal h2 {
-  margin-top: 0;
-  margin-bottom: 24px;
-  text-align: center;
+/* ============================================================
+   NAVBAR
+============================================================ */
+#navbar {
+  position: fixed;
+  inset: 0 0 auto 0;
+  height: 66px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 32px;
+  background: rgba(5,11,20,.72);
+  backdrop-filter: blur(20px) saturate(160%);
+  border-bottom: 1px solid var(--border);
+  z-index: 100;
+  transition: background .4s;
 }
+#navbar.scrolled { background: rgba(5,11,20,.93); }
 
-.auth-modal input {
-  width: 100%;
-  padding: 14px 16px;
-  margin-bottom: 14px;
-  border-radius: 12px;
-  border: 1px solid var(--border);
-  background: rgba(255,255,255,.04);
+.nav-logo {
+  font-size: 21px;
+  font-weight: 800;
+  letter-spacing: -.4px;
   color: var(--text);
-  font-size: 15px;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+.logo-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 14px var(--accent);
+  animation: pulseDot 2.2s ease-in-out infinite;
+}
+@keyframes pulseDot {
+  0%,100% { box-shadow: 0 0 14px var(--accent); }
+  50%      { box-shadow: 0 0 28px var(--accent), 0 0 48px rgba(34,211,238,.35); }
 }
 
-.auth-modal input:focus {
-  outline: none;
-  border-color: var(--accent);
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  list-style: none;
 }
-  
-.full-btn {
-  width: 100%;
+.nav-links a {
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 8px 14px;
+  border-radius: 10px;
+  transition: color .2s, background .2s;
+}
+.nav-links a:hover { color: var(--text); background: var(--card); }
+
+.nav-actions { display: flex; align-items: center; gap: 10px; }
+
+.btn-ghost {
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  padding: 9px 20px;
+  border-radius: var(--pill);
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all .25s;
+}
+.btn-ghost:hover { color: var(--text); border-color: rgba(255,255,255,.2); background: var(--card); }
+
+.btn-primary {
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+  color: #020617;
+  padding: 10px 22px;
+  border-radius: var(--pill);
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  box-shadow: 0 0 28px rgba(34,211,238,.30);
+  transition: all .25s;
+}
+.btn-primary:hover { transform: translateY(-1px); box-shadow: 0 0 50px rgba(34,211,238,.50), 0 8px 24px rgba(0,0,0,.4); }
+
+/* ============================================================
+   SECTION HEADERS
+============================================================ */
+.sec-header { text-align: center; margin-bottom: 64px; }
+.sec-eye {
+  display: inline-block;
+  font-size: 11px; font-weight: 700; letter-spacing: 2.5px;
+  text-transform: uppercase; color: var(--accent);
+  margin-bottom: 14px; padding: 5px 14px;
+  border-radius: var(--pill);
+  background: rgba(34,211,238,.07);
+  border: 1px solid rgba(34,211,238,.18);
+}
+.sec-h2 {
+  font-size: clamp(34px, 4.5vw, 54px);
+  font-weight: 800; letter-spacing: -1.8px; line-height: 1.06;
+  margin-bottom: 16px;
+}
+.sec-sub {
+  font-size: 17px; color: var(--muted); font-weight: 300;
+  max-width: 560px; margin: 0 auto; line-height: 1.72;
+}
+
+/* ============================================================
+   HERO
+============================================================ */
+#hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 130px 28px 90px;
   position: relative;
   overflow: hidden;
 }
 
-.loader {
-  width: 18px;
-  height: 18px;
-  border: 2px solid rgba(0,0,0,.3);
-  border-top-color: #020617;
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-  display: none;
+.hero-grid-bg {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(34,211,238,.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(34,211,238,.035) 1px, transparent 1px);
+  background-size: 72px 72px;
+  mask-image: radial-gradient(ellipse 85% 80% at 50% 50%, black, transparent);
+  z-index: 1;
 }
 
-@keyframes spin {
-  to { transform: rotate(360deg); }
+.hero-inner {
+  max-width: 1140px; margin: 0 auto; width: 100%;
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 64px; align-items: center;
+  position: relative; z-index: 2;
 }
 
-.loading .btn-text {
-  visibility: hidden;
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(34,211,238,.06); border: 1px solid rgba(34,211,238,.22);
+  border-radius: var(--pill); padding: 6px 16px 6px 8px;
+  font-size: 13px; color: var(--accent); font-weight: 600;
+  margin-bottom: 28px;
+  animation: fadeUp .8s ease both;
+}
+.badge-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--accent); box-shadow: 0 0 8px var(--accent);
+  animation: pulseDot 2s ease-in-out infinite;
 }
 
-.loading .loader {
-  display: inline-block;
+.hero-h1 {
+  font-size: clamp(44px, 5.5vw, 76px);
+  font-weight: 900; letter-spacing: -2.5px; line-height: 1.02;
+  margin-bottom: 22px;
+  animation: fadeUp .8s ease .1s both;
+}
+.h1-grad {
+  background: linear-gradient(100deg, var(--accent), var(--accent2), var(--accent3));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
 }
 
-.auth-close {
-  position: absolute;
-  top: 14px;
-  right: 18px;
-  background: none;
-  border: none;
-  color: var(--text);
-  font-size: 26px;
-  cursor: pointer;
+.hero-p {
+  font-size: 18px; color: var(--muted); font-weight: 300;
+  max-width: 500px; line-height: 1.72; margin-bottom: 36px;
+  animation: fadeUp .8s ease .2s both;
 }
 
-.auth-switch {
-  margin-top: 18px;
-  text-align: center;
-  font-size: 14px;
-  color: var(--muted);
+.hero-cta {
+  display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
+  animation: fadeUp .8s ease .3s both;
 }
 
-.auth-switch a {
-  color: var(--accent);
-  font-weight: 600;
-  margin-left: 4px;
-  text-decoration: none;
+.btn-hero {
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+  color: #020617; padding: 17px 34px; border-radius: var(--pill);
+  font-family: 'Inter', sans-serif; font-size: 16px; font-weight: 700;
+  border: none; cursor: pointer; text-decoration: none;
+  display: inline-flex; align-items: center; gap: 8px;
+  box-shadow: 0 0 44px rgba(34,211,238,.38), 0 4px 20px rgba(0,0,0,.35);
+  transition: all .3s; letter-spacing: -.2px;
 }
-/* ===== PREMIUM MICRO ANIMATIONS ===== */
+.btn-hero:hover { transform: translateY(-2px) scale(1.02); box-shadow: 0 0 75px rgba(34,211,238,.58), 0 14px 40px rgba(0,0,0,.4); }
 
-/* Button hover lift */
-a, button {
-  transition: transform .18s ease, box-shadow .18s ease;
+.btn-outline {
+  background: none; border: 1px solid var(--border);
+  color: var(--text); padding: 16px 28px; border-radius: var(--pill);
+  font-family: 'Inter', sans-serif; font-size: 15px; font-weight: 500;
+  cursor: pointer; text-decoration: none;
+  display: inline-flex; align-items: center; gap: 8px; transition: all .25s;
 }
+.btn-outline:hover { background: var(--card); border-color: rgba(255,255,255,.18); }
 
-a:hover, button:hover {
-  transform: translateY(-1px);
+.hero-trust {
+  display: flex; align-items: center; gap: 14px;
+  margin-top: 42px;
+  animation: fadeUp .8s ease .4s both;
 }
+.avatars { display: flex; }
+.av {
+  width: 32px; height: 32px; border-radius: 50%;
+  border: 2px solid var(--bg);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 700; color: #020617;
+  margin-left: -9px;
+}
+.av:first-child { margin-left: 0; }
+.trust-txt { font-size: 13px; color: var(--muted); }
+.trust-txt strong { color: var(--text); font-weight: 600; }
 
-/* Button active press */
-a:active, button:active {
-  transform: translateY(0);
+/* Hero Card Visual */
+.hero-visual { animation: fadeUp .8s ease .15s both; }
+.hcard {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 26px;
+  backdrop-filter: blur(18px);
+  box-shadow: 0 28px 80px rgba(0,0,0,.55), 0 0 0 1px rgba(255,255,255,.02);
 }
+.hcard-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+.hcard-label { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--dim); }
+.live-pill {
+  display: flex; align-items: center; gap: 6px;
+  background: rgba(34,211,238,.07); border: 1px solid rgba(34,211,238,.22);
+  border-radius: var(--pill); padding: 4px 12px; font-size: 11px; font-weight: 700; color: var(--accent);
+}
+.live-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--accent); animation: pulseDot 1.6s ease-in-out infinite; }
 
-/* Card subtle hover */
-.card, .how-card, .test-card, .stat-card {
-  transition: transform .35s ease, box-shadow .35s ease, border-color .35s ease;
+.metrics-row { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; margin-bottom: 18px; }
+.metric-box {
+  background: rgba(255,255,255,.025); border: 1px solid var(--border);
+  border-radius: var(--radius-sm); padding: 16px 12px; text-align: center;
 }
+.metric-val {
+  font-size: 26px; font-weight: 800;
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  line-height: 1; margin-bottom: 5px;
+}
+.metric-lbl { font-size: 10px; color: var(--dim); font-weight: 600; letter-spacing: .5px; text-transform: uppercase; }
 
-.card:hover,
-.how-card:hover,
-.test-card:hover,
-.stat-card:hover {
-  transform: translateY(-6px);
-}
+.sparkline { height: 56px; display: flex; align-items: flex-end; gap: 4px; margin-bottom: 18px; }
+.spark-bar { flex: 1; border-radius: 4px 4px 0 0; background: linear-gradient(180deg, var(--accent), rgba(34,211,238,.22)); }
 
-/* Fade-in on scroll (already wired, now smoother) */
-.hidden {
-  opacity: 0;
-  transform: translateY(24px);
-  transition: opacity .7s ease, transform .7s ease;
+.ai-log { display: flex; flex-direction: column; gap: 9px; }
+.ai-log-item {
+  display: flex; align-items: flex-start; gap: 10px;
+  padding: 12px; border-radius: var(--radius-sm);
+  background: rgba(255,255,255,.02); border: 1px solid var(--border);
 }
+.ai-ic { width: 28px; height: 28px; border-radius: 8px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 13px; }
+.ai-ic.t { background: rgba(34,211,238,.10); }
+.ai-ic.b { background: rgba(59,130,246,.10); }
+.ai-ic.p { background: rgba(129,140,248,.10); }
+.ai-log-txt { font-size: 12.5px; color: var(--muted); line-height: 1.45; }
+.ai-log-txt strong { color: var(--text); font-weight: 600; }
 
-.hidden.show {
-  opacity: 1;
-  transform: translateY(0);
-}
-  /* ===== ACCESSIBLE FOCUS STYLES ===== */
-:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 3px;
-  border-radius: 8px;
-}
-
-button:focus:not(:focus-visible),
-a:focus:not(:focus-visible) {
-  outline: none;
-}
-  .nav-btn {
-  background: none;
-  border: none;
-  color: var(--text);
-  font: inherit;
-  cursor: pointer;
-}
-
-  /* ===== AI HERO ===== */
-
-.ai-hero{
-height:100vh;
-display:flex;
-justify-content:center;
-align-items:center;
-text-align:center;
-}
-
-.ai-core{
-max-width:900px;
-width:90%;
-}
-
-.ai-core h1{
-font-size:72px;
-letter-spacing:-2px;
-background:linear-gradient(90deg,#22d3ee,#3b82f6);
--webkit-background-clip:text;
--webkit-text-fill-color:transparent;
-}
-
-.ai-sub{
-color:#9fb3d1;
-margin-top:10px;
-font-size:20px;
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
-.ai-input-wrap{
-margin-top:40px;
-display:flex;
-gap:10px;
-background:rgba(255,255,255,.04);
-border:1px solid rgba(255,255,255,.1);
-padding:10px;
-border-radius:16px;
-backdrop-filter:blur(12px);
-}
+/* ============================================================
+   FEATURES
+============================================================ */
+#features { padding: 110px 28px; }
 
-.ai-input-wrap input{
-flex:1;
-background:none;
-border:none;
-color:white;
-font-size:16px;
-padding:14px;
-outline:none;
+.feat-grid {
+  display: grid; grid-template-columns: repeat(3,1fr); gap: 20px;
+  max-width: 1140px; margin: 0 auto;
 }
-
-.ai-input-wrap button{
-background:linear-gradient(90deg,#22d3ee,#3b82f6);
-border:none;
-padding:14px 22px;
-border-radius:12px;
-font-weight:700;
-cursor:pointer;
+.feat-card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 34px;
+  backdrop-filter: blur(14px);
+  transition: all .38s ease;
+  position: relative; overflow: hidden; cursor: default;
 }
-
-.ai-input-wrap button:hover{
-transform:scale(1.05);
+.feat-card::after {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(circle at 25% 25%, rgba(34,211,238,.045), transparent 55%);
+  opacity: 0; transition: opacity .38s;
 }
+.feat-card:hover { border-color: var(--border-hover); transform: translateY(-7px); box-shadow: 0 22px 60px rgba(0,0,0,.42), 0 0 0 1px rgba(34,211,238,.09); }
+.feat-card:hover::after { opacity: 1; }
 
-.ai-trust{
-margin-top:14px;
-color:#6b7c93;
-font-size:13px;
+.feat-icon { width: 50px; height: 50px; border-radius: 15px; display: flex; align-items: center; justify-content: center; font-size: 22px; margin-bottom: 20px; }
+.fi-c { background: rgba(34,211,238,.10); }
+.fi-b { background: rgba(59,130,246,.10); }
+.fi-p { background: rgba(129,140,248,.10); }
+.fi-o { background: rgba(251,146,60,.10); }
+.fi-k { background: rgba(244,114,182,.10); }
+.fi-y { background: rgba(250,204,21,.10); }
+
+.feat-card h3 { font-size: 18px; font-weight: 700; letter-spacing: -.3px; margin-bottom: 10px; }
+.feat-card p { font-size: 14.5px; color: var(--muted); font-weight: 300; line-height: 1.65; }
+
+.feat-tag {
+  display: inline-block; margin-top: 16px;
+  font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;
+  padding: 4px 11px; border-radius: var(--pill);
+  color: var(--accent); background: rgba(34,211,238,.07); border: 1px solid rgba(34,211,238,.15);
 }
+.feat-tag.b { color: var(--accent2); background: rgba(59,130,246,.07); border-color: rgba(59,130,246,.15); }
+.feat-tag.p { color: var(--accent3); background: rgba(129,140,248,.07); border-color: rgba(129,140,248,.15); }
 
+/* ============================================================
+   HOW IT WORKS
+============================================================ */
+#how-it-works { padding: 110px 28px; background: linear-gradient(180deg, transparent, rgba(11,21,37,.7), transparent); }
+
+.how-steps {
+  display: grid; grid-template-columns: repeat(3,1fr);
+  max-width: 1140px; margin: 0 auto;
+  position: relative;
+}
+.how-steps::before {
+  content: ''; position: absolute;
+  top: 34px; left: calc(16.67% + 28px); right: calc(16.67% + 28px);
+  height: 1px;
+  background: linear-gradient(90deg, var(--accent), var(--accent2), var(--accent3));
+  opacity: .28;
+}
+.step-col { padding: 36px 32px; text-align: center; }
+.step-num {
+  width: 58px; height: 58px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 24px;
+  font-size: 21px; font-weight: 800;
+  background: var(--bg-2); border: 1px solid var(--border);
+  position: relative; z-index: 1; transition: all .3s;
+}
+.step-num.s1 { color: var(--accent); border-color: rgba(34,211,238,.32); box-shadow: 0 0 24px rgba(34,211,238,.14); }
+.step-num.s2 { color: var(--accent2); border-color: rgba(59,130,246,.32); box-shadow: 0 0 24px rgba(59,130,246,.14); }
+.step-num.s3 { color: var(--accent3); border-color: rgba(129,140,248,.32); box-shadow: 0 0 24px rgba(129,140,248,.14); }
+.step-col:hover .step-num { transform: scale(1.12); }
+.step-col h3 { font-size: 20px; font-weight: 700; letter-spacing: -.3px; margin-bottom: 12px; }
+.step-col p  { font-size: 15px; color: var(--muted); font-weight: 300; line-height: 1.68; max-width: 280px; margin: 0 auto; }
+
+/* ============================================================
+   DASHBOARD PREVIEW
+============================================================ */
+#dashboard-preview { padding: 110px 28px; }
+
+.dash-ui {
+  background: var(--bg-1); border: 1px solid var(--border);
+  border-radius: var(--radius); overflow: hidden;
+  box-shadow: 0 44px 120px rgba(0,0,0,.65), 0 0 0 1px rgba(255,255,255,.025);
+}
+.dash-bar {
+  background: rgba(255,255,255,.022); border-bottom: 1px solid var(--border);
+  padding: 14px 20px; display: flex; align-items: center; gap: 8px;
+}
+.db-dot { width: 10px; height: 10px; border-radius: 50%; }
+.db-dot.r { background: #ff5f57; } .db-dot.y { background: #febc2e; } .db-dot.g { background: #28c840; }
+.db-tabs { margin-left: 18px; display: flex; gap: 6px; }
+.db-tab { font-size: 12px; color: var(--dim); padding: 5px 14px; border-radius: 7px; cursor: pointer; transition: all .2s; }
+.db-tab.active { background: rgba(34,211,238,.08); color: var(--accent); border: 1px solid rgba(34,211,238,.2); }
+
+.dash-body { display: grid; grid-template-columns: 220px 1fr; min-height: 440px; }
+.dash-side { border-right: 1px solid var(--border); padding: 18px; display: flex; flex-direction: column; gap: 4px; }
+.dsi { display: flex; align-items: center; gap: 10px; padding: 10px 13px; border-radius: 11px; font-size: 13px; color: var(--muted); cursor: pointer; transition: all .2s; }
+.dsi.active { background: rgba(34,211,238,.07); color: var(--accent); border: 1px solid rgba(34,211,238,.15); }
+.dsi:hover:not(.active) { background: var(--card); color: var(--text); }
+.dsi-ic { font-size: 15px; }
+
+.dash-main { padding: 22px; display: flex; flex-direction: column; gap: 18px; }
+.kpis { display: grid; grid-template-columns: repeat(4,1fr); gap: 14px; }
+.kpi { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 16px 18px; }
+.kpi-lbl { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--dim); margin-bottom: 8px; }
+.kpi-val {
+  font-size: 27px; font-weight: 800; letter-spacing: -1px; line-height: 1;
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  margin-bottom: 4px;
+}
+.kpi-delta { font-size: 11px; color: #4ade80; font-weight: 600; }
+.kpi-delta.down { color: #f87171; }
+
+.dash-charts { display: grid; grid-template-columns: 2fr 1fr; gap: 14px; }
+.chart-box { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 18px; }
+.chart-hdr { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+.chart-ttl { font-size: 12px; font-weight: 600; color: var(--muted); }
+.chart-chip { font-size: 10px; padding: 3px 9px; border-radius: var(--pill); background: rgba(34,211,238,.07); color: var(--accent); border: 1px solid rgba(34,211,238,.15); font-weight: 700; }
+
+.bar-chart { display: flex; align-items: flex-end; gap: 7px; height: 110px; }
+.bcol { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px; height: 100%; justify-content: flex-end; }
+.bcol-inner { width: 100%; display: flex; gap: 2px; align-items: flex-end; flex: 1; }
+.bfill { flex: 1; border-radius: 4px 4px 0 0; background: linear-gradient(180deg, var(--accent), rgba(34,211,238,.22)); }
+.bfill.alt { background: linear-gradient(180deg, var(--accent2), rgba(59,130,246,.22)); }
+.bcol-lbl { font-size: 9px; color: var(--dim); font-weight: 500; }
+
+.donut-box { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; height: 100%; }
+.d-svg { width: 100px; height: 100px; }
+.d-legend { display: flex; flex-direction: column; gap: 7px; width: 100%; }
+.d-leg-item { display: flex; align-items: center; gap: 8px; font-size: 11px; color: var(--muted); }
+.d-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+
+/* ============================================================
+   INTEGRATIONS
+============================================================ */
+#integrations { padding: 110px 28px; background: linear-gradient(180deg, transparent, rgba(11,21,37,.5), transparent); }
+
+.integ-grid { display: grid; grid-template-columns: repeat(6,1fr); gap: 16px; max-width: 1140px; margin: 60px auto 0; }
+.integ-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 24px 14px; text-align: center; transition: all .32s; cursor: default; }
+.integ-card:hover { border-color: var(--border-hover); transform: translateY(-5px); box-shadow: 0 14px 44px rgba(0,0,0,.32); }
+.integ-ic { font-size: 28px; margin-bottom: 9px; }
+.integ-nm { font-size: 11px; color: var(--muted); font-weight: 600; }
+
+/* ============================================================
+   PRICING
+============================================================ */
+#pricing { padding: 110px 28px; }
+
+.price-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; max-width: 1060px; margin: 0 auto; align-items: start; }
+
+.price-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 36px 30px; transition: all .38s; position: relative; overflow: hidden; }
+.price-card:hover { transform: translateY(-5px); box-shadow: 0 18px 54px rgba(0,0,0,.32); }
+
+.price-card.hot { background: linear-gradient(160deg, rgba(34,211,238,.07), rgba(59,130,246,.04)); border-color: rgba(34,211,238,.35); box-shadow: 0 0 64px rgba(34,211,238,.08), 0 28px 64px rgba(0,0,0,.44); }
+.price-card.hot:hover { box-shadow: 0 0 90px rgba(34,211,238,.16), 0 32px 72px rgba(0,0,0,.50); }
+.price-hot-glow { position: absolute; top: -70px; right: -70px; width: 180px; height: 180px; border-radius: 50%; background: radial-gradient(circle, rgba(34,211,238,.09), transparent 70%); pointer-events: none; }
+
+.price-badge { display: inline-block; margin-bottom: 14px; font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent); background: rgba(34,211,238,.08); border: 1px solid rgba(34,211,238,.22); border-radius: var(--pill); padding: 4px 12px; }
+.price-name { font-size: 23px; font-weight: 800; letter-spacing: -.4px; margin-bottom: 8px; }
+.price-desc { font-size: 14px; color: var(--muted); font-weight: 300; line-height: 1.55; margin-bottom: 24px; }
+.price-amt { font-size: 50px; font-weight: 900; letter-spacing: -2.5px; line-height: 1; }
+.price-amt.grad { background: linear-gradient(90deg, var(--accent), var(--accent2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.price-per { font-size: 13px; color: var(--dim); margin-top: 4px; }
+.price-div { height: 1px; background: var(--border); margin: 22px 0; }
+
+.price-list { list-style: none; display: flex; flex-direction: column; gap: 12px; margin-bottom: 26px; }
+.price-list li { display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: var(--muted); }
+.ck { width: 19px; height: 19px; border-radius: 50%; flex-shrink: 0; margin-top: 2px; display: flex; align-items: center; justify-content: center; font-size: 10px; background: rgba(34,211,238,.10); border: 1px solid rgba(34,211,238,.25); color: var(--accent); }
+.cx { width: 19px; height: 19px; border-radius: 50%; flex-shrink: 0; margin-top: 2px; display: flex; align-items: center; justify-content: center; font-size: 10px; background: rgba(255,255,255,.03); border: 1px solid rgba(255,255,255,.06); color: var(--dim); }
+
+.pcta { display: block; width: 100%; padding: 14px; border-radius: var(--pill); text-align: center; font-family: 'Inter', sans-serif; font-size: 15px; font-weight: 700; cursor: pointer; text-decoration: none; border: none; transition: all .3s; }
+.pcta.outline { background: none; border: 1px solid var(--border); color: var(--text); }
+.pcta.outline:hover { background: var(--card); border-color: rgba(255,255,255,.18); }
+.pcta.solid { background: linear-gradient(90deg, var(--accent), var(--accent2)); color: #020617; box-shadow: 0 0 32px rgba(34,211,238,.32); }
+.pcta.solid:hover { transform: translateY(-1px); box-shadow: 0 0 55px rgba(34,211,238,.52), 0 8px 28px rgba(0,0,0,.35); }
+
+/* ============================================================
+   TESTIMONIALS
+============================================================ */
+#testimonials { padding: 110px 28px; background: linear-gradient(180deg, transparent, rgba(11,21,37,.55), transparent); }
+
+.test-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; max-width: 1140px; margin: 0 auto; }
+.test-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 34px; transition: all .38s; }
+.test-card:hover { border-color: var(--border-hover); transform: translateY(-6px); box-shadow: 0 18px 54px rgba(0,0,0,.36); }
+
+.t-stars { display: flex; gap: 3px; margin-bottom: 16px; color: #fbbf24; font-size: 14px; }
+.t-quote { font-size: 15px; color: var(--muted); font-weight: 300; line-height: 1.72; font-style: italic; margin-bottom: 22px; }
+.t-author { display: flex; align-items: center; gap: 12px; padding-top: 18px; border-top: 1px solid var(--border); }
+.t-av { width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 800; color: #020617; flex-shrink: 0; }
+.t-name { font-size: 14px; font-weight: 700; margin-bottom: 2px; }
+.t-role { font-size: 12px; color: var(--dim); }
+
+/* ============================================================
+   FAQ
+============================================================ */
+#faq { padding: 110px 28px; }
+.faq-wrap { max-width: 780px; margin: 0 auto; }
+
+.faq-item { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-sm); margin-bottom: 12px; overflow: hidden; transition: border-color .3s; }
+.faq-item:hover  { border-color: rgba(34,211,238,.22); }
+.faq-item.open   { border-color: rgba(34,211,238,.35); }
+
+.faq-q { width: 100%; background: none; border: none; color: var(--text); padding: 20px 24px; font-family: 'Inter', sans-serif; font-size: 16px; font-weight: 500; display: flex; justify-content: space-between; align-items: center; cursor: pointer; text-align: left; gap: 16px; }
+.faq-arr { width: 28px; height: 28px; border-radius: 50%; background: rgba(255,255,255,.04); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 18px; color: var(--accent); flex-shrink: 0; transition: transform .32s, background .32s; }
+.faq-item.open .faq-arr { transform: rotate(45deg); background: rgba(34,211,238,.08); }
+
+.faq-a { max-height: 0; overflow: hidden; padding: 0 24px; color: var(--muted); font-size: 15px; font-weight: 300; line-height: 1.72; transition: max-height .38s ease, padding .38s ease; }
+.faq-item.open .faq-a { max-height: 320px; padding: 0 24px 22px; }
+
+/* ============================================================
+   CTA SECTION
+============================================================ */
+#cta { padding: 110px 28px; }
+
+.cta-box {
+  max-width: 920px; margin: 0 auto;
+  background: linear-gradient(155deg, rgba(34,211,238,.06), rgba(59,130,246,.04), rgba(129,140,248,.03));
+  border: 1px solid rgba(34,211,238,.22); border-radius: 32px; padding: 88px 64px;
+  text-align: center; position: relative; overflow: hidden;
+  box-shadow: 0 0 100px rgba(34,211,238,.065), 0 44px 100px rgba(0,0,0,.44);
+}
+.cta-orb { position: absolute; border-radius: 50%; filter: blur(80px); pointer-events: none; }
+.co1 { width: 300px; height: 300px; background: rgba(34,211,238,.09); top: -100px; left: -80px; }
+.co2 { width: 260px; height: 260px; background: rgba(59,130,246,.07); bottom: -80px; right: -60px; }
+
+.cta-box h2 { font-size: clamp(38px, 4.5vw, 60px); font-weight: 900; letter-spacing: -2px; line-height: 1.04; margin-bottom: 18px; position: relative; }
+.cta-box p { font-size: 17px; color: var(--muted); font-weight: 300; max-width: 500px; margin: 0 auto 40px; line-height: 1.72; position: relative; }
+.cta-btns { display: flex; justify-content: center; align-items: center; gap: 14px; flex-wrap: wrap; position: relative; }
+.btn-cta {
+  background: linear-gradient(90deg, var(--accent), var(--accent2)); color: #020617;
+  padding: 18px 38px; border-radius: var(--pill);
+  font-family: 'Inter', sans-serif; font-size: 16px; font-weight: 700;
+  border: none; cursor: pointer; text-decoration: none;
+  display: inline-flex; align-items: center; gap: 8px;
+  box-shadow: 0 0 54px rgba(34,211,238,.38), 0 8px 32px rgba(0,0,0,.32);
+  transition: all .3s;
+}
+.btn-cta:hover { transform: translateY(-2px); box-shadow: 0 0 85px rgba(34,211,238,.58), 0 16px 44px rgba(0,0,0,.42); }
+.cta-note { margin-top: 20px; font-size: 13px; color: var(--dim); position: relative; }
+
+/* ============================================================
+   FOOTER
+============================================================ */
+#footer { padding: 64px 28px 40px; border-top: 1px solid var(--border); position: relative; z-index: 2; }
+.foot-inner { max-width: 1140px; margin: 0 auto; display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 44px; margin-bottom: 52px; }
+.foot-brand h3 { font-size: 22px; font-weight: 800; letter-spacing: -.4px; margin-bottom: 12px; display: flex; align-items: center; gap: 9px; }
+.foot-brand p { font-size: 14px; color: var(--muted); font-weight: 300; line-height: 1.65; max-width: 260px; margin-bottom: 22px; }
+.foot-socials { display: flex; gap: 10px; }
+.soc-btn { width: 36px; height: 36px; border-radius: 10px; background: var(--card); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; color: var(--muted); text-decoration: none; font-size: 13px; transition: all .22s; }
+.soc-btn:hover { border-color: rgba(34,211,238,.32); color: var(--accent); background: rgba(34,211,238,.06); }
+.foot-col h4 { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--dim); margin-bottom: 16px; }
+.foot-col ul { list-style: none; display: flex; flex-direction: column; gap: 11px; }
+.foot-col ul a { font-size: 14px; color: var(--muted); text-decoration: none; font-weight: 300; transition: color .2s; }
+.foot-col ul a:hover { color: var(--accent); }
+
+.foot-bottom { max-width: 1140px; margin: 0 auto; border-top: 1px solid var(--border); padding-top: 26px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+.foot-legal { font-size: 13px; color: var(--dim); }
+.foot-legal a { color: var(--muted); text-decoration: none; }
+.foot-legal a:hover { color: var(--accent); }
+.foot-legal strong { color: var(--muted); }
+
+/* ============================================================
+   SCROLL REVEAL
+============================================================ */
+.reveal { opacity: 0; transform: translateY(34px); transition: opacity .72s ease, transform .72s ease; }
+.reveal.vis { opacity: 1; transform: translateY(0); }
+.d1 { transition-delay: .10s; } .d2 { transition-delay: .20s; } .d3 { transition-delay: .30s; }
+
+/* ============================================================
+   RESPONSIVE
+============================================================ */
+@media (max-width: 1024px) {
+  .hero-inner  { grid-template-columns: 1fr; }
+  .hero-visual { display: none; }
+  .feat-grid   { grid-template-columns: repeat(2,1fr); }
+  .integ-grid  { grid-template-columns: repeat(3,1fr); }
+  .price-grid  { grid-template-columns: 1fr 1fr; }
+  .how-steps   { grid-template-columns: 1fr; }
+  .how-steps::before { display: none; }
+  .dash-body   { grid-template-columns: 1fr; }
+  .dash-side   { display: none; }
+  .kpis        { grid-template-columns: repeat(2,1fr); }
+  .foot-inner  { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 768px) {
+  .feat-grid   { grid-template-columns: 1fr; }
+  .price-grid  { grid-template-columns: 1fr; max-width: 420px; }
+  .test-grid   { grid-template-columns: 1fr; }
+  .integ-grid  { grid-template-columns: repeat(3,1fr); }
+  .nav-links   { display: none; }
+  .hero-h1     { font-size: 40px; }
+  .cta-box     { padding: 52px 28px; }
+  .foot-inner  { grid-template-columns: 1fr; }
+  .foot-bottom { flex-direction: column; text-align: center; }
+  .dash-charts { grid-template-columns: 1fr; }
+}
 </style>
 </head>
-
 <body>
 
+<!-- Original ambient glows -->
 <div class="glow"></div>
 <div class="glow2"></div>
 
-<header>
-  <div class="logo">Ragelite</div>
-
-  <!-- Hamburger -->
-  <div class="hamburger"
-       role="button"
-       tabindex="0"
-       aria-label="Toggle navigation menu"
-       aria-expanded="false"
-       onclick="toggleMenu()"
-       onkeydown="handleHamburgerKey(event)">
-    <span></span>
-    <span></span>
-    <span></span>
+<!-- ============================================================ NAVBAR ============================================================ -->
+<nav id="navbar">
+  <a href="#" class="nav-logo">
+    <div class="logo-dot"></div>Ragelite
+  </a>
+  <ul class="nav-links">
+    <li><a href="#features">Features</a></li>
+    <li><a href="#how-it-works">How it Works</a></li>
+    <li><a href="#integrations">Integrations</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+    <li><a href="#faq">FAQ</a></li>
+  </ul>
+  <div class="nav-actions">
+    <a href="#" class="btn-ghost">Log in</a>
+    <a href="#cta" class="btn-primary">Get Started <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
   </div>
+</nav>
 
-  <!-- Navigation -->
-<nav id="navAuth"></nav>
-</header>
-
- <div class="ai-hero">
-  <div class="ai-core">
-
-```
-<h1>Ragelite Intelligence</h1>
-
-<p class="ai-sub">
-  Describe your business. Watch strategy generate instantly.
-</p>
-
-<div class="ai-input-wrap">
-
-  <input 
-    id="heroAIInput"
-    placeholder="Premium skincare • India • ₹1L budget • Drive sales"
-  />
-
-  <button id="heroAISend">
-    Generate Strategy
-  </button>
-
-</div>
-  </div>
-
-<div class="ai-trust">
-  Live AI. Real strategy. Not templates.
-</div>
-```
-
-  </div>
-
-<section>
-  <div class="grid">
-    <div class="card hidden">
-      <h3>AI Campaign Creation</h3>
-      <p>Create complete ad campaigns from a single business description.</p>
+<!-- ============================================================ HERO ============================================================ -->
+<section id="hero">
+  <div class="hero-grid-bg"></div>
+  <div class="hero-inner">
+    <div>
+      <div class="hero-badge"><div class="badge-dot"></div>AI-Powered Ad Automation · Now Live</div>
+      <h1 class="hero-h1">Grow Faster<br>with <span class="h1-grad">Autonomous</span><br>AI Marketing</h1>
+      <p class="hero-p">Ragelite builds, launches, and continuously optimizes your ad campaigns across Meta &amp; Google — no agency, no guesswork, just compounding results.</p>
+      <div class="hero-cta">
+        <a href="#cta" class="btn-hero">Start Free Trial <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+        <a href="#dashboard-preview" class="btn-outline"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="m10 8 6 4-6 4V8z" fill="currentColor"/></svg>See Dashboard</a>
+      </div>
+      <div class="hero-trust">
+        <div class="avatars">
+          <div class="av" style="background:linear-gradient(135deg,#22d3ee,#3b82f6)">AS</div>
+          <div class="av" style="background:linear-gradient(135deg,#3b82f6,#818cf8)">RV</div>
+          <div class="av" style="background:linear-gradient(135deg,#818cf8,#a78bfa)">MJ</div>
+          <div class="av" style="background:linear-gradient(135deg,#22d3ee,#818cf8)">PK</div>
+        </div>
+        <div class="trust-txt">Trusted by <strong>400+ founders</strong> across India</div>
+      </div>
     </div>
-    <div class="card hidden">
-      <h3>Self-Optimizing Engine</h3>
-      <p>Budgets, creatives, and targeting improve continuously.</p>
-    </div>
-    <div class="card hidden">
-      <h3>Built for Scale</h3>
-      <p>From startups to global businesses, Ragelite grows with you.</p>
+    <div class="hero-visual">
+      <div class="hcard">
+        <div class="hcard-top">
+          <span class="hcard-label">AI Campaign Overview</span>
+          <div class="live-pill"><div class="live-dot"></div>Live Optimization</div>
+        </div>
+        <div class="metrics-row">
+          <div class="metric-box"><div class="metric-val">4.2×</div><div class="metric-lbl">ROAS</div></div>
+          <div class="metric-box"><div class="metric-val">₹11</div><div class="metric-lbl">Cost/Lead</div></div>
+          <div class="metric-box"><div class="metric-val">312</div><div class="metric-lbl">Conversions</div></div>
+        </div>
+        <div class="sparkline" id="sparkline"></div>
+        <div class="ai-log">
+          <div class="ai-log-item"><div class="ai-ic t">✦</div><div class="ai-log-txt"><strong>Budget reallocated</strong> · Instagram Stories +22% — higher engagement</div></div>
+          <div class="ai-log-item"><div class="ai-ic b">◈</div><div class="ai-log-txt"><strong>New audience found</strong> · 25–34 urban women · CTR 3.8%</div></div>
+          <div class="ai-log-item"><div class="ai-ic p">⬡</div><div class="ai-log-txt"><strong>A/B test complete</strong> · Variant B wins — 41% lower CPC</div></div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
-  <section>
-  <div class="how">
-    <h2>How Ragelite Works</h2>
 
-    <p class="how-sub">
-      Launch high-performing ads in minutes. Ragelite’s AI handles strategy,
-      execution, and optimization — automatically.
-    </p>
+<!-- ============================================================ FEATURES ============================================================ -->
+<section id="features">
+  <div class="wrap"><div class="sec-header reveal"><span class="sec-eye">Features</span><h2 class="sec-h2">Everything you need to scale ads</h2><p class="sec-sub">From strategy to execution, Ragelite's intelligence layer handles the full campaign lifecycle.</p></div></div>
+  <div class="feat-grid wrap">
+    <div class="feat-card reveal d1"><div class="feat-icon fi-c">✦</div><h3>AI Campaign Creation</h3><p>Describe your business. Ragelite generates complete campaigns — copy, creatives, targeting, budgets — in seconds.</p><span class="feat-tag">INSTANT</span></div>
+    <div class="feat-card reveal d2"><div class="feat-icon fi-b">◈</div><h3>Self-Optimizing Engine</h3><p>Our AI monitors performance 24/7, reallocates budget, pauses underperformers, and scales winners automatically.</p><span class="feat-tag b">AUTONOMOUS</span></div>
+    <div class="feat-card reveal d3"><div class="feat-icon fi-p">⬡</div><h3>Smart Audience Discovery</h3><p>Machine learning identifies high-intent segments you'd never find manually, across every stage of the funnel.</p><span class="feat-tag p">INTELLIGENT</span></div>
+    <div class="feat-card reveal d1"><div class="feat-icon fi-o">⊕</div><h3>Creative Intelligence</h3><p>A/B test dozens of variants simultaneously. The AI learns what resonates and doubles down on winners.</p><span class="feat-tag">ADAPTIVE</span></div>
+    <div class="feat-card reveal d2"><div class="feat-icon fi-k">⊛</div><h3>Real-Time Analytics</h3><p>Unified dashboard with ROAS, CPL, CTR and AI-generated insights — no analyst needed, ever.</p><span class="feat-tag b">LIVE DATA</span></div>
+    <div class="feat-card reveal d3"><div class="feat-icon fi-y">◇</div><h3>Multi-Platform Sync</h3><p>Manage Meta, Google and more from one AI brain. Synchronized strategies, consistent messaging, superior ROI.</p><span class="feat-tag p">UNIFIED</span></div>
+  </div>
+</section>
 
-<section>
-  <div class="testimonials">
-    <h2>Trusted by Early Teams</h2>
+<!-- ============================================================ HOW IT WORKS ============================================================ -->
+<section id="how-it-works">
+  <div class="wrap">
+    <div class="sec-header reveal"><span class="sec-eye">How It Works</span><h2 class="sec-h2">From idea to live campaign in minutes</h2><p class="sec-sub">Three simple steps. Zero ad expertise required. Your AI growth engine handles the rest.</p></div>
+    <div class="how-steps">
+      <div class="step-col reveal d1"><div class="step-num s1">01</div><h3>Describe Your Business</h3><p>Tell Ragelite what you sell, your target audience, and your budget. No ad experience required.</p></div>
+      <div class="step-col reveal d2"><div class="step-num s2">02</div><h3>AI Builds Everything</h3><p>Complete campaigns with creatives, copy, targeting and budgets — generated and launched automatically.</p></div>
+      <div class="step-col reveal d3"><div class="step-num s3">03</div><h3>Watch Results Compound</h3><p>The AI monitors, learns, and improves continuously. Better performance every week, zero manual work.</p></div>
+    </div>
+  </div>
+</section>
 
-    <p class="test-sub">
-      Founders and growth teams are already using Ragelite
-      to simplify and scale their advertising.
-    </p>
+<!-- ============================================================ DASHBOARD PREVIEW ============================================================ -->
+<section id="dashboard-preview">
+  <div class="wrap">
+    <div class="sec-header reveal"><span class="sec-eye">Dashboard</span><h2 class="sec-h2">Command your growth in one place</h2><p class="sec-sub">A real-time intelligence center giving you total clarity and control over every campaign.</p></div>
+    <div class="dash-ui reveal">
+      <div class="dash-bar">
+        <div class="db-dot r"></div><div class="db-dot y"></div><div class="db-dot g"></div>
+        <div class="db-tabs"><div class="db-tab active">Overview</div><div class="db-tab">Campaigns</div><div class="db-tab">Audiences</div><div class="db-tab">Creatives</div><div class="db-tab">Reports</div></div>
+      </div>
+      <div class="dash-body">
+        <div class="dash-side">
+          <div class="dsi active"><span class="dsi-ic">◈</span>Overview</div>
+          <div class="dsi"><span class="dsi-ic">✦</span>Campaigns</div>
+          <div class="dsi"><span class="dsi-ic">⬡</span>Audiences</div>
+          <div class="dsi"><span class="dsi-ic">⊕</span>Creatives</div>
+          <div class="dsi"><span class="dsi-ic">⊛</span>Analytics</div>
+          <div class="dsi"><span class="dsi-ic">◇</span>Settings</div>
+        </div>
+        <div class="dash-main">
+          <div class="kpis">
+            <div class="kpi"><div class="kpi-lbl">Total ROAS</div><div class="kpi-val">4.2×</div><div class="kpi-delta">↑ 18% this week</div></div>
+            <div class="kpi"><div class="kpi-lbl">Ad Spend</div><div class="kpi-val">₹1.2L</div><div class="kpi-delta">↑ 12% vs last week</div></div>
+            <div class="kpi"><div class="kpi-lbl">Cost Per Lead</div><div class="kpi-val">₹11</div><div class="kpi-delta">↓ 24% optimized</div></div>
+            <div class="kpi"><div class="kpi-lbl">Conversions</div><div class="kpi-val">3,214</div><div class="kpi-delta">↑ 31% this month</div></div>
+          </div>
+          <div class="dash-charts">
+            <div class="chart-box"><div class="chart-hdr"><div class="chart-ttl">Performance — Last 14 Days</div><div class="chart-chip">AI Optimized</div></div><div class="bar-chart" id="dashBar"></div></div>
+            <div class="chart-box"><div class="chart-hdr"><div class="chart-ttl">Traffic Sources</div></div>
+              <div class="donut-box">
+                <svg class="d-svg" viewBox="0 0 100 100">
+                  <circle cx="50" cy="50" r="38" fill="none" stroke="rgba(255,255,255,0.04)" stroke-width="14"/>
+                  <circle cx="50" cy="50" r="38" fill="none" stroke="#22d3ee" stroke-width="14" stroke-dasharray="95 144" stroke-dashoffset="0" transform="rotate(-90 50 50)"/>
+                  <circle cx="50" cy="50" r="38" fill="none" stroke="#3b82f6" stroke-width="14" stroke-dasharray="55 184" stroke-dashoffset="-95" transform="rotate(-90 50 50)"/>
+                  <circle cx="50" cy="50" r="38" fill="none" stroke="#818cf8" stroke-width="14" stroke-dasharray="30 209" stroke-dashoffset="-150" transform="rotate(-90 50 50)"/>
+                  <text x="50" y="54" text-anchor="middle" fill="#eaf2ff" font-size="10" font-family="Inter" font-weight="700">Meta</text>
+                </svg>
+                <div class="d-legend">
+                  <div class="d-leg-item"><div class="d-dot" style="background:#22d3ee"></div>Meta Ads — 40%</div>
+                  <div class="d-leg-item"><div class="d-dot" style="background:#3b82f6"></div>Google Ads — 35%</div>
+                  <div class="d-leg-item"><div class="d-dot" style="background:#818cf8"></div>Organic — 25%</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
+<!-- ============================================================ INTEGRATIONS ============================================================ -->
+<section id="integrations">
+  <div class="wrap"><div class="sec-header reveal"><span class="sec-eye">Integrations</span><h2 class="sec-h2">Works with your entire stack</h2><p class="sec-sub">Ragelite connects to the tools you already use — zero migration required.</p></div></div>
+  <div class="integ-grid wrap">
+    <div class="integ-card reveal d1"><div class="integ-ic">📘</div><div class="integ-nm">Meta Ads</div></div>
+    <div class="integ-card reveal d2"><div class="integ-ic">🔍</div><div class="integ-nm">Google Ads</div></div>
+    <div class="integ-card reveal d3"><div class="integ-ic">📊</div><div class="integ-nm">Analytics</div></div>
+    <div class="integ-card reveal d1"><div class="integ-ic">🛒</div><div class="integ-nm">Shopify</div></div>
+    <div class="integ-card reveal d2"><div class="integ-ic">📧</div><div class="integ-nm">Mailchimp</div></div>
+    <div class="integ-card reveal d3"><div class="integ-ic">💬</div><div class="integ-nm">WhatsApp</div></div>
+    <div class="integ-card reveal d1"><div class="integ-ic">🔔</div><div class="integ-nm">Slack</div></div>
+    <div class="integ-card reveal d2"><div class="integ-ic">📋</div><div class="integ-nm">HubSpot</div></div>
+    <div class="integ-card reveal d3"><div class="integ-ic">🌐</div><div class="integ-nm">WordPress</div></div>
+    <div class="integ-card reveal d1"><div class="integ-ic">🔗</div><div class="integ-nm">Zapier</div></div>
+    <div class="integ-card reveal d2"><div class="integ-ic">📱</div><div class="integ-nm">Instagram</div></div>
+    <div class="integ-card reveal d3"><div class="integ-ic">⚡</div><div class="integ-nm">More Soon</div></div>
+  </div>
+</section>
+
+<!-- ============================================================ PRICING ============================================================ -->
+<section id="pricing">
+  <div class="wrap">
+    <div class="sec-header reveal"><span class="sec-eye">Pricing</span><h2 class="sec-h2">Simple, transparent pricing</h2><p class="sec-sub">No hidden fees. Cancel anytime. Start free and scale as you grow.</p></div>
+    <div class="price-grid">
+      <div class="price-card reveal d1">
+        <div class="price-name">Starter</div><div class="price-desc">For solo founders and small brands just getting started with AI advertising.</div>
+        <div class="price-amt">₹0</div><div class="price-per">Forever free</div><div class="price-div"></div>
+        <ul class="price-list">
+          <li><div class="ck">✓</div>2 active campaigns</li>
+          <li><div class="ck">✓</div>Meta Ads integration</li>
+          <li><div class="ck">✓</div>Basic AI optimization</li>
+          <li><div class="ck">✓</div>₹50K monthly ad spend limit</li>
+          <li><div class="cx">×</div><span style="color:var(--dim)">Google Ads integration</span></li>
+          <li><div class="cx">×</div><span style="color:var(--dim)">Priority support</span></li>
+        </ul>
+        <a href="#" class="pcta outline">Get Started Free</a>
+      </div>
+      <div class="price-card hot reveal d2">
+        <div class="price-hot-glow"></div>
+        <div class="price-badge">✦ Most Popular</div>
+        <div class="price-name">Growth</div><div class="price-desc">For growing teams ready to scale performance with full AI automation.</div>
+        <div class="price-amt grad">₹4,999</div><div class="price-per">per month · billed annually</div><div class="price-div"></div>
+        <ul class="price-list">
+          <li><div class="ck">✓</div>Unlimited campaigns</li>
+          <li><div class="ck">✓</div>Meta + Google Ads</li>
+          <li><div class="ck">✓</div>Advanced AI optimization</li>
+          <li><div class="ck">✓</div>₹5L monthly ad spend limit</li>
+          <li><div class="ck">✓</div>Creative A/B testing</li>
+          <li><div class="ck">✓</div>Priority chat support</li>
+        </ul>
+        <a href="#" class="pcta solid">Start Free Trial</a>
+      </div>
+      <div class="price-card reveal d3">
+        <div class="price-name">Enterprise</div><div class="price-desc">Custom AI solutions for high-volume advertisers and agencies at scale.</div>
+        <div class="price-amt">Custom</div><div class="price-per">Talk to our team</div><div class="price-div"></div>
+        <ul class="price-list">
+          <li><div class="ck">✓</div>Everything in Growth</li>
+          <li><div class="ck">✓</div>Unlimited ad spend</li>
+          <li><div class="ck">✓</div>White-label option</li>
+          <li><div class="ck">✓</div>Dedicated AI model</li>
+          <li><div class="ck">✓</div>Custom integrations</li>
+          <li><div class="ck">✓</div>24/7 dedicated support</li>
+        </ul>
+        <a href="#" class="pcta outline">Contact Sales</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ TESTIMONIALS ============================================================ -->
+<section id="testimonials">
+  <div class="wrap">
+    <div class="sec-header reveal"><span class="sec-eye">Testimonials</span><h2 class="sec-h2">Loved by growth teams</h2><p class="sec-sub">Real results from real businesses using Ragelite to automate and scale their advertising.</p></div>
     <div class="test-grid">
-
-      <div class="test-card hidden">
-        <p class="quote">
-          “Ragelite feels like having an in-house growth team.
-          We launched campaigns in minutes without any ad expertise.”
-        </p>
-        <div class="author">
-          <strong>Ankit Sharma</strong>
-          <span>Startup Founder</span>
-        </div>
+      <div class="test-card reveal d1">
+        <div class="t-stars">★★★★★</div>
+        <p class="t-quote">"We went from ₹80K/month with mediocre results to ₹1.2L with 4× ROAS in just 3 weeks. Ragelite changed our marketing game completely."</p>
+        <div class="t-author"><div class="t-av" style="background:linear-gradient(135deg,#22d3ee,#3b82f6)">AS</div><div><div class="t-name">Ankit Sharma</div><div class="t-role">Founder, Fitwell India</div></div></div>
       </div>
-
-      <div class="test-card hidden">
-        <p class="quote">
-          “The AI-driven approach is impressive.
-          It removed complexity and helped us focus on our product.”
-        </p>
-        <div class="author">
-          <strong>Riya Verma</strong>
-          <span>Marketing Lead</span>
-        </div>
+      <div class="test-card reveal d2">
+        <div class="t-stars">★★★★★</div>
+        <p class="t-quote">"I replaced three freelancers and two SaaS tools with Ragelite. The AI catches patterns no human notices at 2 AM. It's a 24/7 growth team."</p>
+        <div class="t-author"><div class="t-av" style="background:linear-gradient(135deg,#3b82f6,#818cf8)">RV</div><div><div class="t-name">Riya Verma</div><div class="t-role">Head of Marketing, Luxara</div></div></div>
       </div>
-
-      <div class="test-card hidden">
-        <p class="quote">
-          “We replaced freelancers and tools with Ragelite.
-          The automation and insights are on another level.”
-        </p>
-        <div class="author">
-          <strong>Mohit Jain</strong>
-          <span>Early User</span>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-    <section>
-  <div class="stats">
-    <h2>Ragelite in Action</h2>
-    <p class="stats-sub">
-      Our AI is already helping teams launch, optimize,
-      and scale advertising performance.
-    </p>
-
-    <div class="stats-grid">
-      <div class="stat-card hidden">
-        <h3><span class="counter" data-target="125000">0</span>+</h3>
-        <p>Ad Spend Optimized ($)</p>
-      </div>
-
-      <div class="stat-card hidden">
-        <h3><span class="counter" data-target="3200">0</span>+</h3>
-        <p>Leads Generated</p>
-      </div>
-
-      <div class="stat-card hidden">
-        <h3><span class="counter" data-target="18400">0</span>+</h3>
-        <p>AI Decisions Made</p>
-      </div>
-
-      <div class="stat-card hidden">
-        <h3><span class="counter" data-target="48">0</span></h3>
-        <p>Active Campaigns</p>
+      <div class="test-card reveal d3">
+        <div class="t-stars">★★★★★</div>
+        <p class="t-quote">"Our cost per lead dropped from ₹45 to ₹11 in 6 weeks. The AI found audience segments we'd never have targeted ourselves. Mind-blowing."</p>
+        <div class="t-author"><div class="t-av" style="background:linear-gradient(135deg,#22d3ee,#818cf8)">MJ</div><div><div class="t-name">Mohit Jain</div><div class="t-role">Growth Lead, EduSpace</div></div></div>
       </div>
     </div>
   </div>
 </section>
 
-  <section class="faq">
-  <h2>Frequently Asked Questions</h2>
-  <p class="faq-sub">
-    Everything you need to know before getting started with Ragelite.
-  </p>
-
-  <div class="faq-list">
-
-    <div class="faq-item">
-      <button class="faq-question" aria-expanded="false">
-        How does Ragelite create ads automatically?
-        <span class="arrow">+</span>
-      </button>
-      <div class="faq-answer">
-        Ragelite uses AI to understand your business, audience, and goals, then
-        generates complete ad campaigns including creatives, targeting, and budgets.
-      </div>
+<!-- ============================================================ FAQ ============================================================ -->
+<section id="faq">
+  <div class="wrap">
+    <div class="sec-header reveal"><span class="sec-eye">FAQ</span><h2 class="sec-h2">Common questions</h2><p class="sec-sub">Everything you need to know before getting started.</p></div>
+    <div class="faq-wrap">
+      <div class="faq-item"><button class="faq-q">How does Ragelite create ads automatically?<div class="faq-arr">+</div></button><div class="faq-a">Ragelite uses AI to understand your business, audience, and goals, then generates complete ad campaigns including creatives, targeting, and budgets — requiring zero advertising knowledge from you.</div></div>
+      <div class="faq-item"><button class="faq-q">Do I need advertising experience?<div class="faq-arr">+</div></button><div class="faq-a">No. Ragelite is built for founders and teams with zero advertising experience. If you can describe your product and ideal customer, the AI handles everything else end-to-end.</div></div>
+      <div class="faq-item"><button class="faq-q">Which platforms are supported?<div class="faq-arr">+</div></button><div class="faq-a">We currently support Meta (Facebook & Instagram) and Google Ads. LinkedIn, YouTube, and Amazon Ads integrations are actively in development and launching throughout 2026.</div></div>
+      <div class="faq-item"><button class="faq-q">Is my ad budget safe?<div class="faq-arr">+</div></button><div class="faq-a">Yes. You stay in full control of your budget at all times. Ragelite only optimizes performance within the limits you set — it will never overspend or make unauthorized purchases.</div></div>
+      <div class="faq-item"><button class="faq-q">How quickly can I expect results?<div class="faq-arr">+</div></button><div class="faq-a">Most users see measurable efficiency improvement within 7–14 days. Significant ROAS gains typically become visible within the first month of continuous operation.</div></div>
+      <div class="faq-item"><button class="faq-q">Can I cancel anytime?<div class="faq-arr">+</div></button><div class="faq-a">Absolutely. No long-term contracts, no cancellation fees. Pause or cancel from your dashboard anytime. Campaign data remains accessible for 90 days after cancellation.</div></div>
     </div>
-
-    <div class="faq-item">
-      <button class="faq-question" aria-expanded="false">
-        Do I need any ads experience?
-        <span class="arrow">+</span>
-      </button>
-      <div class="faq-answer">
-        No. Ragelite is built for founders and teams with zero advertising experience.
-        The AI handles everything end-to-end.
-      </div>
-    </div>
-
-    <div class="faq-item">
-      <button class="faq-question" aria-expanded="false">
-        Which platforms are supported?
-        <span class="arrow">+</span>
-      </button>
-      <div class="faq-answer">
-        We currently support Meta (Facebook & Instagram) and Google Ads, with more
-        platforms coming soon.
-      </div>
-    </div>
-
-    <div class="faq-item">
-      <button class="faq-question" aria-expanded="false">
-        Is my ad budget safe?
-        <span class="arrow">+</span>
-      </button>
-      <div class="faq-answer">
-        Yes. You stay in full control of your budget. Ragelite only optimizes
-        performance within limits you set.
-      </div>
-    </div>
-
   </div>
 </section>
 
-     <div class="how-grid">
-
-  <!-- STEP 01 -->
-  <div class="how-card hidden">
-    <span class="step">01</span>
-    <h3>Describe Your Business</h3>
-    <p>
-      Share what you do, your goal, and budget.
-      No ad experience required.
-    </p>
-  </div>
-
-  <!-- STEP 02 -->
-  <div class="how-card hidden">
-    <span class="step">02</span>
-    <h3>AI Builds Campaigns</h3>
-    <p>
-      Ragelite creates ads, targeting, and creatives
-      across Meta & Google.
-    </p>
-  </div>
-
-  <!-- STEP 03 -->
-  <div class="how-card hidden">
-    <span class="step">03</span>
-    <h3>Continuous Optimization</h3>
-    <p>
-      Our AI monitors performance and improves results
-      24/7 — automatically.
-    </p>
-  </div>
-
-</div>
-<!-- AUTH MODAL -->
-<div id="authOverlay" class="auth-overlay" aria-hidden="true">
-  <div class="auth-modal" role="dialog" aria-modal="true">
-    <button class="auth-close" onclick="closeAuth()" aria-label="Close">×</button>
-
-    <h2 id="authTitle">Login</h2>
-    
-<form onsubmit="submitAuth(event)">
-  <input
-    type="text"
-    id="usernameInput"
-    placeholder="Username"
-    style="display:none"
-  >
-  <input type="email" placeholder="Email" required>
-  <input type="password" placeholder="Password" required>
-
-      <button type="submit" class="full-btn">
-        <span class="btn-text">Continue</span>
-        <span class="loader"></span>
-      </button>
-    </form>
-    <button onclick="googleLogin()" class="full-btn" style="margin-top:14px">
-      Continue with Google
-    </button>
-
-    <div class="auth-switch">
-      <span id="authSwitchText">Don’t have an account?</span>
-      <a href="#" onclick="switchAuth()">Sign up</a>
+<!-- ============================================================ CTA ============================================================ -->
+<section id="cta">
+  <div class="wrap">
+    <div class="cta-box reveal">
+      <div class="cta-orb co1"></div><div class="cta-orb co2"></div>
+      <h2>Your AI growth engine<br><span style="background:linear-gradient(90deg,var(--accent),var(--accent2),var(--accent3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">starts today.</span></h2>
+      <p>Join 400+ founders already using Ragelite to run smarter, faster, and more profitable ad campaigns — entirely on autopilot.</p>
+      <div class="cta-btns">
+        <a href="#" class="btn-cta">Start Free Trial <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+        <a href="#" class="btn-outline" style="color:var(--muted);border-color:rgba(255,255,255,.12)">Schedule a Demo</a>
+      </div>
+      <div class="cta-note">No credit card required · Free forever plan available · Cancel anytime</div>
     </div>
   </div>
-</div>
-<footer>
-  Founded by <strong>Raj Bundela</strong>, <strong>Ashwani Singh</strong> & <strong>Karan Pal</strong><br>
-  © 2026 Ragelite Corporation · ragelitecorporation@gmail.com
+</section>
+
+<!-- ============================================================ FOOTER ============================================================ -->
+<footer id="footer">
+  <div class="foot-inner">
+    <div class="foot-brand">
+      <h3><div class="logo-dot"></div>Ragelite</h3>
+      <p>Autonomous AI growth for the next generation of ambitious businesses.</p>
+      <div class="foot-socials">
+        <a class="soc-btn" href="#">𝕏</a><a class="soc-btn" href="#">in</a><a class="soc-btn" href="#">IG</a><a class="soc-btn" href="#">✉</a>
+      </div>
+    </div>
+    <div class="foot-col"><h4>Product</h4><ul><li><a href="#">Features</a></li><li><a href="#">Pricing</a></li><li><a href="#">Integrations</a></li><li><a href="#">Changelog</a></li><li><a href="#">API</a></li></ul></div>
+    <div class="foot-col"><h4>Company</h4><ul><li><a href="#">About Us</a></li><li><a href="#">Blog</a></li><li><a href="#">Careers</a></li><li><a href="#">Press Kit</a></li><li><a href="#">Contact</a></li></ul></div>
+    <div class="foot-col"><h4>Legal</h4><ul><li><a href="#">Privacy Policy</a></li><li><a href="#">Terms of Service</a></li><li><a href="#">Cookie Policy</a></li><li><a href="#">Security</a></li></ul></div>
+  </div>
+  <div class="foot-bottom">
+    <div class="foot-legal">© 2026 Ragelite Corporation · Founded by <strong>Raj Bundela</strong>, <strong>Ashwani Singh</strong> &amp; <strong>Karan Pal</strong> · <a href="mailto:ragelitecorporation@gmail.com">ragelitecorporation@gmail.com</a></div>
+  </div>
 </footer>
- <script>
-/* ===== UI LOGIC ONLY ===== */
 
-window.authMode = "login";
+<script>
+/* Navbar scroll */
+window.addEventListener('scroll', () => document.getElementById('navbar').classList.toggle('scrolled', scrollY > 40));
 
-function openAuth(mode) {
-  window.authMode = mode;
-  document.getElementById("authOverlay").classList.add("show");
-  document.body.classList.add("modal-open");
-  updateAuthText();
-}
+/* Sparkline */
+(function(){
+  const el = document.getElementById('sparkline');
+  if (!el) return;
+  [18,30,24,44,36,52,40,65,50,72,58,80,68,88].forEach(h => {
+    const b = document.createElement('div');
+    b.className = 'spark-bar';
+    b.style.height = h + '%';
+    el.appendChild(b);
+  });
+})();
 
-function closeAuth() {
-  document.getElementById("authOverlay").classList.remove("show");
-  document.body.classList.remove("modal-open");
-}
+/* Dashboard bar chart */
+(function(){
+  const el = document.getElementById('dashBar');
+  if (!el) return;
+  [[44,28,'8'],[58,36,'9'],[50,40,'10'],[70,52,'11'],[55,46,'12'],
+   [82,58,'13'],[64,50,'14'],[88,68,'15'],[76,60,'16'],[94,73,'17'],
+   [80,66,'18'],[100,78,'19'],[86,70,'20'],[95,76,'21']].forEach(([h1,h2,lbl])=>{
+    const g = document.createElement('div');
+    g.className = 'bcol';
+    const inner = document.createElement('div');
+    inner.className = 'bcol-inner';
+    const b1 = document.createElement('div'); b1.className = 'bfill'; b1.style.height = h1 + '%';
+    const b2 = document.createElement('div'); b2.className = 'bfill alt'; b2.style.height = h2 + '%';
+    inner.append(b1, b2);
+    const l = document.createElement('div'); l.className = 'bcol-lbl'; l.textContent = lbl;
+    g.append(inner, l);
+    el.appendChild(g);
+  });
+})();
 
-function switchAuth() {
-  window.authMode = window.authMode === "login" ? "signup" : "login";
-  updateAuthText();
-}
-
-function updateAuthText() {
-  document.getElementById("authTitle").innerText =
-    window.authMode === "login" ? "Login" : "Create Account";
-
-  document.getElementById("authSwitchText").innerText =
-    window.authMode === "login"
-      ? "Don’t have an account?"
-      : "Already have an account?";
-
-  document.getElementById("usernameInput").style.display =
-    window.authMode === "signup" ? "block" : "none";
-}
-</script>
-      <script>
-/* ===== HAMBURGER ===== */
-const hamburger = document.querySelector(".hamburger");
-const mobileNav = document.getElementById("navAuth");
-function toggleMenu() {
-  const open = mobileNav.classList.toggle("show");
-  hamburger.classList.toggle("active", open);
-  hamburger.setAttribute("aria-expanded", open);
-}
-
-function handleHamburgerKey(e) {
-  if (e.key === "Enter" || e.key === " ") {
-    e.preventDefault();
-    toggleMenu();
-  }
-}
-
-/* ===== FAQ ===== */
-document.querySelectorAll(".faq-question").forEach(btn => {
-  btn.addEventListener("click", () => {
-    const item = btn.closest(".faq-item");
-    item.classList.toggle("open");
+/* FAQ */
+document.querySelectorAll('.faq-q').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const item = btn.closest('.faq-item');
+    const open = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+    if (!open) item.classList.add('open');
   });
 });
 
-/* ===== SCROLL ANIMATIONS ===== */
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add("show");
-    }
-  });
-}, { threshold: 0.2 });
-
-document.querySelectorAll(".hidden").forEach(el => observer.observe(el));
-
-/* ===== COUNTERS ===== */
-let countersStarted = false;
-const counters = document.querySelectorAll(".counter");
-
-const counterObserver = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting && !countersStarted) {
-      countersStarted = true;
-
-      counters.forEach(counter => {
-        const target = +counter.dataset.target;
-        let current = 0;
-        const step = Math.ceil(target / 120);
-
-        const update = () => {
-          current += step;
-          if (current < target) {
-            counter.textContent = current.toLocaleString();
-            requestAnimationFrame(update);
-          } else {
-            counter.textContent = target.toLocaleString();
-          }
-        };
-        update();
-      });
-    }
-  });
-}, { threshold: 0.4 });
-
-document.querySelectorAll(".stat-card").forEach(el =>
-  counterObserver.observe(el)
-);
- </script>
-<script type="module">
-import { auth } from "./firebase.js";
-import {
-  signInWithEmailAndPassword,
-  onAuthStateChanged
-} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-
-  window.submitAuth = function (e) {
-  e.preventDefault();
-
-  const email = document.querySelector("input[type='email']").value;
-  const password = document.querySelector("input[type='password']").value;
-
-  signInWithEmailAndPassword(auth, email, password)
-    .then(() => {
-      closeAuth(); // ✅ close modal cleanly
-      window.location.replace("dashboard.html");
-    })
-    .catch(err => alert(err.message));
-};
-
-const nav = document.getElementById("navAuth");
-
-onAuthStateChanged(auth, (user) => {
-  if (user) {
-    nav.innerHTML = `<a href="dashboard.html" class="primary">Dashboard</a>`;
-  } else {
-    nav.innerHTML = `
-      <button class="nav-btn" onclick="openAuth('login')">Login</button>
-      <button class="primary nav-btn" onclick="openAuth('signup')">
-        Create Account
-      </button>
-    `;
-  }
-});
+/* Scroll reveal */
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('vis'); });
+}, { threshold: 0.12, rootMargin: '0px 0px -36px 0px' });
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 </script>
-    <script type="module" src="./home.js"></script>
-    <div class="copilot-panel" id="copilotPanel">
-
-  <div class="copilot-header">
-    Ragelite AI
-    <span id="closeCopilot">✕</span>
-  </div>
-
-  <div class="copilot-body" id="copilotBody">
-    <div class="ai-msg">
-     RAgelite ai , this side(Tell me how can i help you)
-      Ask me things like:
-
-      • "Where should I increase budget?"  
-      • "Which campaign is underperforming?"  
-      • "Give me growth ideas"
-    </div>
-  </div>
-
-  <div class="copilot-input">
-    <input id="copilotInput" placeholder="Ask Ragelite AI..." />
-    <button id="sendCopilot">Send</button>
-  </div>
 </body>
 </html> 
 

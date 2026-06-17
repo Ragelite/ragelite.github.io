@@ -150,7 +150,6 @@ input?.addEventListener("keypress", (e) => {
   if (e.key === "Enter") sendMessage();
 });
 
-}
 async function sendMessage(){
 
   const text = input.value.trim();

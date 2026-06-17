@@ -150,7 +150,6 @@ input?.addEventListener("keypress", (e) => {
   if (e.key === "Enter") sendMessage();
 });
 
-}
 async function sendMessage(){
 
   const text = input.value.trim();
@@ -195,53 +194,29 @@ async function sendMessage(){
 
     body.innerHTML += `
       <div class="ai-msg">
-         AI failed to respond.
-        Check if server is running.
+         Something went wrong — please try again.
       </div>
     `;
 
   }
 }
+/* Client-side growth strategist — works on the static site with no backend. */
 async function askAI(message) {
+  // small, human-feeling delay
+  await new Promise(r => setTimeout(r, 600 + Math.random() * 600));
 
-  try{
+  const m = message.toLowerCase();
 
-    const response = await fetch("http://127.0.0.1:3000/ask-ai", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({ message })
-    });
+  if (m.includes("roas") || m.includes("return"))
+    return "To lift ROAS, start with warm traffic — site visitors and past engagers convert 3–5× better than cold audiences. As Ragelite learns your data, it shifts budget toward the segments that actually buy. 📈";
+  if (m.includes("budget"))
+    return "A solid starting split is 70/30 between Meta and Google: Meta drives discovery, Google captures intent. Ragelite rebalances automatically as performance data comes in. 💰";
+  if (m.includes("audience") || m.includes("target"))
+    return "The best targeting starts with your own customers. Upload a customer list and Ragelite builds lookalikes — typically 40–60% lower CPL than interest-based targeting. 🎯";
+  if (m.includes("copy") || m.includes("ad") || m.includes("creative"))
+    return "Lead with the pain, not the feature. Try: \"Still burning budget on ads that don't convert?\" then show the fix. Ragelite A/B tests variants and scales the winner. 📣";
+  if (m.includes("hi") || m.includes("hello") || m.includes("hey"))
+    return "Hey! 👋 I'm your growth co-pilot. Ask me about strategy, targeting, budgets, or creative — what's the biggest challenge right now?";
 
-    if(!response.ok){
-      throw new Error("Server error");
-    }
-
-    const data = await response.json();
-
-    return data.reply;
-
-  }catch(err){
-
-    console.error("AI ERROR:", err);
-
-    return "⚠️ AI server unreachable. Make sure backend is running.";
-  }
-}
-// 🔥 SIMPLE TEST FUNCTION
-window.testAI = async function(){
-
-  try{
-
-    const reply = await askAI("Say hello in one line");
-
-    alert(reply);
-
-  }catch(err){
-
-    alert("AI not responding. Check server.");
-
-  }
-
+  return "Good question! Once your ad accounts are connected, I'll tailor this to your live numbers. For now, ask me about strategy, targeting, budgets, or creative. ✦";
 }

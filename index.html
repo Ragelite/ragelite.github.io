@@ -589,6 +589,8 @@ footer{padding:70px 28px 44px;position:relative;z-index:2;border-top:1px solid v
     <div class="avatar" id="navAvatar" onclick="toggleMenu(event)"></div>
     <div class="menu" id="userMenu">
       <div class="menu-head"><div class="menu-name" id="mName"></div><div class="menu-mail" id="mMail"></div></div>
+      <a class="menu-item" href="dashboard.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="3" width="7" height="9"/><rect x="14" y="3" width="7" height="5"/><rect x="14" y="12" width="7" height="9"/><rect x="3" y="16" width="7" height="5"/></svg>Dashboard</a>
+      <a class="menu-item" href="settings.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-2.92.92V21a2 2 0 1 1-4 0a1.65 1.65 0 0 0-2.92-.92l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.6 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4a1.65 1.65 0 0 0 1.51-1.51z"/></svg>Settings</a>
       <button class="menu-item" onclick="openProfile('paneProfile')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Profile</button>
       <button class="menu-item" onclick="openProfile('paneLook')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="13.5" cy="6.5" r="2.5"/><circle cx="17.5" cy="10.5" r="2.5"/><circle cx="8.5" cy="7.5" r="2.5"/><circle cx="6.5" cy="12.5" r="2.5"/><path d="M12 2a10 10 0 0 0 0 20a1.5 1.5 0 0 0 1.06-2.56A1.5 1.5 0 0 1 14.12 17H16a4 4 0 0 0 4-4a10 10 0 0 0-8-11z"/></svg>Appearance</button>
       <button class="menu-item" onclick="openProfile('paneAcct')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-2.92.92V21a2 2 0 1 1-4 0a1.65 1.65 0 0 0-2.92-.92l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.6 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4a1.65 1.65 0 0 0 1.51-1.51z"/></svg>Account</button>
@@ -844,7 +846,7 @@ footer{padding:70px 28px 44px;position:relative;z-index:2;border-top:1px solid v
     </div>
     <div class="fcol"><h4>Product</h4><ul><li><a href="#features">Features</a></li><li><a href="#pricing">Pricing</a></li><li><a href="#integ">Integrations</a></li><li><a href="#">Changelog</a></li><li><a href="#">API</a></li></ul></div>
     <div class="fcol"><h4>Company</h4><ul><li><a href="#">About</a></li><li><a href="#">Blog</a></li><li><a href="#">Careers</a></li><li><a href="#">Press kit</a></li><li><a href="#">Contact</a></li></ul></div>
-    <div class="fcol"><h4>Legal</h4><ul><li><a href="#">Privacy</a></li><li><a href="#">Terms</a></li><li><a href="#">Cookies</a></li><li><a href="#">Security</a></li></ul></div>
+    <div class="fcol"><h4>Legal</h4><ul><li><a href="privacy.html">Privacy</a></li><li><a href="terms.html">Terms</a></li><li><a href="privacy.html">Cookies</a></li><li><a href="terms.html">Security</a></li></ul></div>
   </div>
   <div class="foot-bot"><div>© 2026 Ragelite · <a href="mailto:hi@ragelite.com">hi@ragelite.com</a></div><div>Built with ✦ in India</div></div>
 </footer>
@@ -997,12 +999,13 @@ window.submitAuth = async ()=>{
     } else {
       await signInWithEmailAndPassword(auth,email,pass);
     }
-    closeAuth(); ['aEmail','aPass','aName'].forEach(id=>document.getElementById(id).value='');
+    ['aEmail','aPass','aName'].forEach(id=>document.getElementById(id).value='');
+    window.location.href='dashboard.html';
   }catch(err){ showErr(friendly(err.code)); }
   finally{ btn.disabled=false; txt.textContent=authMode==='signup'?'Create account':'Sign in'; }
 };
 window.googleAuth = async ()=>{
-  try{ await signInWithPopup(auth,googleProvider); closeAuth(); }
+  try{ await signInWithPopup(auth,googleProvider); window.location.href='dashboard.html'; }
   catch(err){ if(err.code!=='auth/popup-closed-by-user') showErr(friendly(err.code)); }
 };
 window.signOutUser = async ()=>{ closeMenu(); closeProfile(); await signOut(auth); };

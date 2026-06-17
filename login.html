@@ -20,7 +20,9 @@ button{
   width:100%;padding:14px;border:none;border-radius:30px;
   background:#22d3ee;font-weight:bold;cursor:pointer
 }
+button:disabled{opacity:.6;cursor:default}
 #loading{display:none;color:#9fb3d1;margin-top:12px}
+#err{color:#ff8fa8;margin-top:12px;min-height:18px;font-size:14px}
 a{color:#22d3ee;text-decoration:none}
 </style>
 </head>
@@ -30,26 +32,53 @@ a{color:#22d3ee;text-decoration:none}
   <h2>Welcome Back</h2>
   <p style="color:#9fb3d1">Log in to Ragelite</p>
 
-  <input placeholder="Email">
-  <input placeholder="Password" type="password">
+  <input id="email" placeholder="Email" type="email">
+  <input id="password" placeholder="Password" type="password">
 
   <button id="loginBtn">Log In</button>
   <div id="loading">⏳ Signing you in…</div>
+  <div id="err"></div>
 
   <p style="margin-top:16px">
     No account? <a href="signup.html">Create one</a>
   </p>
+  <p style="margin-top:4px"><a href="index.html">← Back to home</a></p>
 </div>
 
-<script>
-document.getElementById("loginBtn").onclick=function(){
-  document.getElementById("loading").style.display="block";
-  setTimeout(()=>{
-    localStorage.setItem("ragelite_logged_in","true");
-    window.location="dashboard.html";
-  },1500);
-}
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+const app = initializeApp({
+  apiKey: "AIzaSyDDEuW9B7CdfVXslSMvxFBRVPIlcFjHqXs",
+  authDomain: "rageauth-174a5.firebaseapp.com",
+  projectId: "rageauth-174a5",
+  appId: "1:485170234605:web:2cd934b30ab0de678f38e4"
+});
+const auth = getAuth(app);
+
+const btn = document.getElementById("loginBtn");
+const loading = document.getElementById("loading");
+const err = document.getElementById("err");
+
+btn.onclick = async () => {
+  const email = document.getElementById("email").value.trim();
+  const password = document.getElementById("password").value;
+  if(!email || !password){ err.textContent = "Please enter your email and password."; return; }
+
+  err.textContent = "";
+  loading.style.display = "block";
+  btn.disabled = true;
+
+  try{
+    await signInWithEmailAndPassword(auth, email, password);
+    window.location = "dashboard.html";
+  }catch(e){
+    loading.style.display = "none";
+    btn.disabled = false;
+    err.textContent = "Couldn't sign in — check your email and password.";
+  }
+};
 </script>
 </body>
 </html>
-

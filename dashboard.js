@@ -43,30 +43,6 @@ if (logoutBtn) {
 
 
 /* ================================
-   AI STATUS ROTATOR
-================================ */
-
-const messages = [
-  "AI scanning campaign performance...",
-  "Analyzing live traffic...",
-  "Detecting high-conversion audience...",
-  "Optimizing budget allocation...",
-  "Generating growth insights..."
-];
-
-let i = 0;
-
-const aiText = document.getElementById("aiText");
-
-if (aiText) {
-  setInterval(() => {
-    i = (i + 1) % messages.length;
-    aiText.innerText = messages[i];
-  }, 2500);
-}
-
-
-/* ================================
    PROFILE DROPDOWN
 ================================ */
 
@@ -87,44 +63,6 @@ if (profileBtn && dropdown) {
 }
 
 
-/* ================================
-   REVENUE CHART
-================================ */
-
-const ctx = document.getElementById("revenueChart");
-
-if (ctx) {
-  new Chart(ctx, {
-    type: 'line',
-    data: {
-      labels: ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'],
-      datasets: [{
-        label: 'Revenue',
-        data: [120,190,300,500,420,610,720],
-        borderColor: '#22d3ee',
-        backgroundColor: 'rgba(34,211,238,.12)',
-        tension: 0.4,
-        fill: true,
-        pointRadius: 0
-      }]
-    },
-    options: {
-      plugins: {
-        legend: { display:false }
-      },
-      scales: {
-        x: {
-          grid: { display:false },
-          ticks:{ color:'#9fb3d1'}
-        },
-        y: {
-          grid: { color:'rgba(255,255,255,.05)' },
-          ticks:{ color:'#9fb3d1'}
-        }
-      }
-    }
-  });
-}
 /* ===============================
    ELITE COPILOT
 =============================== */

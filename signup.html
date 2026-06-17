@@ -20,6 +20,8 @@ button{
   width:100%;padding:14px;border:none;border-radius:30px;
   background:#22d3ee;font-weight:bold;cursor:pointer
 }
+button:disabled{opacity:.6;cursor:default}
+#err{color:#ff8fa8;margin-top:12px;min-height:18px;font-size:14px}
 a{color:#22d3ee;text-decoration:none}
 </style>
 </head>
@@ -29,23 +31,55 @@ a{color:#22d3ee;text-decoration:none}
   <h2>Create Account</h2>
   <p style="color:#9fb3d1">Start using Ragelite</p>
 
-  <input placeholder="Full Name">
-  <input placeholder="Email">
-  <input placeholder="Password" type="password">
+  <input id="name" placeholder="Full Name">
+  <input id="email" placeholder="Email" type="email">
+  <input id="password" placeholder="Password" type="password">
 
-  <button onclick="signup()">Create Account</button>
+  <button id="signupBtn">Create Account</button>
+  <div id="err"></div>
 
   <p style="margin-top:16px">
     Already have an account? <a href="login.html">Log in</a>
   </p>
+  <p style="margin-top:4px"><a href="index.html">← Back to home</a></p>
 </div>
 
-<script>
-function signup(){
-  localStorage.setItem("ragelite_logged_in","true");
-  window.location="dashboard.html";
-}
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { getAuth, createUserWithEmailAndPassword, updateProfile } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+const app = initializeApp({
+  apiKey: "AIzaSyDDEuW9B7CdfVXslSMvxFBRVPIlcFjHqXs",
+  authDomain: "rageauth-174a5.firebaseapp.com",
+  projectId: "rageauth-174a5",
+  appId: "1:485170234605:web:2cd934b30ab0de678f38e4"
+});
+const auth = getAuth(app);
+
+const btn = document.getElementById("signupBtn");
+const err = document.getElementById("err");
+
+btn.onclick = async () => {
+  const name = document.getElementById("name").value.trim();
+  const email = document.getElementById("email").value.trim();
+  const password = document.getElementById("password").value;
+  if(!email || !password){ err.textContent = "Please enter your email and password."; return; }
+  if(password.length < 6){ err.textContent = "Use at least 6 characters for your password."; return; }
+
+  err.textContent = "";
+  btn.disabled = true;
+
+  try{
+    const cred = await createUserWithEmailAndPassword(auth, email, password);
+    if(name) await updateProfile(cred.user, { displayName: name });
+    window.location = "dashboard.html";
+  }catch(e){
+    btn.disabled = false;
+    err.textContent = e.code === "auth/email-already-in-use"
+      ? "That email is already registered — try logging in."
+      : "Couldn't create your account. Please try again.";
+  }
+};
 </script>
 </body>
 </html>
-
